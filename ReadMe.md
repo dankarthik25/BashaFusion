@@ -1,7 +1,5 @@
 # IASTFrameWork
-<img style='position: absolute;  top: 220px;  right: 50px; width:20%;'  src="images/hjexl3i91j0so035gees.png" alt="Cinque Terre" >
-<div  style='  position: relative;'>
-  <img style= 'position: absolute; top: 0px;right: 0px; width: 50%; height: auto; opacity: 0.8;' src="images/Screenshots_2023-11-23T16-02-43.png" alt="Cinque Terre" width="1000" height="300">
+<img style='position: absolute;  top: 220px;  right: 50px; width:20%;'  src="images/hjexl3i91j0so035gees.png"  >
 </div>
 
 
