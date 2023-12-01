@@ -1,7 +1,8 @@
-# IASTFrameWork
-<img style='position: relative;  top: 0px;  right: 0px; width:40%;'  src="images/hjexl3i91j0so035gees.png"  >
-</div>
+<h1 align="center">
+<img style='position: relative;  top: 0px;  right: 0px; width:70%;'  src="images/hjexl3i91j0so035gees.png"  >
+</h1>
 
+# IASTFrameWork
 
 **IAST FrameWork** is a NLP FrameWork build specifically for [Indic Languages/Scripts](https://en.wikipedia.org/wiki/Brahmic_scripts) <br>
 Where **IAST Script** [lossless romanisation of [Indic scripts](https://en.wikipedia.org/wiki/Brahmic_scripts) to  [Latin script](https://en.wikipedia.org/wiki/Latin_script)] is used as base for all Indic Languages 

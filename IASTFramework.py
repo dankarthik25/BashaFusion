@@ -59,7 +59,7 @@ class IAST():
                         }
     
     
-    def __init__(self,db_path,table_name_alpha,table_name_barakadi ):
+    def __init__(self,db_path='iast-token.db',table_name_alpha='IndianAlphabet',table_name_barakadi='Barakhadi' ):
         self.db_path = db_path
         self.alphabet = table_name_alpha
         self.barakhadi = table_name_barakadi
