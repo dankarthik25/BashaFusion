@@ -24,9 +24,14 @@
 </h1>
 #+END_EXPORT
 
+pip webpage: https://test.pypi.org/project/IastFramework/ \\
+#+begin_src 
+pip install -i https://test.pypi.org/simple/ IastFramework  \\
+pip install IastFramework
+#+end_src
 
+POC: https://github.com/dankarthik25/Iast-Framework \\
 
-POC: https://github.com/dankarthik25/IastFramework \\
 Google Doc:
 - [[https://docs.google.com/document/d/1XPtftY1aLclczoCGCYGNlbaLfixJAFJlnq7nwvqVz68/edit#heading=h.gwe27zsw5fij][A Generalized NLP FrameWork for Indic Languages]]
 - [[https://docs.google.com/document/d/1Bf6d290fDhAX2Q4F9dWY1AiVoyo-Pvamy9j9i7vIGlc/edit#heading=h.5ac39zjtaz91][My Journey to Sanskrit Dictionary and Youtube Channel]]

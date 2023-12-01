@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-12-01 Fri 18:06 -->
+<!-- 2023-12-01 Fri 18:21 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>IastFramework</title>
@@ -208,12 +208,12 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org2516879">Summary</a></li>
-<li><a href="#orgb36f358">IAST</a></li>
-<li><a href="#orgf53f88c">Installation</a></li>
-<li><a href="#org6187e2a">Convert Indic Language to IAST</a>
+<li><a href="#org8ecc401">Summary</a></li>
+<li><a href="#orgf7d8978">IAST</a></li>
+<li><a href="#org771a3cd">Installation</a></li>
+<li><a href="#org0b24a60">Convert Indic Language to IAST</a>
 <ul>
-<li><a href="#org2e9c61e">SQL query to search Indic Character in all Lanaguages</a></li>
+<li><a href="#org96c8a31">SQL query to search Indic Character in all Lanaguages</a></li>
 </ul>
 </li>
 </ul>
@@ -223,10 +223,21 @@
 <img style='position: relative;  top: 0px;  right: 0px; width:40%;'  src="IastFramework/images/hjexl3i91j0so035gees.png"  >
 </h1>
 
+<p>
+pip webpage: <a href="https://test.pypi.org/project/IastFramework/">https://test.pypi.org/project/IastFramework/</a> <br />
+</p>
+<pre class="example">
+pip install -i https://test.pypi.org/simple/ IastFramework  \\
+pip install IastFramework
+</pre>
+
+<p>
+pip description: <a href="https://test.pypi.org/project/IastFramework/">https://test.pypi.org/project/IastFramework/</a> <br />
+</p>
 
 
 <p>
-POC: <a href="https://github.com/dankarthik25/IastFramework">https://github.com/dankarthik25/IastFramework</a>
+POC: <a href="https://github.com/dankarthik25/Iast-Framework">https://github.com/dankarthik25/Iast-Framework</a> <br />
 Google Doc:
 </p>
 <ul class="org-ul">
@@ -235,9 +246,9 @@ Google Doc:
 <li><a href="https://docs.google.com/document/d/1Jv9YVK3uF0APL5rqTVgDl1zbIGjrAOpMs5wRgXXWHVw/edit#heading=h.q758ucxubo90">Scope of Sanskrit in NLP</a></li>
 </ul>
 
-<div id="outline-container-org2516879" class="outline-2">
-<h2 id="org2516879">Summary</h2>
-<div class="outline-text-2" id="text-org2516879">
+<div id="outline-container-org8ecc401" class="outline-2">
+<h2 id="org8ecc401">Summary</h2>
+<div class="outline-text-2" id="text-org8ecc401">
 <p>
 <b><b>IAST FrameWork</b></b> is a NLP FrameWork build specifically for <a href="https://en.wikipedia.org/wiki/Brahmic_scripts">Indic Languages/Scripts</a> <br />
 Where <b><b>IAST Script</b></b> [lossless romanisation of <a href="https://en.wikipedia.org/wiki/Brahmic_scripts">Indic scripts</a> to <a href="https://en.wikipedia.org/wiki/Latin_script">Latin script</a> is used as base for all Indic Languages 
@@ -298,9 +309,9 @@ This will help other Indic Language NLP developer to understand and develop NLP 
 
 
 
-<div id="outline-container-orgb36f358" class="outline-2">
-<h2 id="orgb36f358">IAST</h2>
-<div class="outline-text-2" id="text-orgb36f358">
+<div id="outline-container-orgf7d8978" class="outline-2">
+<h2 id="orgf7d8978">IAST</h2>
+<div class="outline-text-2" id="text-orgf7d8978">
 <p>
 <b><b><a href="https://en.wikipedia.org/wiki/International_Alphabet_of_Sanskrit_Transliteration">IAST</a>:</b></b> International Alphabet of Sanskrit Transliteration  is a transliteration scheme that allows the lossless romanisation of <a href="https://en.wikipedia.org/wiki/Brahmic_scripts">Indic scripts</a> as employed by Sanskrit and related Indic languages.<br />
 <b><b><a href="https://en.wikipedia.org/wiki/ISO_15919">ISO 15919</a></b></b> published in 2001 and uses <a href="https://en.wikipedia.org/wiki/Diacritic">diacritics</a> to map the much larger set of consonants and vowels in Brahmic and Nastaliq scripts to the <a href="https://en.wikipedia.org/wiki/Latin_script">Latin script</a>. <br />
@@ -310,9 +321,9 @@ Here is the table which is used in the code to link different Indic Scripts <a h
 </div>
 
 
-<div id="outline-container-orgf53f88c" class="outline-2">
-<h2 id="orgf53f88c">Installation</h2>
-<div class="outline-text-2" id="text-orgf53f88c">
+<div id="outline-container-org771a3cd" class="outline-2">
+<h2 id="org771a3cd">Installation</h2>
+<div class="outline-text-2" id="text-org771a3cd">
 <div class="org-src-container">
 <pre class="src src-sh">pip install -i https://test.pypi.org/simple/ IastFramework <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">working link</span>
 pip install IastFramework  <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">underdevelopmenet</span>
@@ -346,18 +357,18 @@ pip install IastFramework  <span style="color: #2aa1ae; background-color: #ecf3e
 </div>
 </div>
 </div>
-<div id="outline-container-org6187e2a" class="outline-2">
-<h2 id="org6187e2a">Convert Indic Language to IAST</h2>
-<div class="outline-text-2" id="text-org6187e2a">
+<div id="outline-container-org0b24a60" class="outline-2">
+<h2 id="org0b24a60">Convert Indic Language to IAST</h2>
+<div class="outline-text-2" id="text-org0b24a60">
 <p>
 Convert hindi, Bengali,Gujarati, Kannadam Odia, Tamil, Telugu to `iast` format 
 </p>
 </div>
 
 
-<div id="outline-container-org2e9c61e" class="outline-3">
-<h3 id="org2e9c61e">SQL query to search Indic Character in all Lanaguages</h3>
-<div class="outline-text-3" id="text-org2e9c61e">
+<div id="outline-container-org96c8a31" class="outline-3">
+<h3 id="org96c8a31">SQL query to search Indic Character in all Lanaguages</h3>
+<div class="outline-text-3" id="text-org96c8a31">
 <div class="org-src-container">
 <pre class="src src-sql"><span style="color: #3a81c3; font-weight: bold;">SELECT</span> * <span style="color: #3a81c3; font-weight: bold;">FROM</span> IndianAlphabet 
     <span style="color: #3a81c3; font-weight: bold;">WHERE</span> Devanagari == <span style="color: #2d9574;">'&#2343;'</span> 
@@ -436,7 +447,7 @@ SELECT * FROM IndianAlphabet WHERE Devanagari == 'ध' OR Bengali–Assamese == 
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Karthik</p>
-<p class="date">Created: 2023-12-01 Fri 18:06</p>
+<p class="date">Created: 2023-12-01 Fri 18:21</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
