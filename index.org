@@ -1,0 +1,190 @@
+#+TITLE: IastFramework
+#+AUTHOR: Karthik
+
+#+OPTIONS: num:nil
+
+#+HTML_HEAD: <link rel="icon" type="image/png" href="IastFramework/images/hjexl3i91j0so035gees.png">
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="dataset/readtheorg-htmlize.css"/>
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="dataset/readtheorg.css"/>
+
+#+HTML_HEAD: <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+#+HTML_HEAD: <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="dataset/jquery-stickytableheaders.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="dataset/readtheorg.js"></script>
+
+# +HTML_HEAD: <script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/lib/js/jquery.stickytableheaders.min.js"></script>
+# +HTML_HEAD: <script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/js/readtheorg.js"></script>
+
+
+
+
+#+BEGIN_EXPORT html
+<h1 align="right">
+<img style='position: relative;  top: 0px;  right: 0px; width:40%;'  src="IastFramework/images/hjexl3i91j0so035gees.png"  >
+</h1>
+#+END_EXPORT
+
+
+
+POC: https://github.com/dankarthik25/IastFramework \\
+Google Doc:
+- [[https://docs.google.com/document/d/1XPtftY1aLclczoCGCYGNlbaLfixJAFJlnq7nwvqVz68/edit#heading=h.gwe27zsw5fij][A Generalized NLP FrameWork for Indic Languages]]
+- [[https://docs.google.com/document/d/1Bf6d290fDhAX2Q4F9dWY1AiVoyo-Pvamy9j9i7vIGlc/edit#heading=h.5ac39zjtaz91][My Journey to Sanskrit Dictionary and Youtube Channel]]
+- [[https://docs.google.com/document/d/1Jv9YVK3uF0APL5rqTVgDl1zbIGjrAOpMs5wRgXXWHVw/edit#heading=h.q758ucxubo90][Scope of Sanskrit in NLP]]
+  
+* Summary
+
+**IAST FrameWork** is a NLP FrameWork build specifically for [[https://en.wikipedia.org/wiki/Brahmic_scripts][Indic Languages/Scripts]] \\
+Where **IAST Script** [lossless romanisation of [[https://en.wikipedia.org/wiki/Brahmic_scripts][Indic scripts]] to [[https://en.wikipedia.org/wiki/Latin_script][Latin script]] is used as base for all Indic Languages 
+
+**IAST FrameWork** consist of  \\
+- Lossless convertion of Indic Languages (Hindi, Gujarathi, Malayalam , Kannada, Telugu, Tamil, Odia, Bengali )  into **IAST Script** =iast.to_iast(indic_script)= 
+- Convert **IAST Script**  to Indic Languages (Hindi, Malyalam, Kannada, Telugu) =iast.iast2indic(iast_script,indic_lang)=\\
+    for Tamil, Odia, Bengali, Gujarathi in progress
+- Use IAST Char as Phonetic Hash for **Phonetic Based Search Algorithm** =IAST.basic_hash= and =IAST.normal_hash=
+- Using  **IAST Phonetic Hash** for Search Algorithm
+  
+Future Scope
+- Creating and Linking Indic Language  OpenSource Dictionary  Olam, Alar dictionary, [[https://kosha.sanskrit.today/word/en/stem#][Monier Williams Sanskrit Dictionary]] [[https://github.com/drdhaval2785/PyCDSL][github PyCDSL GNU Licence v3]]   ...etc \\
+    linking dictionary either by it  \\
+    - **pronunciation** *(phonetic hash)* or 
+    - by it **meaning**.
+    - Steam word and Lemmatization word in both lanaguages
+- Using IAST as writing system: Creating Steamming and Lemmatization library for (Common Words) in all Indic languages.<br>
+    Most of Indic Language word has (common words) most of them are derived from sanskrit
+
+
+- Creating OpenSouce DataSet of common Indic Language NER Library simillar to **Stanfordnlp/CoreNLP** using \\
+OpenSource Tools: \\
+https://github.com/prasadchandan/st_ner_annotate \\
+https://github.com/explosion/spacy-streamlit \\
+https://stanfordnlp.github.io/CoreNLP/assets/images/demo.png \\
+
+
+
+
+
+- Using IAST as Language as basis for **NLU** Natural Language Understanding for all Indic language. \\
+    Simillar Rules,Grammer can be group \\
+    **Advatages of IAST**: Suppose if we develop OpenSource NLU for ( Kannada or Malayalam) then due to IAST writing system the logic  can be easily understanded by other Indic User like (Tamil, Telug, Hindi)...etc \\
+    This will help other Indic Language NLP developer to understand and develop NLP for there Indic Language. \\
+
+- Using IAST as Language as basis for **NLG** Natural Language Generation for all Indic language.\\
+
+
+
+
+* IAST
+**[[https://en.wikipedia.org/wiki/International_Alphabet_of_Sanskrit_Transliteration][IAST]]:** International Alphabet of Sanskrit Transliteration  is a transliteration scheme that allows the lossless romanisation of [[https://en.wikipedia.org/wiki/Brahmic_scripts][Indic scripts]] as employed by Sanskrit and related Indic languages.\\
+**[[https://en.wikipedia.org/wiki/ISO_15919][ISO 15919]]** published in 2001 and uses [[https://en.wikipedia.org/wiki/Diacritic][diacritics]] to map the much larger set of consonants and vowels in Brahmic and Nastaliq scripts to the [[https://en.wikipedia.org/wiki/Latin_script][Latin script]]. \\
+Here is the table which is used in the code to link different Indic Scripts https://docs.google.com/spreadsheets/d/1wS98RWxqCQOCoR2H-E9kW0FUXC_Kvqoiz6NzSB2Fdto/
+
+
+* Installation
+
+#+begin_src sh
+pip install -i https://test.pypi.org/simple/ IastFramework # working link
+pip install IastFramework  # underdevelopmenet
+
+#+end_src
+
+
+
+#+begin_src python
+import sqlite3
+import sys
+import os
+
+#from IAST import IAST
+from IastFramework import IAST
+
+iast = IAST() 
+#+end_src
+
+#+begin_src python
+# for custom mapping 
+
+db_path = 'iast-token.db'    
+table_name_alpha= 'IndianAlphabet'
+table_name_barakadi= 'Barakhadi'
+
+iast = IAST(db_path,table_name_alpha,table_name_barakadi)
+#+end_src
+* Convert Indic Language to IAST
+
+Convert hindi, Bengali,Gujarati, Kannadam Odia, Tamil, Telugu to `iast` format 
+
+
+** SQL query to search Indic Character in all Lanaguages
+
+#+begin_src sql
+SELECT * FROM IndianAlphabet 
+    WHERE Devanagari == 'ध' 
+        OR Bengali–Assamese == 'ध' OR Gujarati == 'ध' 
+        OR Kannada == 'ध' OR Malayalam == 'ध' 
+        OR Odia == 'ध' OR Tamil == 'ध' 
+        OR Telugu == 'ध';
+#+end_src
+
+#+begin_src 
+[{'type': 'consonants',
+  'IAST': 'dha',
+  'Devanagari': 'ध',
+  'Bengali–Assamese': 'ধ',
+  'Gujarati': 'ધ',
+  'Gurmukhi': 'ਧ',
+  'Kannada': 'ಧ',
+  'Malayalam': 'ധ',
+  'Nastaliq': 'دھ',
+  'Odia': 'ଧ',
+  'Sinhala': 'ධ',
+  'Tamil': None,
+  'Telugu': 'ధ'}]
+#+end_src
+
+#+begin_src python
+print(iast.alphabet) # IndianAlphabet
+print(iast.barakhadi)  # Barakhadi
+query = IAST.get_iast_idx_query('ध',iast.alphabet) # 
+print(query.replace('\n','').replace("  ","").replace('OR',' OR')) 
+# print()
+iast.get_query(query)
+# [{'IAST': 'dha', 'Devanagari': 'ध', 'Bengali–Assamese': 'ধ', 'Gujarati': 'ધ', 'Gurmukhi': 'ਧ', 'Kannada': 'ಧ', 'Malayalam': 'ധ', 'Nastaliq': 'دھ', 'Odia': 'ଧ', 'Sinhala': 'ධ', 'Tamil': None, 'Telugu': 'ధ'}]
+#+end_src
+
+
+
+#+begin_src 
+IndianAlphabet
+Barakhadi
+SELECT * FROM IndianAlphabet WHERE Devanagari == 'ध' OR Bengali–Assamese == 'ध' OR Gujarati == 'ध' OR Kannada == 'ध' OR Malayalam == 'ध' OR Odia == 'ध' OR Tamil == 'ध' OR Telugu == 'ध';
+
+    [{'type': 'consonants',
+      'IAST': 'dha',
+      'Devanagari': 'ध',
+      'Bengali–Assamese': 'ধ',
+      'Gujarati': 'ધ',
+      'Gurmukhi': 'ਧ',
+      'Kannada': 'ಧ',
+      'Malayalam': 'ധ',
+      'Nastaliq': 'دھ',
+      'Odia': 'ଧ',
+      'Sinhala': 'ධ',
+      'Tamil': None,
+      'Telugu': 'ధ'}]
+#+end_src
+
+#+begin_src python
+print(iast.get_halant_list()) #>>  ['्', '্', '્', '್', '്', '୍', '్']
+print(iast.('ధృత్రాష్ట్ర ఉవాచ'))
+#+end_src
+
+ 
+#+begin_src 
+# iast.halant_list
+ ['्', '্', '્', '್', '്', '୍', '్']
+ dhr̥trāṣṭra uvāca
+
+#+end_src
+
+

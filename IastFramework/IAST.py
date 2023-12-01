@@ -1,9 +1,8 @@
 import sqlite3
 import sys
+import os
 
 class IAST():
-    # iast to inidc language 
-    # keyword which are need to tokenize input <iast>
     vowel_plist=[['r̥̄', 'l̥̄'], 
                  ['r̥', 'au', 'ai', 'ụ̄ ', 'ạ̄ ', 'oṁ', 'm̐', 'aḥ', 'l̥'], 
                  ['a', 'ā', 'ạ', 'ụ', 'æ', 'ǣ', 'i', 'ī', 'u', 'ū', 'e', 'ē', 'ê', 'ê',
@@ -59,11 +58,20 @@ class IAST():
                         }
     
     
-    def __init__(self,db_path='iast-token.db',table_name_alpha='IndianAlphabet',table_name_barakadi='Barakhadi' ):
-        self.db_path = db_path
+    def __init__(self,db_path=None,table_name_alpha='IndianAlphabet',table_name_barakadi='Barakhadi' ):
+        if db_path is None:
+            dir_path = os.path.dirname(__file__)
+            self.db_path=os.path.join(dir_path,'iast-token.db')
+#            self.db_connect = sqlite3.connect(os.path.join(dir_path,'iast-token.db'))
+        else:
+            self.db_path=db_path
+
+#        print('db_path: ',self.db_path,type(self.db_path))
+
+        self.db_connect = sqlite3.connect(self.db_path)
         self.alphabet = table_name_alpha
         self.barakhadi = table_name_barakadi
-        self.db_connect = sqlite3.connect(db_path)
+
         self.halant_list = self.get_halant_list() #  ['्', '্', '્', '್', '്', '୍', '్']
 # phonetic search algo inicialization
     def set_query(self,query):
@@ -108,19 +116,8 @@ class IAST():
         return data
     
     def get_iast_idx_query(letter,talbe_name): # query: given indic letter will return iast mapped value 
-        query =f"""
-        SELECT * FROM {talbe_name} 
-        WHERE Devanagari == '{letter}'
-            OR Bengali–Assamese == '{letter}'
-            OR Gujarati == '{letter}'
-            OR Kannada == '{letter}'
-            OR Malayalam == '{letter}'
-            OR Odia == '{letter}'
-            OR Tamil == '{letter}'
-            OR Telugu == '{letter}';
-        """
-        # print(query.replace('\n','').replace("  ","").replace('OR',' OR')) 
-    # SELECT * FROM IndianAlphabet WHERE Devanagari == 'ध' OR Bengali–Assamese == 'ध' OR Gujarati == 'ध' OR Kannada == 'ध' OR Malayalam == 'ध' OR Odia == 'ध' OR Tamil == 'ध' OR Telugu == 'ध'    
+        query =f"""SELECT * FROM {talbe_name} WHERE Devanagari == '{letter}' OR Bengali–Assamese == '{letter}' OR Gujarati == '{letter}' OR Kannada == '{letter}' OR Malayalam == '{letter}' OR Odia == '{letter}' OR Tamil == '{letter}' OR Telugu == '{letter}';"""
+
         return query 
 
     def get_halant_list (self):
