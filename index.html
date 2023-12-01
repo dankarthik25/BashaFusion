@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-12-01 Fri 18:41 -->
+<!-- 2023-12-01 Fri 22:22 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>IastFramework</title>
@@ -208,20 +208,43 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgb817863">Summary</a></li>
-<li><a href="#org860680c">IAST</a></li>
-<li><a href="#org652b7b9">Installation</a></li>
-<li><a href="#org79821fc">Convert Indic Language to IAST</a>
+<li><a href="#orgbad46f6">Summary</a></li>
+<li><a href="#org302d9e5">IAST</a></li>
+<li><a href="#orgbe9d0c7">Installation</a></li>
+<li><a href="#orgac40eac">Convert Indic Language to IAST</a>
 <ul>
-<li><a href="#org3bf966c">SQL query to search Indic Character in all Lanaguages</a></li>
+<li><a href="#orge7f29c7">SQL query to search Indic Character in all Lanaguages</a></li>
+<li><a href="#orge2d5072">Convert Indic sting to iast format <code>iast.to_iast(word)</code></a></li>
+<li><a href="#orgf35616c">Debug <code>to_iast</code> : character by character</a></li>
+<li><a href="#org0005284">Testing <code>iast.to_iast(word)</code></a></li>
+<li><a href="#org3d7148c">Use Case of <code>iast.to_iast(word)</code></a></li>
+</ul>
+</li>
+<li><a href="#orgeacd6f2">IAST to Indic Language <code>iast.iast2indic(iast_word,indic_lang)</code></a>
+<ul>
+<li><a href="#iast-string-to-tokens-iast.iast2tokensword">IAST String to tokens <code>IAST.iast2tokens(word)</code></a>
+<ul>
+<li><a href="#lex_token"><code>lex_token</code></a></li>
+</ul>
+</li>
+<li><a href="#org15b24d2">Convert token (IAST Char) to Indic Charater and indic propertices</a></li>
+<li><a href="#org6a7a981">rule and heuristics</a></li>
+<li><a href="#create-indic-string-using-indic-dictionary-tokens">Create Indic String using indic dictionary tokens</a></li>
+</ul>
+</li>
+<li><a href="#phonetic-searching-on-indic-languages-using-iast">Phonetic Searching on Indic Languages using IAST</a></li>
+<li><a href="#importexport-database">Import/Export database</a>
+<ul>
+<li><a href="#export-db-to-excel">Export: db to excel</a></li>
+<li><a href="#import-db-from-excel">Import db from excel</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<h1 align="right">
-<img style='position: relative;  top: 0px;  right: 0px; width:40%;'  src="IastFramework/images/hjexl3i91j0so035gees.png"  >
-</h1>
+<div style='position: relative'>
+<img style='position: absolute;  top: 0px;  right: 0px; width:40%;'  src="IastFramework/images/hjexl3i91j0so035gees.png"  >
+</div>
 
 <p>
 pip webpage: <a href="https://test.pypi.org/project/IastFramework/">https://test.pypi.org/project/IastFramework/</a> 
@@ -244,9 +267,9 @@ Google Doc:
 <li><a href="https://docs.google.com/document/d/1Jv9YVK3uF0APL5rqTVgDl1zbIGjrAOpMs5wRgXXWHVw/edit#heading=h.q758ucxubo90">Scope of Sanskrit in NLP</a></li>
 </ul>
 
-<div id="outline-container-orgb817863" class="outline-2">
-<h2 id="orgb817863">Summary</h2>
-<div class="outline-text-2" id="text-orgb817863">
+<div id="outline-container-orgbad46f6" class="outline-2">
+<h2 id="orgbad46f6">Summary</h2>
+<div class="outline-text-2" id="text-orgbad46f6">
 <p>
 <b><b>IAST FrameWork</b></b> is a NLP FrameWork build specifically for <a href="https://en.wikipedia.org/wiki/Brahmic_scripts">Indic Languages/Scripts</a> <br />
 Where <b><b>IAST Script</b></b> [lossless romanisation of <a href="https://en.wikipedia.org/wiki/Brahmic_scripts">Indic scripts</a> to <a href="https://en.wikipedia.org/wiki/Latin_script">Latin script</a> is used as base for all Indic Languages 
@@ -274,7 +297,7 @@ linking dictionary either by it  <br />
 <li>by it <b><b>meaning</b></b>.</li>
 <li>Steam word and Lemmatization word in both lanaguages</li>
 </ul></li>
-<li>Using IAST as writing system: Creating Steamming and Lemmatization library for (Common Words) in all Indic languages.&lt;br&gt;
+<li>Using IAST as writing system: Creating Steamming and Lemmatization library for (Common Words) in all Indic languages.<br />
 Most of Indic Language word has (common words) most of them are derived from sanskrit</li>
 </ul>
 
@@ -307,9 +330,9 @@ This will help other Indic Language NLP developer to understand and develop NLP 
 
 
 
-<div id="outline-container-org860680c" class="outline-2">
-<h2 id="org860680c">IAST</h2>
-<div class="outline-text-2" id="text-org860680c">
+<div id="outline-container-org302d9e5" class="outline-2">
+<h2 id="org302d9e5">IAST</h2>
+<div class="outline-text-2" id="text-org302d9e5">
 <p>
 <b><b><a href="https://en.wikipedia.org/wiki/International_Alphabet_of_Sanskrit_Transliteration">IAST</a>:</b></b> International Alphabet of Sanskrit Transliteration  is a transliteration scheme that allows the lossless romanisation of <a href="https://en.wikipedia.org/wiki/Brahmic_scripts">Indic scripts</a> as employed by Sanskrit and related Indic languages.<br />
 <b><b><a href="https://en.wikipedia.org/wiki/ISO_15919">ISO 15919</a></b></b> published in 2001 and uses <a href="https://en.wikipedia.org/wiki/Diacritic">diacritics</a> to map the much larger set of consonants and vowels in Brahmic and Nastaliq scripts to the <a href="https://en.wikipedia.org/wiki/Latin_script">Latin script</a>. <br />
@@ -319,9 +342,9 @@ Here is the table which is used in the code to link different Indic Scripts <a h
 </div>
 
 
-<div id="outline-container-org652b7b9" class="outline-2">
-<h2 id="org652b7b9">Installation</h2>
-<div class="outline-text-2" id="text-org652b7b9">
+<div id="outline-container-orgbe9d0c7" class="outline-2">
+<h2 id="orgbe9d0c7">Installation</h2>
+<div class="outline-text-2" id="text-orgbe9d0c7">
 <div class="org-src-container">
 <pre class="src src-sh">pip install -i https://test.pypi.org/simple/ IastFramework <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">working link</span>
 pip install IastFramework  <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">underdevelopmenet</span>
@@ -355,18 +378,18 @@ pip install IastFramework  <span style="color: #2aa1ae; background-color: #ecf3e
 </div>
 </div>
 </div>
-<div id="outline-container-org79821fc" class="outline-2">
-<h2 id="org79821fc">Convert Indic Language to IAST</h2>
-<div class="outline-text-2" id="text-org79821fc">
+<div id="outline-container-orgac40eac" class="outline-2">
+<h2 id="orgac40eac">Convert Indic Language to IAST</h2>
+<div class="outline-text-2" id="text-orgac40eac">
 <p>
 Convert hindi, Bengali,Gujarati, Kannadam Odia, Tamil, Telugu to `iast` format 
 </p>
 </div>
 
 
-<div id="outline-container-org3bf966c" class="outline-3">
-<h3 id="org3bf966c">SQL query to search Indic Character in all Lanaguages</h3>
-<div class="outline-text-3" id="text-org3bf966c">
+<div id="outline-container-orge7f29c7" class="outline-3">
+<h3 id="orge7f29c7">SQL query to search Indic Character in all Lanaguages</h3>
+<div class="outline-text-3" id="text-orge7f29c7">
 <div class="org-src-container">
 <pre class="src src-sql"><span style="color: #3a81c3; font-weight: bold;">SELECT</span> * <span style="color: #3a81c3; font-weight: bold;">FROM</span> IndianAlphabet 
     <span style="color: #3a81c3; font-weight: bold;">WHERE</span> Devanagari == <span style="color: #2d9574;">'&#2343;'</span> 
@@ -441,11 +464,1088 @@ SELECT * FROM IndianAlphabet WHERE Devanagari == 'ध' OR Bengali–Assamese == 
 </pre>
 </div>
 </div>
+
+
+
+
+
+
+<div id="outline-container-orge2d5072" class="outline-3">
+<h3 id="orge2d5072">Convert Indic sting to iast format <code>iast.to_iast(word)</code></h3>
+<div class="outline-text-3" id="text-orge2d5072">
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">def to_iast(self,word): </span>
+<span style="color: #715ab1;">to_iast</span> = <span style="color: #2d9574;">''</span>
+<span style="color: #3a81c3; font-weight: bold;">for</span> letter <span style="color: #3a81c3; font-weight: bold;">in</span> word: <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">word</span>
+    <span style="color: #715ab1;">query</span> = IAST.get_iast_idx_query<span style="color: #3a81c3;">(</span>letter,<span style="color: #3a81c3; font-weight: bold;">self</span>.alphabet<span style="color: #3a81c3;">)</span>    
+    <span style="color: #715ab1;">alpha_token</span> =<span style="color: #3a81c3; font-weight: bold;">self</span>.get_query<span style="color: #3a81c3;">(</span>query<span style="color: #3a81c3;">)</span>
+
+    <span style="color: #715ab1;">query</span> = IAST.get_iast_idx_query<span style="color: #3a81c3;">(</span>letter,<span style="color: #3a81c3; font-weight: bold;">self</span>.barakhadi<span style="color: #3a81c3;">)</span>    
+    <span style="color: #715ab1;">barakhadi_token</span> =<span style="color: #3a81c3; font-weight: bold;">self</span>.get_query<span style="color: #3a81c3;">(</span>query<span style="color: #3a81c3;">)</span>
+
+    <span style="color: #3a81c3; font-weight: bold;">if</span> <span style="color: #3a81c3;">len</span><span style="color: #3a81c3;">(</span>alpha_token<span style="color: #3a81c3;">)</span> !=0:
+        <span style="color: #715ab1;">to_iast</span> += alpha_token<span style="color: #3a81c3;">[</span>0<span style="color: #3a81c3;">][</span><span style="color: #2d9574;">'IAST'</span><span style="color: #3a81c3;">]</span>
+    <span style="color: #3a81c3; font-weight: bold;">elif</span> letter <span style="color: #3a81c3; font-weight: bold;">in</span>  <span style="color: #3a81c3; font-weight: bold;">self</span>.halant_list <span style="color: #3a81c3; font-weight: bold;">and</span> to_iast<span style="color: #3a81c3;">[</span>-1<span style="color: #3a81c3;">]</span> <span style="color: #3a81c3; font-weight: bold;">in</span> <span style="color: #2d9574;">"a"</span>:  <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">&gt;&gt; '&#2325;&#2381;' =&gt; '&#2325; ' +'&#2381;'   # &gt;&gt;&gt; ka + halant = k</span>
+        <span style="color: #715ab1;">to_iast</span> = to_iast<span style="color: #3a81c3;">[</span>:-1<span style="color: #3a81c3;">]</span>
+    <span style="color: #3a81c3; font-weight: bold;">elif</span> <span style="color: #3a81c3;">len</span><span style="color: #3a81c3;">(</span>barakhadi_token<span style="color: #3a81c3;">)</span> !=0 <span style="color: #3a81c3; font-weight: bold;">and</span> to_iast<span style="color: #3a81c3;">[</span>-1<span style="color: #3a81c3;">]</span> <span style="color: #3a81c3; font-weight: bold;">in</span> <span style="color: #2d9574;">"a"</span>:     <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">&gt;&gt; '&#2325;&#2367;' =&gt; '&#2325; ' + '&#2367;' = ka + i =&gt; ki</span>
+        <span style="color: #715ab1;">to_iast</span> = to_iast<span style="color: #3a81c3;">[</span>:-1<span style="color: #3a81c3;">]</span>+ barakhadi_token<span style="color: #3a81c3;">[</span>0<span style="color: #3a81c3;">][</span><span style="color: #2d9574;">'IAST'</span><span style="color: #3a81c3;">]</span>
+    <span style="color: #3a81c3; font-weight: bold;">elif</span> <span style="color: #3a81c3;">len</span><span style="color: #3a81c3;">(</span>barakhadi_token<span style="color: #3a81c3;">)</span> !=0 :                           <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">&gt;&gt; ' &#2325;&#2367;&#2306; ' =&gt;'&#2325; ' + '&#2367;' + '&#2306;'  = ka + i + a&#7745; = ki&#7745;</span>
+        <span style="color: #715ab1;">to_iast</span> += barakhadi_token<span style="color: #3a81c3;">[</span>0<span style="color: #3a81c3;">][</span><span style="color: #2d9574;">'IAST'</span><span style="color: #3a81c3;">]</span>.replace<span style="color: #3a81c3;">(</span><span style="color: #2d9574;">"a"</span>,<span style="color: #2d9574;">''</span><span style="color: #3a81c3;">)</span>
+    <span style="color: #3a81c3; font-weight: bold;">elif</span> <span style="color: #3a81c3;">len</span><span style="color: #3a81c3;">(</span>barakhadi_token<span style="color: #3a81c3;">)</span> ==0  <span style="color: #3a81c3; font-weight: bold;">and</span> <span style="color: #3a81c3;">len</span><span style="color: #3a81c3;">(</span>alpha_token<span style="color: #3a81c3;">)</span> ==0 <span style="color: #3a81c3; font-weight: bold;">and</span> <span style="color: #3a81c3;">ord</span><span style="color: #3a81c3;">(</span>letter<span style="color: #3a81c3;">)</span>==8205: <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">cleaing data</span>
+        <span style="color: #3a81c3; font-weight: bold;">pass</span>
+    <span style="color: #3a81c3; font-weight: bold;">else</span>:
+        <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print(f"""NOT Present in alpha and barakadi{letter}=={ord(letter)} """)</span>
+        <span style="color: #715ab1;">to_iast</span> += letter
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #715ab1;">text</span> = <span style="color: #2d9574;">'''&#2855;&#2883;&#2852;&#2864;&#2878;&#2871;&#2893;&#2847;&#2893;&#2864; &#2825;&#2869;&#2878;&#2842; |</span><span style="color: #4e3163;">\t</span><span style="color: #2d9574;">&#2471;&#2499;&#2468;&#2480;&#2494;&#2487;&#2509;&#2463;&#2509;&#2480; &#2441;&#2476;&#2494;&#2458; |</span><span style="color: #4e3163;">\t</span><span style="color: #2d9574;">&#2727;&#2755;&#2724;&#2736;&#2750;&#2743;&#2765;&#2719;&#2765;&#2736; &#2697;&#2741;&#2750;&#2714; |</span><span style="color: #4e3163;">\t</span><span style="color: #2d9574;">&#2980;&#3021;&#2993;&#3009;&#2980;&#2992;&#3006;&#2999;&#3021;&#2975;&#3021;&#2992; &#2953;&#2997;&#3006;&#2970; |'''</span>
+<span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>iast.to_iast<span style="color: #6c3163;">(</span>text<span style="color: #6c3163;">)</span><span style="color: #3a81c3;">)</span>
+</pre>
+</div>
+
+<pre class="example" id="org184f369">
+dhr̥tarāṣṭra uvāca |    dhr̥tarāṣṭra ubāca |    dhr̥tarāṣṭra uvāca |    ta்ṟutarāṣa்ṭa்ra uvāca |
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgf35616c" class="outline-3">
+<h3 id="orgf35616c">Debug <code>to_iast</code> : character by character</h3>
+<div class="outline-text-3" id="text-orgf35616c">
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #715ab1;">text</span> = <span style="color: #2d9574;">'&#2980;&#3021;&#2993;&#3009;&#2980;&#2992;&#3006;&#2999;&#3021;&#2975;&#3021;&#2992; &#2953;&#2997;&#3006;&#2970;'</span>
+<span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>iast.to_iast<span style="color: #6c3163;">(</span>text<span style="color: #6c3163;">)</span><span style="color: #3a81c3;">)</span>
+iast.debug_letterbyletter<span style="color: #3a81c3;">(</span>text<span style="color: #3a81c3;">)</span>
+<span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">chr(805)</span>
+</pre>
+</div>
+
+<pre class="example" id="orge48dd4c">
+ta்ṟutarāṣa்ṭa்ra uvāca
+letter= த   | ascii(letter) =2980   | iast = ta
+letter= ்   | ascii(letter) =3021   | iast = ்
+letter= ற   | ascii(letter) =2993   | iast = ṟa
+letter= ு   | ascii(letter) =3009   | iast = u
+letter= த   | ascii(letter) =2980   | iast = ta
+letter= ர   | ascii(letter) =2992   | iast = ra
+letter= ா   | ascii(letter) =3006   | iast = ā
+letter= ஷ   | ascii(letter) =2999   | iast = ṣa
+letter= ்   | ascii(letter) =3021   | iast = ்
+letter= ட   | ascii(letter) =2975   | iast = ṭa
+letter= ்   | ascii(letter) =3021   | iast = ்
+letter= ர   | ascii(letter) =2992   | iast = ra
+letter=     | ascii(letter) =32 | iast =  
+letter= உ   | ascii(letter) =2953   | iast = u
+letter= வ   | ascii(letter) =2997   | iast = va
+letter= ா   | ascii(letter) =3006   | iast = ā
+letter= ச   | ascii(letter) =2970   | iast = ca
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org0005284" class="outline-3">
+<h3 id="org0005284">Testing <code>iast.to_iast(word)</code></h3>
+<div class="outline-text-3" id="text-org0005284">
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">for line in text_telugu.strip().split('\n'):</span>
+<span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">source : https://hinduliterature.org/tamil/scriptures/srimad_bhagawad_gita_chapter_1.php</span>
+<span style="color: #715ab1;">file_name</span> =<span style="color: #2d9574;">'bg-hinid'</span>
+<span style="color: #3a81c3; font-weight: bold;">with</span> <span style="color: #3a81c3;">open</span> <span style="color: #3a81c3;">(</span>file_name,<span style="color: #2d9574;">'r'</span><span style="color: #3a81c3;">)</span> <span style="color: #3a81c3; font-weight: bold;">as</span> f:
+   <span style="color: #715ab1;">f_hindi</span> = f.read<span style="color: #3a81c3;">()</span>  
+
+<span style="color: #715ab1;">file_name</span> =<span style="color: #2d9574;">'bg-kannada'</span>
+<span style="color: #3a81c3; font-weight: bold;">with</span> <span style="color: #3a81c3;">open</span> <span style="color: #3a81c3;">(</span>file_name,<span style="color: #2d9574;">'r'</span><span style="color: #3a81c3;">)</span> <span style="color: #3a81c3; font-weight: bold;">as</span> f:
+   <span style="color: #715ab1;">f_kanada</span> = f.read<span style="color: #3a81c3;">()</span>  
+
+<span style="color: #715ab1;">file_name</span> =<span style="color: #2d9574;">'bg-malayalam'</span>
+<span style="color: #3a81c3; font-weight: bold;">with</span> <span style="color: #3a81c3;">open</span> <span style="color: #3a81c3;">(</span>file_name,<span style="color: #2d9574;">'r'</span><span style="color: #3a81c3;">)</span> <span style="color: #3a81c3; font-weight: bold;">as</span> f:
+   <span style="color: #715ab1;">f_malayalam</span> = f.read<span style="color: #3a81c3;">()</span>  
+
+<span style="color: #715ab1;">file_name</span> =<span style="color: #2d9574;">'bg-telugu'</span>
+<span style="color: #3a81c3; font-weight: bold;">with</span> <span style="color: #3a81c3;">open</span> <span style="color: #3a81c3;">(</span>file_name,<span style="color: #2d9574;">'r'</span><span style="color: #3a81c3;">)</span> <span style="color: #3a81c3; font-weight: bold;">as</span> f:
+   <span style="color: #715ab1;">f_telugu</span> = f.read<span style="color: #3a81c3;">()</span>  
+
+<span style="color: #715ab1;">file_name</span> =<span style="color: #2d9574;">'bg-oriya'</span>
+<span style="color: #3a81c3; font-weight: bold;">with</span> <span style="color: #3a81c3;">open</span> <span style="color: #3a81c3;">(</span>file_name,<span style="color: #2d9574;">'r'</span><span style="color: #3a81c3;">)</span> <span style="color: #3a81c3; font-weight: bold;">as</span> f:
+   <span style="color: #715ab1;">f_oriya</span> = f.read<span style="color: #3a81c3;">()</span>  
+
+<span style="color: #715ab1;">file_name</span> =<span style="color: #2d9574;">'bg-bengali'</span>
+<span style="color: #3a81c3; font-weight: bold;">with</span> <span style="color: #3a81c3;">open</span> <span style="color: #3a81c3;">(</span>file_name,<span style="color: #2d9574;">'r'</span><span style="color: #3a81c3;">)</span> <span style="color: #3a81c3; font-weight: bold;">as</span> f:
+   <span style="color: #715ab1;">f_bengali</span> = f.read<span style="color: #3a81c3;">()</span>  
+
+<span style="color: #715ab1;">file_name</span> =<span style="color: #2d9574;">'bg-gujarati'</span>
+<span style="color: #3a81c3; font-weight: bold;">with</span> <span style="color: #3a81c3;">open</span> <span style="color: #3a81c3;">(</span>file_name,<span style="color: #2d9574;">'r'</span><span style="color: #3a81c3;">)</span> <span style="color: #3a81c3; font-weight: bold;">as</span> f:
+   <span style="color: #715ab1;">f_gujarati</span> = f.read<span style="color: #3a81c3;">()</span>  
+
+<span style="color: #715ab1;">file_name</span> =<span style="color: #2d9574;">'bg-tamil'</span>
+<span style="color: #3a81c3; font-weight: bold;">with</span> <span style="color: #3a81c3;">open</span> <span style="color: #3a81c3;">(</span>file_name,<span style="color: #2d9574;">'r'</span><span style="color: #3a81c3;">)</span> <span style="color: #3a81c3; font-weight: bold;">as</span> f:
+   <span style="color: #715ab1;">f_tamil</span> = f.read<span style="color: #3a81c3;">()</span>  
+
+<span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span><span style="color: #3a81c3;">len</span><span style="color: #6c3163;">(</span> f_telugu.split<span style="color: #2d9574;">(</span><span style="color: #2d9574;">'</span><span style="color: #4e3163;">\n</span><span style="color: #2d9574;">'</span><span style="color: #2d9574;">)</span><span style="color: #6c3163;">)</span>,<span style="color: #3a81c3;">len</span><span style="color: #6c3163;">(</span>f_kanada.split<span style="color: #2d9574;">(</span><span style="color: #2d9574;">'</span><span style="color: #4e3163;">\n</span><span style="color: #2d9574;">'</span><span style="color: #2d9574;">)</span><span style="color: #6c3163;">)</span>, <span style="color: #3a81c3;">len</span><span style="color: #6c3163;">(</span>f_malayalam.split<span style="color: #2d9574;">(</span><span style="color: #2d9574;">'</span><span style="color: #4e3163;">\n</span><span style="color: #2d9574;">'</span><span style="color: #2d9574;">)</span><span style="color: #6c3163;">)</span>, <span style="color: #3a81c3;">len</span><span style="color: #6c3163;">(</span>f_hindi.split<span style="color: #2d9574;">(</span><span style="color: #2d9574;">'</span><span style="color: #4e3163;">\n</span><span style="color: #2d9574;">'</span><span style="color: #2d9574;">)</span>  <span style="color: #6c3163;">)</span><span style="color: #3a81c3;">)</span>
+
+<span style="color: #715ab1;">min_len</span>  = <span style="color: #3a81c3;">min</span><span style="color: #3a81c3;">(</span><span style="color: #3a81c3;">len</span><span style="color: #6c3163;">(</span> f_telugu.split<span style="color: #2d9574;">(</span><span style="color: #2d9574;">'</span><span style="color: #4e3163;">\n</span><span style="color: #2d9574;">'</span><span style="color: #2d9574;">)</span><span style="color: #6c3163;">)</span>,<span style="color: #3a81c3;">len</span><span style="color: #6c3163;">(</span>f_kanada.split<span style="color: #2d9574;">(</span><span style="color: #2d9574;">'</span><span style="color: #4e3163;">\n</span><span style="color: #2d9574;">'</span><span style="color: #2d9574;">)</span><span style="color: #6c3163;">)</span>, <span style="color: #3a81c3;">len</span><span style="color: #6c3163;">(</span>f_malayalam.split<span style="color: #2d9574;">(</span><span style="color: #2d9574;">'</span><span style="color: #4e3163;">\n</span><span style="color: #2d9574;">'</span><span style="color: #2d9574;">)</span><span style="color: #6c3163;">)</span>, <span style="color: #3a81c3;">len</span><span style="color: #6c3163;">(</span>f_hindi.split<span style="color: #2d9574;">(</span><span style="color: #2d9574;">'</span><span style="color: #4e3163;">\n</span><span style="color: #2d9574;">'</span><span style="color: #2d9574;">)</span>  <span style="color: #6c3163;">)</span><span style="color: #3a81c3;">)</span>
+<span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>f<span style="color: #2d9574;">"""LANGUAGE</span><span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| Origian Language Script </span><span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| IAST CONVERT Script """</span><span style="color: #3a81c3;">)</span>
+<span style="color: #3a81c3; font-weight: bold;">for</span> line_idx <span style="color: #3a81c3; font-weight: bold;">in</span> <span style="color: #3a81c3;">range</span><span style="color: #3a81c3;">(</span>min_len-1<span style="color: #3a81c3;">)</span>:
+    <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>line_idx<span style="color: #3a81c3;">)</span>
+    <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span><span style="color: #2d9574;">"-"</span>*40<span style="color: #3a81c3;">)</span>
+    <span style="color: #715ab1;">line</span> = f_telugu.strip<span style="color: #3a81c3;">()</span>.split<span style="color: #3a81c3;">(</span><span style="color: #2d9574;">'</span><span style="color: #4e3163;">\n</span><span style="color: #2d9574;">'</span><span style="color: #3a81c3;">)[</span>line_idx<span style="color: #3a81c3;">]</span>
+    <span style="color: #3a81c3; font-weight: bold;">if</span> <span style="color: #3a81c3;">len</span><span style="color: #3a81c3;">(</span>line<span style="color: #3a81c3;">)</span>:
+        <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>f<span style="color: #2d9574;">"""TEL</span><span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{line.strip()}<span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{iast.to_iast( line)}<span style="color: #2d9574;"> """</span><span style="color: #3a81c3;">)</span>
+    <span style="color: #715ab1;">line</span> = f_kanada.strip<span style="color: #3a81c3;">()</span>.split<span style="color: #3a81c3;">(</span><span style="color: #2d9574;">'</span><span style="color: #4e3163;">\n</span><span style="color: #2d9574;">'</span><span style="color: #3a81c3;">)[</span>line_idx<span style="color: #3a81c3;">]</span>
+    <span style="color: #3a81c3; font-weight: bold;">if</span> <span style="color: #3a81c3;">len</span><span style="color: #3a81c3;">(</span>line<span style="color: #3a81c3;">)</span>:
+        <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>f<span style="color: #2d9574;">"""KAN</span><span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{line.strip()}<span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{iast.to_iast( line)}<span style="color: #2d9574;"> """</span><span style="color: #3a81c3;">)</span>
+    <span style="color: #715ab1;">line</span> = f_malayalam.strip<span style="color: #3a81c3;">()</span>.split<span style="color: #3a81c3;">(</span><span style="color: #2d9574;">'</span><span style="color: #4e3163;">\n</span><span style="color: #2d9574;">'</span><span style="color: #3a81c3;">)[</span>line_idx<span style="color: #3a81c3;">]</span>
+    <span style="color: #3a81c3; font-weight: bold;">if</span> <span style="color: #3a81c3;">len</span><span style="color: #3a81c3;">(</span>line<span style="color: #3a81c3;">)</span>:
+        <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>f<span style="color: #2d9574;">"""MAL</span><span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{line.strip()}<span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{iast.to_iast( line)}<span style="color: #2d9574;"> """</span><span style="color: #3a81c3;">)</span>
+    <span style="color: #715ab1;">line</span> = f_hindi.strip<span style="color: #3a81c3;">()</span>.split<span style="color: #3a81c3;">(</span><span style="color: #2d9574;">'</span><span style="color: #4e3163;">\n</span><span style="color: #2d9574;">'</span><span style="color: #3a81c3;">)[</span>line_idx<span style="color: #3a81c3;">]</span>
+    <span style="color: #3a81c3; font-weight: bold;">if</span> <span style="color: #3a81c3;">len</span><span style="color: #3a81c3;">(</span>line<span style="color: #3a81c3;">)</span>:
+        <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>f<span style="color: #2d9574;">"""HIN</span><span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{line.strip()}<span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{iast.to_iast( line)}<span style="color: #2d9574;"> """</span><span style="color: #3a81c3;">)</span>
+        <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print(f""" {iast.to_iast( line)} """)</span>
+    <span style="color: #715ab1;">line</span> = f_oriya.strip<span style="color: #3a81c3;">()</span>.split<span style="color: #3a81c3;">(</span><span style="color: #2d9574;">'</span><span style="color: #4e3163;">\n</span><span style="color: #2d9574;">'</span><span style="color: #3a81c3;">)[</span>line_idx<span style="color: #3a81c3;">]</span>
+    <span style="color: #3a81c3; font-weight: bold;">if</span> <span style="color: #3a81c3;">len</span><span style="color: #3a81c3;">(</span>line<span style="color: #3a81c3;">)</span>:
+        <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>f<span style="color: #2d9574;">"""ORI</span><span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{line.strip()}<span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{iast.to_iast( line)}<span style="color: #2d9574;"> """</span><span style="color: #3a81c3;">)</span>
+
+    <span style="color: #715ab1;">line</span> = f_bengali.strip<span style="color: #3a81c3;">()</span>.split<span style="color: #3a81c3;">(</span><span style="color: #2d9574;">'</span><span style="color: #4e3163;">\n</span><span style="color: #2d9574;">'</span><span style="color: #3a81c3;">)[</span>line_idx<span style="color: #3a81c3;">]</span>
+    <span style="color: #3a81c3; font-weight: bold;">if</span> <span style="color: #3a81c3;">len</span><span style="color: #3a81c3;">(</span>line<span style="color: #3a81c3;">)</span>:
+        <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>f<span style="color: #2d9574;">"""BEN</span><span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{line.strip()}<span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{iast.to_iast( line)}<span style="color: #2d9574;"> """</span><span style="color: #3a81c3;">)</span>
+
+    <span style="color: #715ab1;">line</span> = f_gujarati.strip<span style="color: #3a81c3;">()</span>.split<span style="color: #3a81c3;">(</span><span style="color: #2d9574;">'</span><span style="color: #4e3163;">\n</span><span style="color: #2d9574;">'</span><span style="color: #3a81c3;">)[</span>line_idx<span style="color: #3a81c3;">]</span>
+    <span style="color: #3a81c3; font-weight: bold;">if</span> <span style="color: #3a81c3;">len</span><span style="color: #3a81c3;">(</span>line<span style="color: #3a81c3;">)</span>:
+        <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>f<span style="color: #2d9574;">"""GUJ</span><span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{line.strip()}<span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{iast.to_iast( line)}<span style="color: #2d9574;"> """</span><span style="color: #3a81c3;">)</span>
+
+    <span style="color: #715ab1;">line</span> = f_tamil.strip<span style="color: #3a81c3;">()</span>.split<span style="color: #3a81c3;">(</span><span style="color: #2d9574;">'</span><span style="color: #4e3163;">\n</span><span style="color: #2d9574;">'</span><span style="color: #3a81c3;">)[</span>line_idx<span style="color: #3a81c3;">]</span>
+    <span style="color: #3a81c3; font-weight: bold;">if</span> <span style="color: #3a81c3;">len</span><span style="color: #3a81c3;">(</span>line<span style="color: #3a81c3;">)</span>:
+        <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>f<span style="color: #2d9574;">"""TAM</span><span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{line.strip()}<span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{iast.to_iast( line)}<span style="color: #2d9574;"> """</span><span style="color: #3a81c3;">)</span>
+</pre>
+</div>
+
+<pre class="example" id="orge52356a">
+157 469 157 140
+LANGUAGE    | Origian Language Script   | IAST CONVERT Script 
+0
+----------------------------------------
+TEL | ధృతరాష్ట్ర ఉవాచ | | dhr̥tarāṣṭra uvāca | 
+KAN | ಧೃತರಾಷ್ಟ್ರ ಉವಾಚ । | dhr̥tarāṣṭra uvāca | 
+MAL | ധൃതരാഷ്ട്ര ഉവാച । | dhr̥tarāṣṭra uvāca | 
+HIN | धृतराष्ट्र उवाच   | dhr̥tarāṣṭra uvāca 
+ORI | ଧୃତରାଷ୍ଟ୍ର ଉଵାଚ | | dhr̥tarāṣṭra uvāca | 
+BEN | ধৃতরাষ্ট্র উবাচ | | dhr̥tarāṣṭra ubāca | 
+GUJ | ધૃતરાષ્ટ્ર ઉવાચ | | dhr̥tarāṣṭra uvāca | 
+TAM | த்றுதராஷ்ட்ர உவாச |   | ta்ṟutarāṣa்ṭa்ra uvāca | 
+1
+----------------------------------------
+KAN | ಧರ್ಮಕ್ಷೇತ್ರೇ ಕುರುಕ್ಷೇತ್ರೇ ಸಮವೇತಾ ಯುಯುತ್ಸವಃ ।  | dharmakṣētrē kurukṣētrē samavētā yuyutsavaḥ | 
+MAL | ധർമക്ഷേത്രേ കുരുക്ഷേത്രേ സമവേതാ യുയുത്സവഃ ।   | dhaṟmakṣētrē kurukṣētrē samavētā yuyutsavaḥ | 
+HIN | धर्मक्षेत्रे कुरुक्षेत्रे समवेता युयुत्सव: ।  | dharmakṣētrē kurukṣētrē samavētā yuyutsavaḥ | 
+ORI | ଧର୍ମକ୍ଷେତ୍ରେ କୁରୁକ୍ଷେତ୍ରେ ସମଵେତା ୟୁୟୁତ୍ସଵଃ |  | dharmakṣētrē kurukṣētrē samavētā ẏuẏutsavaḥ | 
+BEN | ধর্মক্ষেত্রে কুরুক্ষেত্রে সমবেতা য়ুয়ুত্সবঃ |  | dharmakṣētrē kurukṣētrē samabētā ẏuẏutsabaḥ | 
+GUJ | ધર્મક્ષેત્રે કુરુક્ષેત્રે સમવેતા યુયુત્સવઃ |  | dharmakṣētrē kurukṣētrē samavētā yuyutsavaḥ | 
+TAM | தர்மக்ஷேத்ரே குருக்ஷேத்ரே ஸமவேதா யுயுத்ஸவஃ |  | tara்maka்ṣēta்rē kuruka்ṣēta்rē samavētā yuyuta்savaḵa | 
+...
+138
+----------------------------------------
+TEL | ఉత్సాద్యంతే జాతిధర్మాః కులధర్మాశ్చ శాశ్వతాః || 43 ||  | utsādyaṁtē jātidharmāḥ kuladharmāśca śāśvatāḥ || 43 || 
+HIN | विसृज्य सशरं चापं शोकसंविग्न‍मानसः ॥ ४६ ॥ | visr̥jya saśaraṁ cāpaṁ śokasaṁvignamānasaḥ || 46 || 
+ORI | ନରକେ﻿‌உନିୟତଂ ଵାସୋ ଭଵତୀତ୍ୟନୁଶୁଶ୍ରୁମ || 44 ||   | narakē﻿‌uniẏataṁ vāso bhavatītẏanuśuśruma || 44 || 
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org3d7148c" class="outline-3">
+<h3 id="org3d7148c">Use Case of <code>iast.to_iast(word)</code></h3>
+<div class="outline-text-3" id="text-org3d7148c">
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #715ab1;">f_tamil</span> = <span style="color: #2d9574;">"""&#3334;&#3378;&#3390;&#3375;&#3390;&#3378;&#3405;&#8205; &#3364;&#3377; &#3381;&#3399;&#3363;&#3330;  &#3333;&#3359;&#3393;&#3364;&#3405;&#3364;&#3402;&#3376;&#3374;&#3405;&#3370;&#3378;&#3330; &#3381;&#3399;&#3363;&#3330;</span>
+<span style="color: #2d9574;">&#3334;&#3378;&#3391;&#3368;&#3393; &#3354;&#3399;&#3376;&#3405;&#8205;&#3368;&#3405;&#3368;&#3402;&#3376;&#3393; &#3349;&#3393;&#3379;&#3381;&#3393;&#3330; &#3381;&#3399;&#3363;&#3330;</span>
+<span style="color: #2d9574;">&#3349;&#3393;&#3379;&#3391;&#3370;&#3405;&#3370;&#3390;&#3368;&#3390;&#3375;&#3405; &#3349;&#3393;&#3379;&#3330; &#3381;&#3399;&#3363;&#3330;  &#3349;&#3393;&#3379;&#3364;&#3405;&#3364;&#3391;&#3378;&#3405;&#8205; &#3354;&#3398;&#3368;&#3405;&#3364;&#3390;&#3374;&#3376; &#3381;&#3399;&#3363;&#3330;</span>
+<span style="color: #2d9574;">&#3349;&#3393;&#3379;&#3391;&#3354;&#3405;&#3354;&#3405; &#3354;&#3398;&#3368;&#3405;&#3368;&#3349;&#3330; &#3370;&#3393;&#3349;&#3405;&#3349;&#3390;&#3368;&#3405;&#8205; &#3354;&#3368;&#3405;&#3366;&#3368;&#3330; &#3381;&#3399;&#3363;&#3330;</span>
+
+<span style="color: #2d9574;">&#3370;&#3394;&#3381;&#3390;&#3375;&#3390;&#3378;&#3405;&#8205; &#3374;&#3363;&#3330; &#3381;&#3399;&#3363;&#3330;  &#3370;&#3394;&#3374;&#3390;&#3368;&#3390;&#3375;&#3390;&#3378;&#3405;&#8205; &#3351;&#3393;&#3363;&#3330; &#3381;&#3399;&#3363;&#3330;</span>
+<span style="color: #2d9574;">&#3370;&#3394;&#3374;&#3390;&#3368;&#3391;&#3368;&#3391;&#3374;&#3390;&#3376;&#3405;&#8205;&#3349;&#3379;&#3405;&#8205; &#3333;&#3359;&#3349;&#3405;&#3349;&#3330; &#3381;&#3399;&#3363;&#3330;</span>
+
+<span style="color: #2d9574;">&#3375;&#3393;&#3366;&#3405;&#3367;&#3364;&#3405;&#3364;&#3391;&#3353;&#3405;&#3349;&#3378;&#3405;&#8205; &#3376;&#3390;&#3374;&#3368;&#3405;&#8205; &#3368;&#3378;&#3405;&#3378;&#3394;, &#3349;&#3393;&#3378;&#3364;&#3405;&#3364;&#3391;&#3353;&#3405;&#3349;&#3378;&#3405;&#8205; &#3384;&#3392;&#3364; &#3368;&#3378;&#3405;&#3378;&#3394;</span>
+<span style="color: #2d9574;">&#3338;&#3363;&#3393;&#3377;&#3349;&#3405;&#3349;&#3374;&#3393;&#3370;&#3399;&#3349;&#3405;&#3383;&#3391;&#3349;&#3405;&#3349;&#3390;&#3368;&#3405;&#8205; &#3378;&#3349;&#3405;&#3383;&#3405;&#3374;&#3363;&#3368;&#3405;&#8205; &#3368;&#3378;&#3405;&#3378;&#3394;</span>
+<span style="color: #2d9574;">&#3370;&#3359;&#3375;&#3405;&#3349;&#3405;&#3349;&#3405; &#3373;&#3376;&#3364;&#3368;&#3405;&#8205; &#3368;&#3378;&#3405;&#3378;&#3394;, &#3370;&#3377;&#3381;&#3390;&#3368;&#3405;&#8205; &#3370;&#3400;&#3353;&#3405;&#3349;&#3391;&#3379;&#3391; &#3368;&#3378;&#3405;&#3378;&#3394;</span>
+<span style="color: #2d9574;">&#3370;&#3377;&#3349;&#3405;&#3349;&#3393;&#3368;&#3405;&#3368; &#3370;&#3349;&#3405;&#3383;&#3391;&#3349;&#3379;&#3391;&#3378;&#3405;&#8205; &#3351;&#3376;&#3393;&#3362;&#3368;&#3405;&#8205; &#3368;&#3378;&#3405;&#3378;&#3394;</span>
+
+<span style="color: #2d9574;">&#3368;&#3390;&#3359;&#3390;&#3375;&#3390;&#3378;&#3405;&#8205; &#3368;&#3395;&#3370;&#3368;&#3405;&#8205; &#3381;&#3399;&#3363;&#3330;  &#3333;&#3376;&#3391;&#3349;&#3391;&#3378;&#3405;&#8205; &#3374;&#3368;&#3405;&#3364;&#3405;&#3376;&#3391;&#3374;&#3390;&#3376;&#3405;&#8205; &#3381;&#3399;&#3363;&#3330;</span>
+<span style="color: #2d9574;">&#3368;&#3390;&#3359;&#3391;&#3368;&#3393; &#3351;&#3394;&#3363;&#3374;&#3393;&#3379;&#3405;&#3379; &#3370;&#3405;&#3376;&#3356;&#3349;&#3379;&#3405;&#8205; &#3381;&#3399;&#3363;&#3330;..</span>
+
+<span style="color: #2d9574;">&#3374;&#3353;&#3405;&#3353;&#3390;&#3359;&#3405;&#3359;&#3354;&#3405;&#3354;&#3368;&#3393; &#3368;&#3405;&#3375;&#3390;&#3375;&#3330; &#3368;&#3378;&#3405;&#3378;&#3394; &#3374;&#3330;&#3351;&#3378;&#3405;&#3375;&#3364;&#3405;&#3364;&#3391;&#3368;&#3393; &#3384;&#3405;&#3381;&#3376;&#3405;&#8205;&#3363;&#3405;&#3363;&#3399; &#3368;&#3378;&#3405;&#3378;&#3394;</span>
+<span style="color: #2d9574;">&#3374;&#3353;&#3405;&#3353;&#3390;&#3364;&#3391;&#3376;&#3391;&#3370;&#3405;&#3370;&#3390;&#3368;&#3405;&#8205; &#3368;&#3391;&#3378;&#3381;&#3391;&#3379;&#3349;&#3405;&#3349;&#3405; &#3368;&#3378;&#3405;&#3378;&#3394;.</span>
+
+<span style="color: #2d9574;">&#3370;&#3390;&#3378;&#3405;&#3375;&#3364;&#3405;&#3364;&#3354;&#3405;&#3354;&#3368;&#3393;&#3370;&#3390;&#3375;&#3330; &#3368;&#3378;&#3405;&#3378;&#3394; &#3370;&#3390;&#3378;&#3391;&#3378;&#3405;&#8205; &#3370;&#3358;&#3405;&#3354;&#3384;&#3390;&#3376; &#3368;&#3378;&#3405;&#3378;&#3394;</span>
+<span style="color: #2d9574;">&#3370;&#3390;&#3376;&#3390;&#3364;&#3391;&#3376;&#3391;&#3370;&#3405;&#3370;&#3390;&#3368;&#3405;&#8205; &#3354;&#3391;&#3378; &#3370;&#3366;&#3381;&#3391; &#3368;&#3378;&#3405;&#3378;&#3394;</span>
+<span style="color: #2d9574;">"""</span>
+<span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">f_tamil = text</span>
+<span style="color: #715ab1;">lines</span> = f_tamil.strip<span style="color: #3a81c3;">()</span>.split<span style="color: #3a81c3;">(</span><span style="color: #2d9574;">'</span><span style="color: #4e3163;">\n</span><span style="color: #2d9574;">'</span><span style="color: #3a81c3;">)</span>
+<span style="color: #3a81c3; font-weight: bold;">for</span> line <span style="color: #3a81c3; font-weight: bold;">in</span> lines:
+    <span style="color: #3a81c3; font-weight: bold;">if</span> <span style="color: #3a81c3;">len</span><span style="color: #3a81c3;">(</span>line<span style="color: #3a81c3;">)</span>:
+        <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>f<span style="color: #2d9574;">"""</span>{iast.to_iast( line)}<span style="color: #2d9574;"> """</span><span style="color: #3a81c3;">)</span>
+        <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print(f"""MAL \t {line.strip()}\t {iast.to_iast( line)} """)</span>
+</pre>
+</div>
+
+<pre class="example" id="org378fb6b">
+ālāyāl taṟa vēṇaṁ  aṭuttorampalaṁ vēṇaṁ 
+ālinu cērnnoru kuḷavuṁ vēṇaṁ 
+kuḷippānāy kuḷaṁ vēṇaṁ  kuḷattil centāmara vēṇaṁ 
+kuḷicc cennakaṁ pukkān candanaṁ vēṇaṁ 
+pūvāyāl maṇaṁ vēṇaṁ  pūmānāyāl guṇaṁ vēṇaṁ 
+pūmāninimārkaḷ aṭakkaṁ vēṇaṁ 
+yuddhattiṅkal rāman nallū, kulattiṅkal sīta nallū 
+ūṇuṟakkamupēkṣikkān lakṣmaṇan nallū 
+paṭaykk bharatan nallū, paṟavān paiṅkiḷi nallū 
+paṟakkunna pakṣikaḷil garuḍhan nallū 
+nāṭāyāl nr̥pan vēṇaṁ  arikil mantrimār vēṇaṁ 
+nāṭinu gūṇamuḷḷa prajakaḷ vēṇaṁ.. 
+maṅṅāṭṭaccanu nyāyaṁ nallū maṁgalyattinu svarṇṇē nallū 
+maṅṅātirippān nilaviḷakk nallū. 
+pālyattaccanupāyaṁ nallū pālil pañcasāra nallū 
+pārātirippān cila padavi nallū 
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgeacd6f2" class="outline-2">
+<h2 id="orgeacd6f2">IAST to Indic Language <code>iast.iast2indic(iast_word,indic_lang)</code></h2>
+<div class="outline-text-2" id="text-orgeacd6f2">
+<p>
+Step to iast_string to indic language - convert given <b>iast_string</b>
+<code>kiṁ rānsakhīṁ</code> to <b>iast_tokens</b>
+<code>['k', 'i', 'ṁ',' ', 'r', 'ā', 'n', 's', 'a', 'kh', 'ī', 'ṁ', 's', 't', 'a', 'th', 'ā']</code>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python">IAST.iast2tokens<span style="color: #3a81c3;">(</span><span style="color: #2d9574;">'ki&#7745; r&#257;nsakh&#299;&#7745;'</span><span style="color: #3a81c3;">)</span> <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">&gt;&gt;&gt; ['k', 'i', '&#7745;',' ', 'r', '&#257;', 'n', 's', 'a', 'kh', '&#299;', '&#7745;', 's', 't', 'a', 'th', '&#257;']</span>
+</pre>
+</div>
+
+<ul class="org-ul">
+<li>Convert token to <code>indic lang</code> add properties(language,
+vowel/consonant, charater symbol) to each <b>token</b> <code>['k', 'i', 'ṁ']</code></li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #715ab1;">tokens</span> = IAST.iast2tokens<span style="color: #3a81c3;">(</span><span style="color: #2d9574;">'ki&#7745;'</span><span style="color: #3a81c3;">)</span>    <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">&gt;&gt;&gt; `['k', 'i', '&#7745;']`</span>
+iast.tokens2dict_tokenes<span style="color: #3a81c3;">(</span>tokens,indic_lang<span style="color: #3a81c3;">)</span>
+<span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">&gt;&gt;&gt;</span>
+<span style="color: #3a81c3;">[</span>
+ <span style="color: #6c3163;">{</span><span style="color: #2d9574;">'IAST'</span>: <span style="color: #2d9574;">'k'</span>, <span style="color: #2d9574;">'lang'</span>: <span style="color: #2d9574;">'Telugu'</span>, <span style="color: #2d9574;">'type'</span>: <span style="color: #2d9574;">'consonants'</span>, <span style="color: #2d9574;">'alph'</span>: <span style="color: #2d9574;">'&#3093;'</span>, <span style="color: #2d9574;">'bara'</span>: <span style="color: #4e3163;">None</span><span style="color: #6c3163;">}</span>,
+ <span style="color: #6c3163;">{</span><span style="color: #2d9574;">'IAST'</span>: <span style="color: #2d9574;">'i'</span>, <span style="color: #2d9574;">'lang'</span>: <span style="color: #2d9574;">'Telugu'</span>, <span style="color: #2d9574;">'type'</span>: <span style="color: #2d9574;">'vowel'</span>, <span style="color: #2d9574;">'alph'</span>: <span style="color: #2d9574;">'&#3079;'</span>, <span style="color: #2d9574;">'bara'</span>: <span style="color: #2d9574;">'&#3135;'</span><span style="color: #6c3163;">}</span>,
+ <span style="color: #6c3163;">{</span><span style="color: #2d9574;">'IAST'</span>: <span style="color: #2d9574;">'&#7745;'</span>, <span style="color: #2d9574;">'lang'</span>: <span style="color: #2d9574;">'Telugu'</span>, <span style="color: #2d9574;">'alph'</span>: <span style="color: #4e3163;">None</span>, <span style="color: #2d9574;">'type'</span>: <span style="color: #2d9574;">'vowel'</span>, <span style="color: #2d9574;">'bara'</span>: <span style="color: #2d9574;">'&#3074;'</span><span style="color: #6c3163;">}</span>,
+<span style="color: #3a81c3;">]</span>
+</pre>
+</div>
+
+<ul class="org-ul">
+<li>Convert <b>list of dict</b> to <code>indic_lang</code> string <code>కిం</code></li>
+</ul>
+</div>
+
+<div id="outline-container-iast-string-to-tokens-iast.iast2tokensword" class="outline-3">
+<h3 id="iast-string-to-tokens-iast.iast2tokensword">IAST String to tokens <code>IAST.iast2tokens(word)</code></h3>
+<div class="outline-text-3" id="text-iast-string-to-tokens-iast.iast2tokensword">
+<p>
+iast string is split into group of iast character : some like <code>kha</code> and
+<code>ka</code> we need prioritise <code>kha</code> so we created priority dictionary
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #715ab1;">vowel_plist</span>=<span style="color: #3a81c3;">[</span><span style="color: #6c3163;">[</span><span style="color: #2d9574;">'r&#805;&#772;'</span>, <span style="color: #2d9574;">'l&#805;&#772;'</span><span style="color: #6c3163;">]</span>,  <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">len of iast char is 3</span>
+             <span style="color: #6c3163;">[</span><span style="color: #2d9574;">'r&#805;'</span>, <span style="color: #2d9574;">'au'</span>, <span style="color: #2d9574;">'ai'</span>, <span style="color: #2d9574;">'&#7909;&#772; '</span>, <span style="color: #2d9574;">'&#7841;&#772; '</span>, <span style="color: #2d9574;">'o&#7745;'</span>, <span style="color: #2d9574;">'m&#784;'</span>, <span style="color: #2d9574;">'a&#7717;'</span>, <span style="color: #2d9574;">'l&#805;'</span><span style="color: #6c3163;">]</span>,  <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">len of iast char is 2</span>
+             <span style="color: #6c3163;">[</span><span style="color: #2d9574;">'a'</span>, <span style="color: #2d9574;">'&#257;'</span>, <span style="color: #2d9574;">'&#7841;'</span>, <span style="color: #2d9574;">'&#7909;'</span>, <span style="color: #2d9574;">'&#230;'</span>, <span style="color: #2d9574;">'&#483;'</span>, <span style="color: #2d9574;">'i'</span>, <span style="color: #2d9574;">'&#299;'</span>, <span style="color: #2d9574;">'u'</span>, <span style="color: #2d9574;">'&#363;'</span>, <span style="color: #2d9574;">'e'</span>, <span style="color: #2d9574;">'&#275;'</span>, <span style="color: #2d9574;">'&#234;'</span>, <span style="color: #2d9574;">'&#234;'</span>,
+              <span style="color: #2d9574;">'o'</span>, <span style="color: #2d9574;">'&#466;'</span>, <span style="color: #2d9574;">'&#333;'</span>, <span style="color: #2d9574;">'&#244;'</span>, <span style="color: #2d9574;">'&#699;'</span>, <span style="color: #2d9574;">'&#7717;'</span>, <span style="color: #2d9574;">'&#7723;'</span>, <span style="color: #2d9574;">'&#7830;'</span>, <span style="color: #2d9574;">'&#7745;'</span>, <span style="color: #2d9574;">'&#7747;'</span><span style="color: #6c3163;">]</span>     <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">len of iast char is 1</span>
+            <span style="color: #3a81c3;">]</span>
+
+<span style="color: #715ab1;">consonant_list</span> = <span style="color: #3a81c3;">[</span><span style="color: #6c3163;">[</span><span style="color: #2d9574;">'n&#774;g'</span>, <span style="color: #2d9574;">'n&#774;j'</span>, <span style="color: #2d9574;">'n&#774;&#7693;'</span>, <span style="color: #2d9574;">'n&#774;d'</span>, <span style="color: #2d9574;">'m&#774;b'</span>, <span style="color: #2d9574;">'k&#863;h'</span><span style="color: #6c3163;">]</span>, <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">len of iast char is 3</span>
+                   <span style="color: #6c3163;">[</span><span style="color: #2d9574;">'kh'</span>, <span style="color: #2d9574;">'g&#776;'</span>, <span style="color: #2d9574;">'gh'</span>, <span style="color: #2d9574;">'ch'</span>, <span style="color: #2d9574;">'&#265;h'</span>, <span style="color: #2d9574;">'jh'</span>, <span style="color: #2d9574;">'&#7789;h'</span>, <span style="color: #2d9574;">'&#7693;h'</span>, <span style="color: #2d9574;">'dh'</span>, <span style="color: #2d9574;">'d&#804;'</span>, 
+                    <span style="color: #2d9574;">'&#7771;h'</span>, <span style="color: #2d9574;">'th'</span>, <span style="color: #2d9574;">'ph'</span>, <span style="color: #2d9574;">'bh'</span>, <span style="color: #2d9574;">'b&#804;'</span>, <span style="color: #2d9574;">'&#7775;&#772;'</span>, <span style="color: #2d9574;">'y&#780;'</span>, <span style="color: #2d9574;">'r&#774;'</span>, <span style="color: #2d9574;">'l&#804;'</span>, <span style="color: #2d9574;">'||'</span><span style="color: #6c3163;">]</span>, <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">len of iast char is 2</span>
+                   <span style="color: #6c3163;">[</span><span style="color: #2d9574;">'&#7733;'</span>, <span style="color: #2d9574;">'k'</span>, <span style="color: #2d9574;">'g'</span>, <span style="color: #2d9574;">'&#7749;'</span>, <span style="color: #2d9574;">'c'</span>, <span style="color: #2d9574;">'&#265;'</span>, <span style="color: #2d9574;">'j'</span>, <span style="color: #2d9574;">'&#496;'</span>, <span style="color: #2d9574;">'&#309;'</span>, <span style="color: #2d9574;">'&#241;'</span>, <span style="color: #2d9574;">'&#7789;'</span>, <span style="color: #2d9574;">'&#7693;'</span>, <span style="color: #2d9574;">'&#7693;'</span>, 
+                    <span style="color: #2d9574;">'&#7771;'</span>, <span style="color: #2d9574;">'&#7751;'</span>, <span style="color: #2d9574;">'t'</span>, <span style="color: #2d9574;">'d'</span>, <span style="color: #2d9574;">'n'</span>, <span style="color: #2d9574;">'p'</span>, <span style="color: #2d9574;">'b'</span>, <span style="color: #2d9574;">'m'</span>, <span style="color: #2d9574;">'&#7775;'</span>, <span style="color: #2d9574;">'&#7791;'</span>, <span style="color: #2d9574;">'&#7695;'</span>, <span style="color: #2d9574;">'&#7753;'</span>,
+                    <span style="color: #2d9574;">'&#7739;'</span>, <span style="color: #2d9574;">'y'</span>, <span style="color: #2d9574;">'&#7823;'</span>, <span style="color: #2d9574;">'r'</span>, <span style="color: #2d9574;">'l'</span>, <span style="color: #2d9574;">'&#7735;'</span>, <span style="color: #2d9574;">'v'</span>, <span style="color: #2d9574;">'&#347;'</span>, <span style="color: #2d9574;">'&#7779;'</span>, <span style="color: #2d9574;">'s'</span>, <span style="color: #2d9574;">'h'</span>, <span style="color: #2d9574;">'q'</span>, <span style="color: #2d9574;">'&#289;'</span>, 
+                    <span style="color: #2d9574;">'z'</span>, <span style="color: #2d9574;">'z'</span>, <span style="color: #2d9574;">'&#382;'</span>, <span style="color: #2d9574;">'&#382;'</span>, <span style="color: #2d9574;">'&#382;'</span>, <span style="color: #2d9574;">'f'</span>, <span style="color: #2d9574;">'s&#817;'</span>, <span style="color: #2d9574;">'s&#804;'</span>, <span style="color: #2d9574;">'h&#804;'</span>, <span style="color: #2d9574;">'t&#804;'</span>, <span style="color: #2d9574;">'w'</span>,
+                    <span style="color: #2d9574;">'&#7829;'</span>, <span style="color: #2d9574;">'&#380;'</span>, <span style="color: #2d9574;">'&#7827;'</span>, <span style="color: #2d9574;">'&#7823;'</span>, <span style="color: #2d9574;">'&#7775;'</span>, 
+                    <span style="color: #2d9574;">'0'</span>, <span style="color: #2d9574;">'1'</span>, <span style="color: #2d9574;">'2'</span>, <span style="color: #2d9574;">'3'</span>, <span style="color: #2d9574;">'4'</span>, <span style="color: #2d9574;">'5'</span>, <span style="color: #2d9574;">'6'</span>, <span style="color: #2d9574;">'7'</span>, <span style="color: #2d9574;">'8'</span>, <span style="color: #2d9574;">'9'</span>, <span style="color: #2d9574;">'|'</span><span style="color: #6c3163;">]</span>  <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">len of iast char is 1</span>
+                  <span style="color: #3a81c3;">]</span>
+
+<span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">def iast2tokens(word):</span>
+<span style="color: #715ab1;">vowel_plist</span>=IAST.vowel_plist
+<span style="color: #715ab1;">consonant_list</span>=IAST.consonant_list
+
+<span style="color: #715ab1;">iast_tokens</span>= <span style="color: #3a81c3;">[]</span>
+<span style="color: #715ab1;">vowel_tokens</span> = IAST.lex_iast<span style="color: #3a81c3;">(</span>vowel_plist,word<span style="color: #3a81c3;">)</span>
+<span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print(vowel_tokens)</span>
+<span style="color: #3a81c3; font-weight: bold;">if</span> word<span style="color: #3a81c3;">[</span>-1*<span style="color: #3a81c3;">len</span><span style="color: #6c3163;">(</span>vowel_tokens<span style="color: #2d9574;">[</span>-1<span style="color: #2d9574;">]</span><span style="color: #6c3163;">)</span>:<span style="color: #3a81c3;">]</span>==vowel_tokens<span style="color: #3a81c3;">[</span>-1<span style="color: #3a81c3;">]</span>:
+    <span style="color: #3a81c3; font-weight: bold;">pass</span>
+    <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print('Last word match with vowel no need to append')</span>
+<span style="color: #3a81c3; font-weight: bold;">else</span>:
+    vowel_tokens.append<span style="color: #3a81c3;">(</span>word.split<span style="color: #6c3163;">(</span>vowel_tokens<span style="color: #2d9574;">[</span>-1<span style="color: #2d9574;">]</span><span style="color: #6c3163;">)[</span>-1<span style="color: #6c3163;">]</span><span style="color: #3a81c3;">)</span>
+    <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print('need to append')</span>
+    <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print(vowel_tokens)</span>
+<span style="color: #3a81c3; font-weight: bold;">for</span> i <span style="color: #3a81c3; font-weight: bold;">in</span> vowel_tokens:
+    <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print(i, lex_iast(consonant_list,i))</span>
+    <span style="color: #3a81c3; font-weight: bold;">if</span> <span style="color: #3a81c3;">len</span><span style="color: #3a81c3;">(</span>IAST.lex_iast<span style="color: #6c3163;">(</span>consonant_list,i<span style="color: #6c3163;">)</span><span style="color: #3a81c3;">)</span> &lt;=1:
+        iast_tokens.append<span style="color: #3a81c3;">(</span>i<span style="color: #3a81c3;">)</span>
+    <span style="color: #3a81c3; font-weight: bold;">else</span>:
+        iast_tokens.extend<span style="color: #3a81c3;">(</span>IAST.lex_iast<span style="color: #6c3163;">(</span>consonant_list,i<span style="color: #6c3163;">)</span><span style="color: #3a81c3;">)</span>                  
+iast_tokens
+</pre>
+</div>
+</div>
+
+<div id="outline-container-lex_token" class="outline-4">
+<h4 id="lex_token"><code>lex_token</code></h4>
+<div class="outline-text-4" id="text-lex_token">
+<p>
+<code>lex_token</code> is Lexical analysis of <code>iast string(word)</code> which is to be
+converted into tokens For given input string there are 3 sliding window
+try to match the keyword of diff len
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #3a81c3; font-weight: bold;">def</span> <span style="color: #6c3163; font-weight: bold;">lex_iast</span><span style="color: #3a81c3;">(</span>keyword, word<span style="color: #3a81c3;">)</span>:
+    <span style="color: #715ab1;">tokens</span>=<span style="color: #3a81c3;">[]</span>
+    <span style="color: #715ab1;">slic_pstart</span> = 0 <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">previous start point</span>
+
+    <span style="color: #715ab1;">len_word</span> = <span style="color: #3a81c3;">len</span><span style="color: #3a81c3;">(</span>word<span style="color: #3a81c3;">)</span>
+    <span style="color: #715ab1;">slic3_flag</span> = <span style="color: #4e3163;">False</span>
+    <span style="color: #715ab1;">slic2_flag</span> = <span style="color: #4e3163;">False</span>
+    <span style="color: #715ab1;">slic1_flag</span> = <span style="color: #4e3163;">False</span>
+
+    <span style="color: #3a81c3; font-weight: bold;">for</span> idx, letter <span style="color: #3a81c3; font-weight: bold;">in</span> <span style="color: #3a81c3;">enumerate</span><span style="color: #3a81c3;">(</span>word<span style="color: #3a81c3;">)</span>:
+        <span style="color: #715ab1;">slic3</span> = word<span style="color: #3a81c3;">[</span>idx:idx+3<span style="color: #3a81c3;">]</span>
+        <span style="color: #3a81c3; font-weight: bold;">if</span> slic3 <span style="color: #3a81c3; font-weight: bold;">in</span> keyword<span style="color: #3a81c3;">[</span>0<span style="color: #3a81c3;">]</span>:
+            <span style="color: #715ab1;">slic3_flag</span>=<span style="color: #4e3163;">True</span>
+        <span style="color: #3a81c3; font-weight: bold;">else</span>:
+            <span style="color: #715ab1;">slic3_flag</span>=<span style="color: #4e3163;">False</span>
+        <span style="color: #715ab1;">slic2</span> = word<span style="color: #3a81c3;">[</span>idx:idx+2<span style="color: #3a81c3;">]</span>            
+        <span style="color: #3a81c3; font-weight: bold;">if</span> slic2 <span style="color: #3a81c3; font-weight: bold;">in</span> keyword<span style="color: #3a81c3;">[</span>1<span style="color: #3a81c3;">]</span>:
+            <span style="color: #715ab1;">slic2_flag</span>=<span style="color: #4e3163;">True</span>
+        <span style="color: #3a81c3; font-weight: bold;">else</span>:
+            <span style="color: #715ab1;">slic2_flag</span>=<span style="color: #4e3163;">False</span>        
+        <span style="color: #715ab1;">slic1</span> = word<span style="color: #3a81c3;">[</span>idx:idx+1<span style="color: #3a81c3;">]</span>        
+        <span style="color: #3a81c3; font-weight: bold;">if</span> slic1 <span style="color: #3a81c3; font-weight: bold;">in</span> keyword<span style="color: #3a81c3;">[</span>2<span style="color: #3a81c3;">]</span>:
+            <span style="color: #715ab1;">slic1_flag</span>=<span style="color: #4e3163;">True</span>
+        <span style="color: #3a81c3; font-weight: bold;">else</span>:
+            <span style="color: #715ab1;">slic1_flag</span>=<span style="color: #4e3163;">False</span>
+
+        <span style="color: #3a81c3; font-weight: bold;">if</span> slic3_flag:
+            <span style="color: #3a81c3; font-weight: bold;">if</span> slic_pstart &lt; idx:
+                <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print(f'Append missing data btw idx slic3 {slic_pstart}:{idx} {word[slic_pstart:idx]}' )                                                    </span>
+                tokens.append<span style="color: #3a81c3;">(</span>word<span style="color: #6c3163;">[</span>slic_pstart:idx<span style="color: #6c3163;">]</span><span style="color: #3a81c3;">)</span>
+            tokens.append<span style="color: #3a81c3;">(</span>slic3<span style="color: #3a81c3;">)</span>                
+            <span style="color: #715ab1;">slic_pstart</span>=idx+1 + <span style="color: #3a81c3;">len</span><span style="color: #3a81c3;">(</span>slic3<span style="color: #3a81c3;">)</span>-1
+            <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print(f'At index {idx} :Need to split3 at {slic3}' )</span>
+        <span style="color: #3a81c3; font-weight: bold;">else</span>:
+            <span style="color: #3a81c3; font-weight: bold;">if</span> slic2_flag:
+                <span style="color: #3a81c3; font-weight: bold;">if</span> slic_pstart &lt; idx:
+                    <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print(f'Append missing data btw idx slic2 {slic_pstart}:{idx} {word[slic_pstart:idx]}' )                                    </span>
+                    tokens.append<span style="color: #3a81c3;">(</span>word<span style="color: #6c3163;">[</span>slic_pstart:idx<span style="color: #6c3163;">]</span><span style="color: #3a81c3;">)</span>            
+                <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">if slic_pstart &lt;idx+1:</span>
+                tokens.append<span style="color: #3a81c3;">(</span>slic2<span style="color: #3a81c3;">)</span>
+                <span style="color: #715ab1;">slic_pstart</span>=idx+<span style="color: #3a81c3;">len</span><span style="color: #3a81c3;">(</span>slic2<span style="color: #3a81c3;">)</span>       
+                <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print(f'slic2 pstart:{slic_pstart}')</span>
+                <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print(f'At index {idx} :Need to split2 at {slic2} and set next start point: {idx+1+len(slic2)} and it value:{word[idx+len(slic2)]}' )                </span>
+            <span style="color: #3a81c3; font-weight: bold;">else</span>:
+                <span style="color: #3a81c3; font-weight: bold;">if</span> slic1_flag:
+                    <span style="color: #3a81c3; font-weight: bold;">if</span> slic_pstart &lt; idx:
+                        tokens.append<span style="color: #3a81c3;">(</span>word<span style="color: #6c3163;">[</span>slic_pstart:idx<span style="color: #6c3163;">]</span><span style="color: #3a81c3;">)</span>
+                        <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print(f'Append missing data btw idx slic1 {slic_pstart}:{idx} {word[slic_pstart:idx]}' )                                    </span>
+                    <span style="color: #3a81c3; font-weight: bold;">if</span> slic_pstart&lt;=idx:
+                        tokens.append<span style="color: #3a81c3;">(</span>slic1<span style="color: #3a81c3;">)</span>
+                        <span style="color: #715ab1;">slic_pstart</span>=idx+1 + <span style="color: #3a81c3;">len</span><span style="color: #3a81c3;">(</span>slic1<span style="color: #3a81c3;">)</span>-1
+                        <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print(f'At index {idx} :Need to split1 at {slic2}' )                                    </span>
+    <span style="color: #3a81c3; font-weight: bold;">return</span> tokens
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #715ab1;">word</span> = <span style="color: #2d9574;">'ka&#7745;  it&#257;&#7717; ki&#7745;  yuyutsava&#7717; kl&#805;&#772; kl&#805; p&#257;&#7751;&#7693;av&#257;n&#299;ka&#7745; it&#257;&#7717; ki&#7745; &#257;&#7745;  &#299;&#7745;   yuyutsu&#7745;  ki&#7745; r&#257;nsakh&#299;&#7745;stath&#257;'</span>
+<span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>IAST.iast2tokens<span style="color: #6c3163;">(</span> word<span style="color: #6c3163;">)</span> <span style="color: #3a81c3;">)</span>
+</pre>
+</div>
+
+<pre class="example" id="orgcf1483b">
+['k', 'a', 'ṁ', '  ', 'i', 't', 'ā', 'ḥ', ' ', 'k', 'i', 'ṁ', '  ', 'y', 'u', 'y', 'u', 't', 's', 'a', 'v', 'aḥ', ' ', 'k', 'l̥̄', ' ', 'k', 'l̥', ' ', 'p', 'ā', 'ṇ', 'ḍ', 'a', 'v', 'ā', 'n', 'ī', 'k', 'a', 'ṁ', ' ', 'i', 't', 'ā', 'ḥ', ' ', 'k', 'i', 'ṁ', ' ', 'ā', 'ṁ', '  ', 'ī', 'ṁ', '   ', 'y', 'u', 'y', 'u', 't', 's', 'u', 'ṁ', '  ', 'k', 'i', 'ṁ', ' ', 'r', 'ā', 'n', 's', 'a', 'kh', 'ī', 'ṁ', 's', 't', 'a', 'th', 'ā']
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org15b24d2" class="outline-3">
+<h3 id="org15b24d2">Convert token (IAST Char) to Indic Charater and indic propertices</h3>
+<div class="outline-text-3" id="text-org15b24d2">
+<p>
+<code>iast.tokens2dict_tokenes(tokens,indic_lang)</code>
+</p>
+<p>
+:CUSTOM_ID: convert-token-iast-char-to-indic-charater-and-indic-propertices-iast.tokens2dict_tokenestokensindic_lang
+</p>
+<p>
+iast.tokens2dict_tokenes(tokens,indic_lang) - each <code>iast token=(token)
+we search for aplhabet and barakhadi table - In alphabet input token is
+like =k, kh, g, gh...etc</code> which we need to match with
+<code>ka, kha, ga, gha,....etc</code> so In SQL Alphabet query we use <code>{token}%</code> -
+In barakadi input token can be <code>m, h,.....etc</code> which we need to match
+with <code>am, ah ....etc</code> so In SQL Barakadi query we use <code>%{token}</code>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6a7a981" class="outline-3">
+<h3 id="org6a7a981">rule and heuristics</h3>
+<div class="outline-text-3" id="text-org6a7a981">
+<p>
+for sql query like <code>n</code> will give result ,n̆ḍa,
+n̆ja=, n <br />
+</p>
+<ul class="org-ul">
+<li>For 1st 2 results we most of indic language is=NULL=so we loop untill we get=NON-NULL=value</li>
+<li>for sql query like=r=will give result=r̥ ,r̥̄ , r=so every r will be mapped to=ऋ=which is not desirable <br /></li>
+<li>for sql query like=l=will give result=l̥ ,l̥̄ =so every l will be mapped to=ऌ` which is not desirable</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">def tokens2dict_tokenes(self,tokens,indic_lang):</span>
+<span style="color: #715ab1;">input_tokens</span>=<span style="color: #2d9574;">''</span>
+<span style="color: #715ab1;">output_string</span> = <span style="color: #3a81c3;">[]</span>
+<span style="color: #3a81c3; font-weight: bold;">for</span> token <span style="color: #3a81c3; font-weight: bold;">in</span> tokens:
+    <span style="color: #715ab1;">query_bara</span> = f<span style="color: #2d9574;">"""SELECT IAST,</span>{indic_lang}<span style="color: #2d9574;"> FROM </span>{<span style="color: #3a81c3; font-weight: bold;">self</span>.barakhadi}<span style="color: #2d9574;"> WHERE IAST LIKE '%</span>{token}<span style="color: #2d9574;">'"""</span>
+    <span style="color: #715ab1;">query_alpha</span> = f<span style="color: #2d9574;">"""SELECT type, IAST,</span>{indic_lang}<span style="color: #2d9574;"> FROM </span>{<span style="color: #3a81c3; font-weight: bold;">self</span>.alphabet}<span style="color: #2d9574;"> WHERE IAST LIKE '</span>{token}<span style="color: #2d9574;">%'"""</span>
+    <span style="color: #715ab1;">data_alpha</span> = <span style="color: #3a81c3; font-weight: bold;">self</span>.get_query<span style="color: #3a81c3;">(</span>query_alpha<span style="color: #3a81c3;">)</span>
+    <span style="color: #715ab1;">data_bara</span> = <span style="color: #3a81c3; font-weight: bold;">self</span>.get_query<span style="color: #3a81c3;">(</span>query_bara<span style="color: #3a81c3;">)</span>
+    <span style="color: #715ab1;">input_tokens</span> += token+ <span style="color: #2d9574;">' '</span>
+    <span style="color: #715ab1;">temp_dic</span> = <span style="color: #3a81c3;">dict</span><span style="color: #3a81c3;">()</span>
+    <span style="color: #715ab1;">temp_dic</span><span style="color: #3a81c3;">[</span><span style="color: #2d9574;">'IAST'</span><span style="color: #3a81c3;">]</span>=token
+    <span style="color: #715ab1;">temp_dic</span><span style="color: #3a81c3;">[</span><span style="color: #2d9574;">'lang'</span><span style="color: #3a81c3;">]</span>=indic_lang
+    <span style="color: #3a81c3; font-weight: bold;">if</span> <span style="color: #3a81c3;">len</span><span style="color: #3a81c3;">(</span>data_alpha<span style="color: #3a81c3;">)</span>:
+        <span style="color: #715ab1;">temp_dic</span><span style="color: #3a81c3;">[</span><span style="color: #2d9574;">'type'</span><span style="color: #3a81c3;">]</span>=data_alpha<span style="color: #3a81c3;">[</span>0<span style="color: #3a81c3;">][</span><span style="color: #2d9574;">'type'</span><span style="color: #3a81c3;">]</span>
+        <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">temp_dic['alph']=data_alpha[0][indic_lang] # wrong method if token = n ,n&#774;&#7693;a, n&#774;ja then : </span>
+        <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">we 1st search result is none which we need to filter</span>
+        <span style="color: #3a81c3; font-weight: bold;">for</span> entry <span style="color: #3a81c3; font-weight: bold;">in</span> data_alpha:
+            <span style="color: #3a81c3; font-weight: bold;">if</span> token ==<span style="color: #2d9574;">'r'</span>:
+                <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print(entry)</span>
+                <span style="color: #3a81c3; font-weight: bold;">if</span> entry<span style="color: #3a81c3;">[</span><span style="color: #2d9574;">'IAST'</span><span style="color: #3a81c3;">]</span>==<span style="color: #2d9574;">'ra'</span>:
+                    <span style="color: #715ab1;">temp_dic</span><span style="color: #3a81c3;">[</span><span style="color: #2d9574;">'alph'</span><span style="color: #3a81c3;">]</span>=entry<span style="color: #3a81c3;">[</span>indic_lang<span style="color: #3a81c3;">]</span>
+                    <span style="color: #715ab1;">temp_dic</span><span style="color: #3a81c3;">[</span><span style="color: #2d9574;">'type'</span><span style="color: #3a81c3;">]</span>=entry<span style="color: #3a81c3;">[</span><span style="color: #2d9574;">'type'</span><span style="color: #3a81c3;">]</span>
+                    <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print(temp_dic)                    </span>
+                    <span style="color: #3a81c3; font-weight: bold;">break</span>        
+
+            <span style="color: #3a81c3; font-weight: bold;">if</span> token ==<span style="color: #2d9574;">'l'</span>:
+                <span style="color: #3a81c3; font-weight: bold;">if</span> entry<span style="color: #3a81c3;">[</span><span style="color: #2d9574;">'IAST'</span><span style="color: #3a81c3;">]</span>==<span style="color: #2d9574;">'la'</span>:
+                    <span style="color: #715ab1;">temp_dic</span><span style="color: #3a81c3;">[</span><span style="color: #2d9574;">'alph'</span><span style="color: #3a81c3;">]</span>=entry<span style="color: #3a81c3;">[</span>indic_lang<span style="color: #3a81c3;">]</span>
+                    <span style="color: #715ab1;">temp_dic</span><span style="color: #3a81c3;">[</span><span style="color: #2d9574;">'type'</span><span style="color: #3a81c3;">]</span>=entry<span style="color: #3a81c3;">[</span><span style="color: #2d9574;">'type'</span><span style="color: #3a81c3;">]</span>
+                    <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print(temp_dic)                    </span>
+                    <span style="color: #3a81c3; font-weight: bold;">break</span>        
+
+            <span style="color: #3a81c3; font-weight: bold;">if</span> entry<span style="color: #3a81c3;">[</span>indic_lang<span style="color: #3a81c3;">]</span> <span style="color: #3a81c3; font-weight: bold;">is</span> <span style="color: #3a81c3; font-weight: bold;">not</span> <span style="color: #4e3163;">None</span> <span style="color: #3a81c3; font-weight: bold;">and</span><span style="color: #3a81c3;">(</span> token!=<span style="color: #2d9574;">'r'</span><span style="color: #3a81c3;">)</span> <span style="color: #3a81c3; font-weight: bold;">and</span> <span style="color: #3a81c3;">(</span> token!=<span style="color: #2d9574;">'l'</span><span style="color: #3a81c3;">)</span> :
+                <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print(entry['Telugu'],entry['IAST'],entry['type'])</span>
+                <span style="color: #715ab1;">temp_dic</span><span style="color: #3a81c3;">[</span><span style="color: #2d9574;">'alph'</span><span style="color: #3a81c3;">]</span>=entry<span style="color: #3a81c3;">[</span>indic_lang<span style="color: #3a81c3;">]</span>
+                <span style="color: #715ab1;">temp_dic</span><span style="color: #3a81c3;">[</span><span style="color: #2d9574;">'type'</span><span style="color: #3a81c3;">]</span>=entry<span style="color: #3a81c3;">[</span><span style="color: #2d9574;">'type'</span><span style="color: #3a81c3;">]</span>
+                <span style="color: #3a81c3; font-weight: bold;">break</span>        
+        <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">output_string +=' | '+ data_alpha[0][indic_lang]+' : '  +data_alpha[0]['type'] +' | '</span>
+    <span style="color: #3a81c3; font-weight: bold;">else</span>:
+        <span style="color: #715ab1;">temp_dic</span><span style="color: #3a81c3;">[</span><span style="color: #2d9574;">'alph'</span><span style="color: #3a81c3;">]</span>=<span style="color: #4e3163;">None</span>
+    <span style="color: #3a81c3; font-weight: bold;">if</span> <span style="color: #3a81c3;">len</span><span style="color: #3a81c3;">(</span>data_bara<span style="color: #3a81c3;">)</span>:
+        <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">output_string +=' | '+ data_bara[0][indic_lang] +' | '</span>
+        <span style="color: #715ab1;">temp_dic</span><span style="color: #3a81c3;">[</span><span style="color: #2d9574;">'type'</span><span style="color: #3a81c3;">]</span>=<span style="color: #2d9574;">'vowel'</span>
+        <span style="color: #715ab1;">temp_dic</span><span style="color: #3a81c3;">[</span><span style="color: #2d9574;">'bara'</span><span style="color: #3a81c3;">]</span>=data_bara<span style="color: #3a81c3;">[</span>0<span style="color: #3a81c3;">][</span>indic_lang<span style="color: #3a81c3;">]</span>
+    <span style="color: #3a81c3; font-weight: bold;">else</span>:
+        <span style="color: #715ab1;">temp_dic</span><span style="color: #3a81c3;">[</span><span style="color: #2d9574;">'bara'</span><span style="color: #3a81c3;">]</span>=<span style="color: #4e3163;">None</span>
+    output_string.append<span style="color: #3a81c3;">(</span>temp_dic<span style="color: #3a81c3;">)</span>
+<span style="color: #3a81c3; font-weight: bold;">return</span> output_string
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #715ab1;">indic_lang</span> = <span style="color: #2d9574;">'Telugu'</span> <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">'Kannada' # 'Telugu'</span>
+<span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">tokens = IAST.iast2tokens(vowel_plist, consonant_list, word) </span>
+<span style="color: #715ab1;">tokens</span> = IAST.iast2tokens<span style="color: #3a81c3;">(</span> word<span style="color: #3a81c3;">)</span> 
+<span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print(tokens)</span>
+<span style="color: #715ab1;">output_string</span> = iast.tokens2dict_tokenes<span style="color: #3a81c3;">(</span>tokens,indic_lang<span style="color: #3a81c3;">)</span>
+<span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print(output_string)</span>
+<span style="color: #3a81c3; font-weight: bold;">for</span> i <span style="color: #3a81c3; font-weight: bold;">in</span> output_string:
+    <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>i<span style="color: #3a81c3;">)</span>
+<span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">output_string</span>
+</pre>
+</div>
+
+<pre class="example" id="orgba7f814">
+{'IAST': 'k', 'lang': 'Telugu', 'type': 'consonants', 'alph': 'క', 'bara': None}
+{'IAST': 'a', 'lang': 'Telugu', 'type': 'vowel', 'alph': 'అ', 'bara': None}
+{'IAST': 'ṁ', 'lang': 'Telugu', 'alph': None, 'type': 'vowel', 'bara': 'ం'}
+{'IAST': '  ', 'lang': 'Telugu', 'alph': None, 'bara': None}
+{'IAST': 'i', 'lang': 'Telugu', 'type': 'vowel', 'alph': 'ఇ', 'bara': 'ి'}
+{'IAST': 't', 'lang': 'Telugu', 'type': 'consonants', 'alph': 'త', 'bara': None}
+{'IAST': 'ā', 'lang': 'Telugu', 'type': 'vowel', 'alph': 'ఆ', 'bara': 'ా'}
+{'IAST': 'ḥ', 'lang': 'Telugu', 'alph': None, 'type': 'vowel', 'bara': 'ః'}
+{'IAST': ' ', 'lang': 'Telugu', 'alph': None, 'bara': None}
+{'IAST': 'k', 'lang': 'Telugu', 'type': 'consonants', 'alph': 'క', 'bara': None}
+{'IAST': 'i', 'lang': 'Telugu', 'type': 'vowel', 'alph': 'ఇ', 'bara': 'ి'}
+{'IAST': 'ṁ', 'lang': 'Telugu', 'alph': None, 'type': 'vowel', 'bara': 'ం'}
+{'IAST': '  ', 'lang': 'Telugu', 'alph': None, 'bara': None}
+{'IAST': 'y', 'lang': 'Telugu', 'type': 'consonants', 'alph': 'య', 'bara': None}
+{'IAST': 'u', 'lang': 'Telugu', 'type': 'vowel', 'alph': 'ఉ', 'bara': 'ు'}
+{'IAST': 'y', 'lang': 'Telugu', 'type': 'consonants', 'alph': 'య', 'bara': None}
+{'IAST': 'u', 'lang': 'Telugu', 'type': 'vowel', 'alph': 'ఉ', 'bara': 'ు'}
+{'IAST': 't', 'lang': 'Telugu', 'type': 'consonants', 'alph': 'త', 'bara': None}
+{'IAST': 's', 'lang': 'Telugu', 'type': 'consonants', 'alph': 'స', 'bara': None}
+{'IAST': 'a', 'lang': 'Telugu', 'type': 'vowel', 'alph': 'అ', 'bara': None}
+{'IAST': 'v', 'lang': 'Telugu', 'type': 'consonants', 'alph': 'వ', 'bara': None}
+{'IAST': 'aḥ', 'lang': 'Telugu', 'alph': None, 'type': 'vowel', 'bara': 'ః'}
+{'IAST': ' ', 'lang': 'Telugu', 'alph': None, 'bara': None}
+{'IAST': 'k', 'lang': 'Telugu', 'type': 'consonants', 'alph': 'క', 'bara': None}
+{'IAST': 'l̥̄', 'lang': 'Telugu', 'type': 'vowel', 'alph': 'ౡ', 'bara': 'ౣ'}
+{'IAST': ' ', 'lang': 'Telugu', 'alph': None, 'bara': None}
+{'IAST': 'k', 'lang': 'Telugu', 'type': 'consonants', 'alph': 'క', 'bara': None}
+{'IAST': 'l̥', 'lang': 'Telugu', 'type': 'vowel', 'alph': 'ఌ', 'bara': 'ౢ'}
+{'IAST': ' ', 'lang': 'Telugu', 'alph': None, 'bara': None}
+{'IAST': 'p', 'lang': 'Telugu', 'type': 'consonants', 'alph': 'ప', 'bara': None}
+{'IAST': 'ā', 'lang': 'Telugu', 'type': 'vowel', 'alph': 'ఆ', 'bara': 'ా'}
+{'IAST': 'ṇ', 'lang': 'Telugu', 'type': 'consonants', 'alph': 'ణ', 'bara': None}
+{'IAST': 'ḍ', 'lang': 'Telugu', 'type': 'consonants', 'alph': 'డ', 'bara': None}
+{'IAST': 'a', 'lang': 'Telugu', 'type': 'vowel', 'alph': 'అ', 'bara': None}
+{'IAST': 'v', 'lang': 'Telugu', 'type': 'consonants', 'alph': 'వ', 'bara': None}
+{'IAST': 'ā', 'lang': 'Telugu', 'type': 'vowel', 'alph': 'ఆ', 'bara': 'ా'}
+{'IAST': 'n', 'lang': 'Telugu', 'type': 'consonants', 'alph': 'న', 'bara': None}
+{'IAST': 'ī', 'lang': 'Telugu', 'type': 'vowel', 'alph': 'ఈ', 'bara': 'ీ'}
+{'IAST': 'k', 'lang': 'Telugu', 'type': 'consonants', 'alph': 'క', 'bara': None}
+{'IAST': 'a', 'lang': 'Telugu', 'type': 'vowel', 'alph': 'అ', 'bara': None}
+{'IAST': 'ṁ', 'lang': 'Telugu', 'alph': None, 'type': 'vowel', 'bara': 'ం'}
+{'IAST': ' ', 'lang': 'Telugu', 'alph': None, 'bara': None}
+{'IAST': 'i', 'lang': 'Telugu', 'type': 'vowel', 'alph': 'ఇ', 'bara': 'ి'}
+{'IAST': 't', 'lang': 'Telugu', 'type': 'consonants', 'alph': 'త', 'bara': None}
+{'IAST': 'ā', 'lang': 'Telugu', 'type': 'vowel', 'alph': 'ఆ', 'bara': 'ా'}
+{'IAST': 'ḥ', 'lang': 'Telugu', 'alph': None, 'type': 'vowel', 'bara': 'ః'}
+{'IAST': ' ', 'lang': 'Telugu', 'alph': None, 'bara': None}
+{'IAST': 'k', 'lang': 'Telugu', 'type': 'consonants', 'alph': 'క', 'bara': None}
+{'IAST': 'i', 'lang': 'Telugu', 'type': 'vowel', 'alph': 'ఇ', 'bara': 'ి'}
+{'IAST': 'ṁ', 'lang': 'Telugu', 'alph': None, 'type': 'vowel', 'bara': 'ం'}
+{'IAST': ' ', 'lang': 'Telugu', 'alph': None, 'bara': None}
+{'IAST': 'ā', 'lang': 'Telugu', 'type': 'vowel', 'alph': 'ఆ', 'bara': 'ా'}
+{'IAST': 'ṁ', 'lang': 'Telugu', 'alph': None, 'type': 'vowel', 'bara': 'ం'}
+{'IAST': '  ', 'lang': 'Telugu', 'alph': None, 'bara': None}
+{'IAST': 'ī', 'lang': 'Telugu', 'type': 'vowel', 'alph': 'ఈ', 'bara': 'ీ'}
+{'IAST': 'ṁ', 'lang': 'Telugu', 'alph': None, 'type': 'vowel', 'bara': 'ం'}
+{'IAST': '  ', 'lang': 'Telugu', 'alph': None, 'bara': None}
+{'IAST': 'k', 'lang': 'Telugu', 'type': 'consonants', 'alph': 'క', 'bara': None}
+{'IAST': 'i', 'lang': 'Telugu', 'type': 'vowel', 'alph': 'ఇ', 'bara': 'ి'}
+{'IAST': 'ṁ', 'lang': 'Telugu', 'alph': None, 'type': 'vowel', 'bara': 'ం'}
+{'IAST': ' ', 'lang': 'Telugu', 'alph': None, 'bara': None}
+{'IAST': 'y', 'lang': 'Telugu', 'type': 'consonants', 'alph': 'య', 'bara': None}
+{'IAST': 'u', 'lang': 'Telugu', 'type': 'vowel', 'alph': 'ఉ', 'bara': 'ు'}
+{'IAST': 'y', 'lang': 'Telugu', 'type': 'consonants', 'alph': 'య', 'bara': None}
+{'IAST': 'u', 'lang': 'Telugu', 'type': 'vowel', 'alph': 'ఉ', 'bara': 'ు'}
+{'IAST': 't', 'lang': 'Telugu', 'type': 'consonants', 'alph': 'త', 'bara': None}
+{'IAST': 's', 'lang': 'Telugu', 'type': 'consonants', 'alph': 'స', 'bara': None}
+{'IAST': 'u', 'lang': 'Telugu', 'type': 'vowel', 'alph': 'ఉ', 'bara': 'ు'}
+{'IAST': 'ṁ', 'lang': 'Telugu', 'alph': None, 'type': 'vowel', 'bara': 'ం'}
+{'IAST': ' ', 'lang': 'Telugu', 'alph': None, 'bara': None}
+{'IAST': 'r', 'lang': 'Telugu', 'type': 'consonants', 'alph': 'ర', 'bara': None}
+{'IAST': 'ā', 'lang': 'Telugu', 'type': 'vowel', 'alph': 'ఆ', 'bara': 'ా'}
+{'IAST': 'n', 'lang': 'Telugu', 'type': 'consonants', 'alph': 'న', 'bara': None}
+{'IAST': 's', 'lang': 'Telugu', 'type': 'consonants', 'alph': 'స', 'bara': None}
+{'IAST': 'a', 'lang': 'Telugu', 'type': 'vowel', 'alph': 'అ', 'bara': None}
+{'IAST': 'kh', 'lang': 'Telugu', 'type': 'consonants', 'alph': 'ఖ', 'bara': None}
+{'IAST': 'ī', 'lang': 'Telugu', 'type': 'vowel', 'alph': 'ఈ', 'bara': 'ీ'}
+{'IAST': 'ṁ', 'lang': 'Telugu', 'alph': None, 'type': 'vowel', 'bara': 'ం'}
+{'IAST': 's', 'lang': 'Telugu', 'type': 'consonants', 'alph': 'స', 'bara': None}
+{'IAST': 't', 'lang': 'Telugu', 'type': 'consonants', 'alph': 'త', 'bara': None}
+{'IAST': 'a', 'lang': 'Telugu', 'type': 'vowel', 'alph': 'అ', 'bara': None}
+{'IAST': 'th', 'lang': 'Telugu', 'type': 'consonants', 'alph': 'థ', 'bara': None}
+{'IAST': 'ā', 'lang': 'Telugu', 'type': 'vowel', 'alph': 'ఆ', 'bara': 'ా'}
+</pre>
+</div>
+</div>
+
+<div id="outline-container-create-indic-string-using-indic-dictionary-tokens" class="outline-3">
+<h3 id="create-indic-string-using-indic-dictionary-tokens">Create Indic String using indic dictionary tokens</h3>
+<div class="outline-text-3" id="text-create-indic-string-using-indic-dictionary-tokens">
+<p>
+For converting iast to indic there is ambiguity in vowels and consonant <br />
+<b>Eg for vowel</b> : given iast <b>chr</b> vowel <code>ā</code> the output can be either <code>आ</code>
+or <code>ा</code> which we decide by <b>previous char</b> and <b>next char</b><br />
+Given input Indic dict Token List we need to convert to string means we
+need to select (alpha or bara) in output
+<b>Eg for consonant</b>:
+</p>
+<ul class="org-ul">
+<li>'k','i' &gt; 'ka' + 'i' &gt; क' + 'ि' &gt;&gt; कि</li>
+<li>'k'+ 'ṣ' + 'ē' &gt; 'k'+ 'ṣa' + 'ē' &gt; 'ka'+ halant + 'ṣa' + 'ē' &gt; 'क' +' ्' + 'ष' +' े' &gt;&gt; क्षे</li>
+<li>tat &gt;&gt; 't' + 'a' + 't' &gt;&gt; 'ta' + 'ta'+ halant = 'त' + 'त' + ' ्' &gt;&gt; तत्</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #3a81c3; font-weight: bold;">if</span> current char <span style="color: #3a81c3; font-weight: bold;">is</span> `vowel`:
+    <span style="color: #3a81c3; font-weight: bold;">if</span> previous char <span style="color: #3a81c3; font-weight: bold;">is</span> `consonants`:
+        <span style="color: #3a81c3; font-weight: bold;">if</span> current char ==<span style="color: #2d9574;">'a'</span>:
+            skip <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">'k','a' =&gt; &#2325;' + '' &gt;&gt; &#2325;'</span>
+        <span style="color: #3a81c3; font-weight: bold;">else</span>:
+            <span style="color: #715ab1;">output</span>=output + char<span style="color: #3a81c3;">[</span><span style="color: #2d9574;">'barakadi'</span><span style="color: #3a81c3;">]</span> <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;"># 'k','i'= &gt; &#2325;' + '&#2367;' &gt;&gt; &#2325;&#2367;</span>
+    <span style="color: #3a81c3; font-weight: bold;">if</span> previous char <span style="color: #3a81c3; font-weight: bold;">is</span> `vowel`:
+        <span style="color: #715ab1;">output</span>=output + char<span style="color: #3a81c3;">[</span><span style="color: #2d9574;">'barakadi'</span><span style="color: #3a81c3;">]</span> <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;"># 'k','i','&#7745;'= &gt; &#2325;' + '&#2367;' + '&#2306;' &gt;&gt; &#2325;&#2367;&#2306; </span>
+    <span style="color: #3a81c3; font-weight: bold;">if</span> previous char <span style="color: #3a81c3; font-weight: bold;">is</span> `<span style="color: #4e3163;">None</span>`:
+        <span style="color: #715ab1;">output</span>=output + char<span style="color: #3a81c3;">[</span><span style="color: #2d9574;">'alphabet'</span><span style="color: #3a81c3;">]</span>       <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">iti &gt;&gt;&#2311;&#2340;&#2367;</span>
+
+<span style="color: #3a81c3; font-weight: bold;">if</span> current char <span style="color: #3a81c3; font-weight: bold;">is</span> `consonants`:
+    <span style="color: #3a81c3; font-weight: bold;">if</span> <span style="color: #3a81c3;">next</span> char <span style="color: #3a81c3; font-weight: bold;">is</span> `vowel`:
+        <span style="color: #715ab1;">output</span>=output + char<span style="color: #3a81c3;">[</span><span style="color: #2d9574;">'alphabet'</span><span style="color: #3a81c3;">]</span> <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;"># 'k','i'= &gt; &#2325;' + '&#2367;' &gt;&gt; &#2325;&#2367;</span>
+    <span style="color: #3a81c3; font-weight: bold;">if</span> <span style="color: #3a81c3;">next</span> char <span style="color: #3a81c3; font-weight: bold;">is</span> `consonant`:
+        <span style="color: #715ab1;">output</span>=output + char<span style="color: #3a81c3;">[</span><span style="color: #2d9574;">'alphabet'</span><span style="color: #3a81c3;">]</span>+ halant <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">k&#7779;&#275;tra&#7745;: k&#7779;&#275;&gt; k+&#7779;&#275; &gt;&gt;  &#2325;&#2381; +&#2359;&#2375;  &gt;&gt; &#2325;&#2381;&#2359;&#2375;&#2340;&#2381;&#2352;&#2306; </span>
+    <span style="color: #3a81c3; font-weight: bold;">if</span> <span style="color: #3a81c3;">next</span> char <span style="color: #3a81c3; font-weight: bold;">is</span> `<span style="color: #4e3163;">None</span>`:
+    <span style="color: #715ab1;">output</span>=output char<span style="color: #3a81c3;">[</span><span style="color: #2d9574;">'alphabet'</span><span style="color: #3a81c3;">]</span>+ halant       <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">tat &gt;&gt;&#2340;&#2340;&#2381;</span>
+
+
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #3a81c3;">[</span><span style="color: #6c3163;">{</span><span style="color: #2d9574;">'IAST'</span>: <span style="color: #2d9574;">'k'</span>, <span style="color: #2d9574;">'lang'</span>: <span style="color: #2d9574;">'Telugu'</span>, <span style="color: #2d9574;">'type'</span>: <span style="color: #2d9574;">'consonants'</span>, <span style="color: #2d9574;">'alph'</span>: <span style="color: #2d9574;">'&#3093;'</span>, <span style="color: #2d9574;">'bara'</span>: <span style="color: #4e3163;">None</span><span style="color: #6c3163;">}</span>
+<span style="color: #6c3163;">{</span><span style="color: #2d9574;">'IAST'</span>: <span style="color: #2d9574;">'a'</span>, <span style="color: #2d9574;">'lang'</span>: <span style="color: #2d9574;">'Telugu'</span>, <span style="color: #2d9574;">'type'</span>: <span style="color: #2d9574;">'vowel'</span>, <span style="color: #2d9574;">'alph'</span>: <span style="color: #2d9574;">'&#3077;'</span>, <span style="color: #2d9574;">'bara'</span>: <span style="color: #4e3163;">None</span><span style="color: #6c3163;">}</span>
+<span style="color: #6c3163;">{</span><span style="color: #2d9574;">'IAST'</span>: <span style="color: #2d9574;">'&#7745;'</span>, <span style="color: #2d9574;">'lang'</span>: <span style="color: #2d9574;">'Telugu'</span>, <span style="color: #2d9574;">'alph'</span>: <span style="color: #4e3163;">None</span>, <span style="color: #2d9574;">'type'</span>: <span style="color: #2d9574;">'vowel'</span>, <span style="color: #2d9574;">'bara'</span>: <span style="color: #2d9574;">'&#3074;'</span><span style="color: #6c3163;">}</span>
+<span style="color: #6c3163;">{</span><span style="color: #2d9574;">'IAST'</span>: <span style="color: #2d9574;">'  '</span>, <span style="color: #2d9574;">'lang'</span>: <span style="color: #2d9574;">'Telugu'</span>, <span style="color: #2d9574;">'alph'</span>: <span style="color: #4e3163;">None</span>, <span style="color: #2d9574;">'bara'</span>: <span style="color: #4e3163;">None</span><span style="color: #6c3163;">}</span>
+<span style="color: #6c3163;">{</span><span style="color: #2d9574;">'IAST'</span>: <span style="color: #2d9574;">'i'</span>, <span style="color: #2d9574;">'lang'</span>: <span style="color: #2d9574;">'Telugu'</span>, <span style="color: #2d9574;">'type'</span>: <span style="color: #2d9574;">'vowel'</span>, <span style="color: #2d9574;">'alph'</span>: <span style="color: #2d9574;">'&#3079;'</span>, <span style="color: #2d9574;">'bara'</span>: <span style="color: #2d9574;">'&#3135;'</span><span style="color: #6c3163;">}</span>
+<span style="color: #6c3163;">{</span><span style="color: #2d9574;">'IAST'</span>: <span style="color: #2d9574;">'t'</span>, <span style="color: #2d9574;">'lang'</span>: <span style="color: #2d9574;">'Telugu'</span>, <span style="color: #2d9574;">'type'</span>: <span style="color: #2d9574;">'consonants'</span>, <span style="color: #2d9574;">'alph'</span>: <span style="color: #2d9574;">'&#3108;'</span>, <span style="color: #2d9574;">'bara'</span>: <span style="color: #4e3163;">None</span><span style="color: #6c3163;">}</span>
+<span style="color: #6c3163;">{</span><span style="color: #2d9574;">'IAST'</span>: <span style="color: #2d9574;">'&#257;'</span>, <span style="color: #2d9574;">'lang'</span>: <span style="color: #2d9574;">'Telugu'</span>, <span style="color: #2d9574;">'type'</span>: <span style="color: #2d9574;">'vowel'</span>, <span style="color: #2d9574;">'alph'</span>: <span style="color: #2d9574;">'&#3078;'</span>, <span style="color: #2d9574;">'bara'</span>: <span style="color: #2d9574;">'&#3134;'</span><span style="color: #6c3163;">}</span>
+<span style="color: #6c3163;">{</span><span style="color: #2d9574;">'IAST'</span>: <span style="color: #2d9574;">'&#7717;'</span>, <span style="color: #2d9574;">'lang'</span>: <span style="color: #2d9574;">'Telugu'</span>, <span style="color: #2d9574;">'alph'</span>: <span style="color: #4e3163;">None</span>, <span style="color: #2d9574;">'type'</span>: <span style="color: #2d9574;">'vowel'</span>, <span style="color: #2d9574;">'bara'</span>: <span style="color: #2d9574;">'&#3075;'</span><span style="color: #6c3163;">}</span><span style="color: #3a81c3;">]</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">def dict_tokens2indic(output_string,halant):                    </span>
+<span style="color: #715ab1;">output</span>=<span style="color: #2d9574;">''</span>
+<span style="color: #3a81c3; font-weight: bold;">for</span> idx, item <span style="color: #3a81c3; font-weight: bold;">in</span> <span style="color: #3a81c3;">enumerate</span><span style="color: #3a81c3;">(</span>output_string<span style="color: #3a81c3;">)</span>:
+    <span style="color: #715ab1;">print_status</span> = <span style="color: #4e3163;">False</span>    
+    <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print(idx, item)</span>
+    <span style="color: #3a81c3; font-weight: bold;">if</span> idx ==0:
+        <span style="color: #715ab1;">prev_item</span>=<span style="color: #3a81c3;">dict</span><span style="color: #3a81c3;">()</span>
+    <span style="color: #3a81c3; font-weight: bold;">else</span>:
+        <span style="color: #715ab1;">prev_item</span>=output_string<span style="color: #3a81c3;">[</span>idx-1<span style="color: #3a81c3;">]</span>
+    <span style="color: #3a81c3; font-weight: bold;">if</span> idx &lt; <span style="color: #3a81c3;">len</span><span style="color: #3a81c3;">(</span>output_string<span style="color: #3a81c3;">)</span>-1:
+
+        <span style="color: #715ab1;">next_item</span> = output_string<span style="color: #3a81c3;">[</span>idx+1<span style="color: #3a81c3;">]</span>
+    <span style="color: #3a81c3; font-weight: bold;">elif</span> idx ==<span style="color: #3a81c3;">len</span><span style="color: #3a81c3;">(</span>output_string<span style="color: #3a81c3;">)</span>-1:
+        <span style="color: #715ab1;">next_item</span> = <span style="color: #3a81c3;">dict</span><span style="color: #3a81c3;">()</span>
+
+    <span style="color: #3a81c3; font-weight: bold;">if</span> <span style="color: #2d9574;">'type'</span> <span style="color: #3a81c3; font-weight: bold;">in</span> item.keys<span style="color: #3a81c3;">()</span> <span style="color: #3a81c3; font-weight: bold;">and</span> item<span style="color: #3a81c3;">[</span><span style="color: #2d9574;">'type'</span><span style="color: #3a81c3;">]</span>==<span style="color: #2d9574;">'consonants'</span>:
+        <span style="color: #3a81c3; font-weight: bold;">if</span> <span style="color: #2d9574;">'type'</span> <span style="color: #3a81c3; font-weight: bold;">in</span> next_item.keys<span style="color: #3a81c3;">()</span> <span style="color: #3a81c3; font-weight: bold;">and</span> next_item<span style="color: #3a81c3;">[</span><span style="color: #2d9574;">'type'</span><span style="color: #3a81c3;">]</span>==<span style="color: #2d9574;">'vowel'</span>:
+            <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print(item['alph'], end=" ")</span>
+            <span style="color: #715ab1;">output</span> +=item<span style="color: #3a81c3;">[</span><span style="color: #2d9574;">'alph'</span><span style="color: #3a81c3;">]</span>
+            <span style="color: #715ab1;">print_status</span> =<span style="color: #4e3163;">True</span>
+        <span style="color: #3a81c3; font-weight: bold;">elif</span> <span style="color: #2d9574;">'type'</span> <span style="color: #3a81c3; font-weight: bold;">in</span> next_item.keys<span style="color: #3a81c3;">()</span> <span style="color: #3a81c3; font-weight: bold;">and</span> next_item<span style="color: #3a81c3;">[</span><span style="color: #2d9574;">'type'</span><span style="color: #3a81c3;">]</span>==<span style="color: #2d9574;">'consonants'</span>:
+            <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print(item['alph']+halant,end="")</span>
+            <span style="color: #715ab1;">output</span> +=item<span style="color: #3a81c3;">[</span><span style="color: #2d9574;">'alph'</span><span style="color: #3a81c3;">]</span>+halant
+            <span style="color: #715ab1;">print_status</span> =<span style="color: #4e3163;">True</span>
+        <span style="color: #3a81c3; font-weight: bold;">elif</span> <span style="color: #2d9574;">'type'</span> <span style="color: #3a81c3; font-weight: bold;">not</span> <span style="color: #3a81c3; font-weight: bold;">in</span> next_item: <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">word ending with consonant and halant</span>
+            <span style="color: #715ab1;">output</span> +=item<span style="color: #3a81c3;">[</span><span style="color: #2d9574;">'alph'</span><span style="color: #3a81c3;">]</span>+halant
+            <span style="color: #715ab1;">print_status</span> =<span style="color: #4e3163;">True</span>
+
+
+    <span style="color: #3a81c3; font-weight: bold;">if</span> <span style="color: #2d9574;">'type'</span> <span style="color: #3a81c3; font-weight: bold;">in</span> item.keys<span style="color: #3a81c3;">()</span> <span style="color: #3a81c3; font-weight: bold;">and</span> item<span style="color: #3a81c3;">[</span><span style="color: #2d9574;">'type'</span><span style="color: #3a81c3;">]</span>==<span style="color: #2d9574;">'vowel'</span>:
+        <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print('ITEM: ',item)</span>
+        <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print('PREV ITEM: ',prev_item)</span>
+        <span style="color: #3a81c3; font-weight: bold;">if</span> <span style="color: #2d9574;">'type'</span> <span style="color: #3a81c3; font-weight: bold;">in</span> prev_item.keys<span style="color: #3a81c3;">()</span> <span style="color: #3a81c3; font-weight: bold;">and</span> prev_item<span style="color: #3a81c3;">[</span><span style="color: #2d9574;">'type'</span><span style="color: #3a81c3;">]</span>==<span style="color: #2d9574;">'consonants'</span>:
+            <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print(item['bara'], end=' ')</span>
+            <span style="color: #3a81c3; font-weight: bold;">if</span> item<span style="color: #3a81c3;">[</span><span style="color: #2d9574;">'IAST'</span><span style="color: #3a81c3;">]</span>==<span style="color: #2d9574;">'a'</span>:
+                <span style="color: #715ab1;">print_status</span> =<span style="color: #4e3163;">True</span>                            
+                <span style="color: #3a81c3; font-weight: bold;">pass</span>
+            <span style="color: #3a81c3; font-weight: bold;">else</span>:        
+                <span style="color: #715ab1;">output</span> +=item<span style="color: #3a81c3;">[</span><span style="color: #2d9574;">'bara'</span><span style="color: #3a81c3;">]</span>
+                <span style="color: #715ab1;">print_status</span> =<span style="color: #4e3163;">True</span>            
+            <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print(item)</span>
+
+        <span style="color: #3a81c3; font-weight: bold;">if</span> <span style="color: #2d9574;">'type'</span> <span style="color: #3a81c3; font-weight: bold;">in</span> prev_item.keys<span style="color: #3a81c3;">()</span> <span style="color: #3a81c3; font-weight: bold;">and</span> prev_item<span style="color: #3a81c3;">[</span><span style="color: #2d9574;">'type'</span><span style="color: #3a81c3;">]</span>==<span style="color: #2d9574;">'vowel'</span>:
+            <span style="color: #715ab1;">output</span> +=item<span style="color: #3a81c3;">[</span><span style="color: #2d9574;">'bara'</span><span style="color: #3a81c3;">]</span>            
+            <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print(item)</span>
+            <span style="color: #715ab1;">print_status</span> =<span style="color: #4e3163;">True</span>
+        <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">pass</span>
+        <span style="color: #3a81c3; font-weight: bold;">if</span> <span style="color: #2d9574;">'type'</span> <span style="color: #3a81c3; font-weight: bold;">not</span> <span style="color: #3a81c3; font-weight: bold;">in</span> prev_item : <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">starting of word or starting of line</span>
+            <span style="color: #3a81c3; font-weight: bold;">if</span> item<span style="color: #3a81c3;">[</span><span style="color: #2d9574;">'alph'</span><span style="color: #3a81c3;">]</span> <span style="color: #3a81c3; font-weight: bold;">is</span> <span style="color: #3a81c3; font-weight: bold;">not</span> <span style="color: #4e3163;">None</span> :
+                <span style="color: #715ab1;">output</span> +=item<span style="color: #3a81c3;">[</span><span style="color: #2d9574;">'alph'</span><span style="color: #3a81c3;">]</span>                            
+                <span style="color: #715ab1;">print_status</span> =<span style="color: #4e3163;">True</span>                
+
+
+    <span style="color: #3a81c3; font-weight: bold;">if</span> <span style="color: #3a81c3; font-weight: bold;">not</span> print_status:
+        <span style="color: #715ab1;">output</span> +=item<span style="color: #3a81c3;">[</span><span style="color: #2d9574;">'IAST'</span><span style="color: #3a81c3;">]</span>
+    <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print(output)</span>
+<span style="color: #3a81c3; font-weight: bold;">return</span> output
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #715ab1;">word</span> = <span style="color: #2d9574;">'ka&#7745;  it&#257;&#7717; ki&#7745;  yuyutsava&#7717;  p&#257;&#7751;&#7693;av&#257;n&#299;ka&#7745; it&#257;&#7717; ki&#7745; &#257;&#7745;  &#299;&#7745;  ki&#7745; yuyutsu&#7745; r&#257;nsakh&#299;&#7745;stath&#257;'</span>
+<span style="color: #715ab1;">indic_lang</span> = <span style="color: #2d9574;">'Telugu'</span> <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">'Kannada' # 'Telugu'</span>
+<span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">def iast2indic(iast,vowel_plist,consonant_list,word,indic_lang):</span>
+<span style="color: #715ab1;">tokens</span>= IAST.iast2tokens<span style="color: #3a81c3;">(</span> word<span style="color: #3a81c3;">)</span>
+
+<span style="color: #715ab1;">dict_tokene_list</span> = iast.tokens2dict_tokenes<span style="color: #3a81c3;">(</span>tokens,indic_lang<span style="color: #3a81c3;">)</span>
+<span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print(output_string)</span>
+<span style="color: #715ab1;">halant</span>=iast.get_indic_halant<span style="color: #3a81c3;">(</span>indic_lang<span style="color: #3a81c3;">)</span>
+
+<span style="color: #715ab1;">output</span>=IAST.dict_tokens2indic<span style="color: #3a81c3;">(</span>dict_tokene_list,halant<span style="color: #3a81c3;">)</span>
+<span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>word<span style="color: #3a81c3;">)</span>
+<span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>tokens<span style="color: #3a81c3;">)</span>
+<span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print(halant)</span>
+<span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>output<span style="color: #3a81c3;">)</span>
+</pre>
+</div>
+
+<pre class="example" id="org66d13f9">
+kaṁ  itāḥ kiṁ  yuyutsavaḥ  pāṇḍavānīkaṁ itāḥ kiṁ āṁ  īṁ  kiṁ yuyutsuṁ rānsakhīṁstathā
+['k', 'a', 'ṁ', '  ', 'i', 't', 'ā', 'ḥ', ' ', 'k', 'i', 'ṁ', '  ', 'y', 'u', 'y', 'u', 't', 's', 'a', 'v', 'aḥ', '  ', 'p', 'ā', 'ṇ', 'ḍ', 'a', 'v', 'ā', 'n', 'ī', 'k', 'a', 'ṁ', ' ', 'i', 't', 'ā', 'ḥ', ' ', 'k', 'i', 'ṁ', ' ', 'ā', 'ṁ', '  ', 'ī', 'ṁ', '  ', 'k', 'i', 'ṁ', ' ', 'y', 'u', 'y', 'u', 't', 's', 'u', 'ṁ', ' ', 'r', 'ā', 'n', 's', 'a', 'kh', 'ī', 'ṁ', 's', 't', 'a', 'th', 'ā']
+కం  ఇతాః కిం  యుయుత్సవః  పాణ్డవానీకం ఇతాః కిం ఆం  ఈం  కిం యుయుత్సుం రాన్సఖీంస్తథా
+</pre>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #715ab1;">text</span> = <span style="color: #2d9574;">"""&#257;l&#257;y&#257;l ta&#7775;a v&#275;&#7751;a&#7745; a&#7789;uttorampala&#7745; v&#275;&#7751;a&#7745;</span>
+<span style="color: #2d9574;">&#257;linu c&#275;rnnoru ku&#7735;avu&#7745; v&#275;&#7751;a&#7745; </span>
+<span style="color: #2d9574;">ku&#7735;ipp&#257;n&#257;y ku&#7735;a&#7745; v&#275;&#7751;a&#7745;  ku&#7735;attil cent&#257;mara v&#275;&#7751;a&#7745; </span>
+<span style="color: #2d9574;">ku&#7735;icc cennaka&#7745; pukk&#257;n candana&#7745; v&#275;&#7751;a&#7745; </span>
+<span style="color: #2d9574;">p&#363;v&#257;y&#257;l ma&#7751;a&#7745; v&#275;&#7751;a&#7745;  p&#363;m&#257;n&#257;y&#257;l gu&#7751;a&#7745; v&#275;&#7751;a&#7745; </span>
+<span style="color: #2d9574;">p&#363;m&#257;ninim&#257;rka&#7735; a&#7789;akka&#7745; v&#275;&#7751;a&#7745; </span>
+<span style="color: #2d9574;">yuddhatti&#7749;kal r&#257;man nall&#363;, kulatti&#7749;kal s&#299;ta nall&#363; </span>
+<span style="color: #2d9574;">&#363;&#7751;u&#7775;akkamup&#275;k&#7779;ikk&#257;n lak&#7779;ma&#7751;an nall&#363; </span>
+<span style="color: #2d9574;">pa&#7789;aykk bharatan nall&#363;, pa&#7775;av&#257;n pai&#7749;ki&#7735;i nall&#363; </span>
+<span style="color: #2d9574;">pa&#7775;akkunna pak&#7779;ika&#7735;il garu&#7693;han nall&#363; </span>
+<span style="color: #2d9574;">n&#257;&#7789;&#257;y&#257;l nr&#805;pan v&#275;&#7751;a&#7745;  arikil mantrim&#257;r v&#275;&#7751;a&#7745; </span>
+<span style="color: #2d9574;">n&#257;&#7789;inu g&#363;&#7751;amu&#7735;&#7735;a prajaka&#7735; v&#275;&#7751;a&#7745;.. </span>
+<span style="color: #2d9574;">ma&#7749;&#7749;&#257;&#7789;&#7789;accanu ny&#257;ya&#7745; nall&#363; ma&#7745;galyattinu svar&#7751;&#7751;&#275; nall&#363; </span>
+<span style="color: #2d9574;">ma&#7749;&#7749;&#257;tiripp&#257;n nilavi&#7735;akk nall&#363;. </span>
+<span style="color: #2d9574;">p&#257;lyattaccanup&#257;ya&#7745; nall&#363; p&#257;lil pa&#241;cas&#257;ra nall&#363; </span>
+<span style="color: #2d9574;">p&#257;r&#257;tiripp&#257;n cila padavi nall&#363; </span>
+<span style="color: #2d9574;">"""</span>
+<span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">working code </span>
+<span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">indic_lang='Devanagari'</span>
+<span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">indic_lang='Kannada'</span>
+<span style="color: #715ab1;">indic_lang</span>=<span style="color: #2d9574;">'Telugu'</span>
+
+<span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">code is not working for below languages</span>
+<span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">indic_lang='Odia'</span>
+<span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">indic_lang='Tamil'</span>
+<span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">indic_lang='Bengali&#8211;Assamese'</span>
+<span style="color: #3a81c3; font-weight: bold;">for</span> line <span style="color: #3a81c3; font-weight: bold;">in</span> text.split<span style="color: #3a81c3;">(</span><span style="color: #2d9574;">'</span><span style="color: #4e3163;">\n</span><span style="color: #2d9574;">'</span><span style="color: #3a81c3;">)</span>:
+    <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">()</span>
+    <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print('\n',line)</span>
+    <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print(line.split(" "))</span>
+    <span style="color: #3a81c3; font-weight: bold;">for</span> word <span style="color: #3a81c3; font-weight: bold;">in</span> line.split<span style="color: #3a81c3;">(</span><span style="color: #2d9574;">" "</span><span style="color: #3a81c3;">)</span>:
+        <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print('\nword:',word, 'len of word:',len(word))</span>
+        <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">output =iast.iast2indic(vowel_plist,consonant_list,word,indic_lang)</span>
+        <span style="color: #715ab1;">output</span> =iast.iast2indic<span style="color: #3a81c3;">(</span>word,indic_lang<span style="color: #3a81c3;">)</span>
+<span style="color: #2aa1ae; background-color: #ecf3ec;">#         </span><span style="color: #2aa1ae; background-color: #ecf3ec;"># print(l)</span>
+        <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>output, end=<span style="color: #2d9574;">' '</span><span style="color: #3a81c3;">)</span>
+
+</pre>
+</div>
+
+<pre class="example" id="orge85dddb">
+ఆలాయాల్ తఱ వేణం అటుత్తొరమ్పలం వేణం 
+ఆలిను చేర్న్నొరు కుళవుం వేణం  
+కుళిప్పానాయ్ కుళం వేణం  కుళత్తిల్ చెన్తామర వేణం  
+కుళిచ్చ్ చెన్నకం పుక్కాన్ చన్దనం వేణం  
+పూవాయాల్ మణం వేణం  పూమానాయాల్ గుణం వేణం  
+పూమానినిమార్కళ్ అటక్కం వేణం  
+యుద్ధత్తిఙ్కల్ రామన్ నల్లూ, కులత్తిఙ్కల్ సీత నల్లూ  
+ఊణుఱక్కముపేక్షిక్కాన్ లక్ష్మణన్ నల్లూ  
+పటయ్క్క్ భరతన్ నల్లూ, పఱవాన్ పైఙ్కిళి నల్లూ  
+పఱక్కున్న పక్షికళిల్ గరుఢన్ నల్లూ  
+నాటాయాల్ నృపన్ వేణం  అరికిల్ మన్త్రిమార్ వేణం  
+నాటిను గూణముళ్ళ ప్రజకళ్ వేణం..  
+మఙ్ఙాట్టచ్చను న్యాయం నల్లూ మంగల్యత్తిను స్వర్ణ్ణే నల్లూ  
+మఙ్ఙాతిరిప్పాన్ నిలవిళక్క్ నల్లూ.  
+పాల్యత్తచ్చనుపాయం నల్లూ పాలిల్ పఞ్చసార నల్లూ  
+పారాతిరిప్పాన్ చిల పదవి నల్లూ  
+ 
+</pre>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">output for indic lang {'Devanagari', 'Kannada', 'Telugu'}</span>
+</pre>
+</div>
+
+<pre class="example" id="org5d9b8c3">
+ālāyāl taṟa vēṇaṁ aṭuttorampalaṁ vēṇaṁ
+आलायाल् तऱ वेणं अटुत्तोरम्पलं वेणं 
+ఆలాయాల్ తఱ వేణం అటుత్తొరమ్పలం వేణం
+ಆಲಾಯಾಲ್ ತಱ ವೇಣಂ ಅಟುತ್ತೊರಮ್ಪಲಂ ವೇಣಂ
+
+ālinu cērnnoru kuḷavuṁ vēṇaṁ
+आलिनु चेर्न्नोरु कुळवुं वेणं  
+ఆలిను చేర్న్నొరు కుళవుం వేణం
+ಆಲಿನು ಚೇರ್ನ್ನೊರು ಕುಳವುಂ ವೇಣಂ 
+
+kuḷippānāy kuḷaṁ vēṇaṁ  kuḷattil centāmara vēṇaṁ
+कुळिप्पानाय् कुळं वेणं  कुळत्तिल् चॆन्तामर वेणं  
+కుళిప్పానాయ్ కుళం వేణం  కుళత్తిల్ చెన్తామర వేణం
+ಕುಳಿಪ್ಪಾನಾಯ್ ಕುಳಂ ವೇಣಂ  ಕುಳತ್ತಿಲ್ ಚೆನ್ತಾಮರ ವೇಣಂ
+
+kuḷicc cennakaṁ pukkān candanaṁ vēṇaṁ
+कुळिच्च् चॆन्नकं पुक्कान् चन्ॾनं वेणं  
+కుళిచ్చ్ చెన్నకం పుక్కాన్ చన్దనం వేణం
+ಕುಳಿಚ್ಚ್ ಚೆನ್ನಕಂ ಪುಕ್ಕಾನ್ ಚನ್ದನಂ ವೇಣಂ  
+
+pūvāyāl maṇaṁ vēṇaṁ  pūmānāyāl guṇaṁ vēṇaṁ
+पूवायाल् मणं वेणं  पूमानायाल् गुणं वेणं  
+పూవాయాల్ మణం వేణం  పూమానాయాల్ గుణం వేణం
+ಪೂವಾಯಾಲ್ ಮಣಂ ವೇಣಂ  ಪೂಮಾನಾಯಾಲ್ ಗುಣಂ ವೇಣಂ  
+
+pūmāninimārkaḷ aṭakkaṁ vēṇaṁ
+पूमानिनिमार्कळ् अटक्कं वेणं  
+పూమానినిమార్కళ్ అటక్కం వేణం
+ಪೂಮಾನಿನಿಮಾರ್ಕಳ್ ಅಟಕ್ಕಂ ವೇಣಂ  
+
+yuddhattiṅkal rāman nallū, kulattiṅkal sīta nallū
+युॾ्धत्तिङ्कल् रामन् नल्लू, कुलत्तिङ्कल् सीत नल्लू  
+యుద్ధత్తిఙ్కల్ రామన్ నల్లూ, కులత్తిఙ్కల్ సీత నల్లూ
+ಯುದ್ಧತ್ತಿಙ್ಕಲ್ ರಾಮನ್ ನಲ್ಲೂ, ಕುಲತ್ತಿಙ್ಕಲ್ ಸೀತ ನಲ್ಲೂ  
+
+ūṇuṟakkamupēkṣikkān lakṣmaṇan nallū
+ऊणुऱक्कमुपेक्षिक्कान् लक्ष्मणन् नल्लू  
+ఊణుఱక్కముపేక్షిక్కాన్ లక్ష్మణన్ నల్లూ
+ಊಣುಱಕ್ಕಮುಪೇಕ್ಷಿಕ್ಕಾನ್ ಲಕ್ಷ್ಮಣನ್ ನಲ್ಲೂ  
+
+paṭaykk bharatan nallū, paṟavān paiṅkiḷi nallū
+पटय्क्क् भरतन् नल्लू, पऱवान् पैङ्किळि नल्लू  
+పటయ్క్క్ భరతన్ నల్లూ, పఱవాన్ పైఙ్కిళి నల్లూ
+ಪಟಯ್ಕ್ಕ್ ಭರತನ್ ನಲ್ಲೂ, ಪಱವಾನ್ ಪೈಙ್ಕಿಳಿ ನಲ್ಲೂ  
+
+paṟakkunna pakṣikaḷil garuḍhan nallū
+पऱक्कुन्न पक्षिकळिल् गरुढन् नल्लू  
+పఱక్కున్న పక్షికళిల్ గరుఢన్ నల్లూ
+ಪಱಕ್ಕುನ್ನ ಪಕ್ಷಿಕಳಿಲ್ ಗರುಢನ್ ನಲ್ಲೂ  
+
+nāṭāyāl nr̥pan vēṇaṁ  arikil mantrimār vēṇaṁ
+नाटायाल् नृपन् वेणं  अरिकिल् मन्त्रिमार् वेणं  
+నాటాయాల్ నృపన్ వేణం  అరికిల్ మన్త్రిమార్ వేణం
+ನಾಟಾಯಾಲ್ ನೃಪನ್ ವೇಣಂ  ಅರಿಕಿಲ್ ಮನ್ತ್ರಿಮಾರ್ ವೇಣಂ  
+
+nāṭinu gūṇamuḷḷa prajakaḷ vēṇaṁ..
+नाटिनु गूणमुळ्ळ प्रजकळ् वेणं..  
+నాటిను గూణముళ్ళ ప్రజకళ్ వేణం..
+ನಾಟಿನು ಗೂಣಮುಳ್ಳ ಪ್ರಜಕಳ್ ವೇಣಂ..  
+
+maṅṅāṭṭaccanu nyāyaṁ nallū maṁgalyattinu svarṇṇē nallū
+मङ्ङाट्टच्चनु न्यायं नल्लू मंगल्यत्तिनु स्वर्ण्णे नल्लू  
+మఙ్ఙాట్టచ్చను న్యాయం నల్లూ మంగల్యత్తిను స్వర్ణ్ణే నల్లూ
+ಮಙ್ಙಾಟ್ಟಚ್ಚನು ನ್ಯಾಯಂ ನಲ್ಲೂ ಮಂಗಲ್ಯತ್ತಿನು ಸ್ವರ್ಣ್ಣೇ ನಲ್ಲೂ  
+
+maṅṅātirippān nilaviḷakk nallū.
+मङ्ङातिरिप्पान् निलविळक्क् नल्लू.  
+మఙ్ఙాతిరిప్పాన్ నిలవిళక్క్ నల్లూ.
+ಮಙ್ಙಾತಿರಿಪ್ಪಾನ್ ನಿಲವಿಳಕ್ಕ್ ನಲ್ಲೂ.  
+
+pālyattaccanupāyaṁ nallū pālil pañcasāra nallū
+पाल्यत्तच्चनुपायं नल्लू पालिल् पञ्चसार नल्लू  
+పాల్యత్తచ్చనుపాయం నల్లూ పాలిల్ పఞ్చసార నల్లూ
+ಪಾಲ್ಯತ್ತಚ್ಚನುಪಾಯಂ ನಲ್ಲೂ ಪಾಲಿಲ್ ಪಞ್ಚಸಾರ ನಲ್ಲೂ  
+
+pārātirippān cila padavi nallū 
+पारातिरिप्पान् चिल पॾवि नल्लू  
+పారాతిరిప్పాన్ చిల పదవి నల్లూ
+ಪಾರಾತಿರಿಪ್ಪಾನ್ ಚಿಲ ಪದವಿ ನಲ್ಲೂ  
+</pre>
+
+<div class="org-src-container">
+<pre class="src src-python">
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+<div id="outline-container-phonetic-searching-on-indic-languages-using-iast" class="outline-2">
+<h2 id="phonetic-searching-on-indic-languages-using-iast">Phonetic Searching on Indic Languages using IAST</h2>
+<div class="outline-text-2" id="text-phonetic-searching-on-indic-languages-using-iast">
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #715ab1;">zero_vowels</span>=<span style="color: #3a81c3;">{</span> <span style="color: #2d9574;">''</span>:<span style="color: #6c3163;">[</span><span style="color: #2d9574;">'a'</span>, <span style="color: #2d9574;">"&#257;"</span>, <span style="color: #2d9574;">"&#226;"</span>,<span style="color: #2d9574;">"i"</span>, <span style="color: #2d9574;">"&#299;"</span>,<span style="color: #2d9574;">"u"</span>, <span style="color: #2d9574;">"&#363;"</span>,<span style="color: #3a81c3;">chr</span><span style="color: #2d9574;">(</span>805<span style="color: #2d9574;">)</span>,<span style="color: #3a81c3;">chr</span><span style="color: #2d9574;">(</span>803<span style="color: #2d9574;">)</span>,
+                  <span style="color: #2d9574;">"l&#805;"</span>, <span style="color: #2d9574;">"l&#805;&#772;"</span>,<span style="color: #2d9574;">"e"</span>, <span style="color: #2d9574;">"&#275;"</span>, <span style="color: #2d9574;">"&#234;"</span>,<span style="color: #2d9574;">"o"</span>, <span style="color: #2d9574;">"&#333;"</span>, <span style="color: #2d9574;">"&#244;"</span>,
+                  <span style="color: #2d9574;">"&#7745;"</span>, <span style="color: #2d9574;">"m&#784;"</span>, <span style="color: #2d9574;">"&#7747;"</span>, <span style="color: #2d9574;">"&#7747;"</span>,<span style="color: #2d9574;">"n&#774;"</span>, <span style="color: #2d9574;">"n&#774;"</span>, <span style="color: #2d9574;">"n&#774;"</span>,<span style="color: #2d9574;">"&#7717;"</span> , <span style="color: #2d9574;">"&#7723;"</span>, <span style="color: #2d9574;">"&#7830;"</span>, <span style="color: #2d9574;">"&#7717;"</span><span style="color: #6c3163;">]</span>,
+              <span style="color: #2d9574;">'r'</span>: <span style="color: #6c3163;">[</span><span style="color: #2d9574;">"r&#805;"</span>, <span style="color: #2d9574;">"r&#805;&#772;"</span><span style="color: #6c3163;">]</span>
+            <span style="color: #3a81c3;">}</span> <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">replacing with r is not working for 'r&#805;' so we replace with chr(805) above</span>
+<span style="color: #715ab1;">truncated_vowels</span> = <span style="color: #3a81c3;">{</span> <span style="color: #2d9574;">''</span>:<span style="color: #6c3163;">[</span><span style="color: #3a81c3;">chr</span><span style="color: #2d9574;">(</span>805<span style="color: #2d9574;">)</span>, <span style="color: #3a81c3;">chr</span><span style="color: #2d9574;">(</span>803<span style="color: #2d9574;">)</span>, <span style="color: #3a81c3;">chr</span><span style="color: #2d9574;">(</span>772<span style="color: #2d9574;">)</span>,<span style="color: #3a81c3;">chr</span><span style="color: #2d9574;">(</span>784<span style="color: #2d9574;">)</span>,<span style="color: #3a81c3;">chr</span><span style="color: #2d9574;">(</span>774<span style="color: #2d9574;">)</span><span style="color: #6c3163;">]</span>,
+                    <span style="color: #2d9574;">'a'</span>:<span style="color: #6c3163;">[</span><span style="color: #2d9574;">"&#257;"</span>, <span style="color: #2d9574;">"&#226;"</span><span style="color: #6c3163;">]</span>, 
+                    <span style="color: #2d9574;">'i'</span>:<span style="color: #6c3163;">[</span><span style="color: #2d9574;">"i"</span>, <span style="color: #2d9574;">"&#299;"</span><span style="color: #6c3163;">]</span>, 
+                    <span style="color: #2d9574;">'u'</span>:<span style="color: #6c3163;">[</span><span style="color: #2d9574;">"u"</span>, <span style="color: #2d9574;">"&#363;"</span><span style="color: #6c3163;">]</span>, 
+                    <span style="color: #2d9574;">'r'</span>:<span style="color: #6c3163;">[</span><span style="color: #2d9574;">"r&#805;"</span>, <span style="color: #2d9574;">"r&#805;&#772;"</span><span style="color: #6c3163;">]</span>,
+                    <span style="color: #2d9574;">'l'</span>:<span style="color: #6c3163;">[</span><span style="color: #2d9574;">"l&#805;"</span>, <span style="color: #2d9574;">"l&#805;&#772;"</span><span style="color: #6c3163;">]</span>,
+                    <span style="color: #2d9574;">"e"</span>:<span style="color: #6c3163;">[</span><span style="color: #2d9574;">"e"</span>, <span style="color: #2d9574;">"&#275;"</span>, <span style="color: #2d9574;">"&#234;"</span><span style="color: #6c3163;">]</span>,
+                            <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">"ai", </span>
+                    <span style="color: #2d9574;">"o"</span>: <span style="color: #6c3163;">[</span><span style="color: #2d9574;">"o"</span>, <span style="color: #2d9574;">"&#333;"</span>, <span style="color: #2d9574;">"&#244;"</span><span style="color: #6c3163;">]</span>, 
+                                            <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">"au",</span>
+                    <span style="color: #2d9574;">'m'</span> :<span style="color: #6c3163;">[</span><span style="color: #2d9574;">"&#7745;"</span>, <span style="color: #2d9574;">"m&#784;"</span>, <span style="color: #2d9574;">"&#7747;"</span>, <span style="color: #2d9574;">"&#7747;"</span><span style="color: #6c3163;">]</span>, 
+                    <span style="color: #2d9574;">'n'</span>: <span style="color: #6c3163;">[</span><span style="color: #2d9574;">"n&#774;"</span>, <span style="color: #2d9574;">"n&#774;"</span>, <span style="color: #2d9574;">"n&#774;"</span><span style="color: #6c3163;">]</span>, 
+                    <span style="color: #2d9574;">'h'</span> :<span style="color: #6c3163;">[</span><span style="color: #2d9574;">"&#7717;"</span> , <span style="color: #2d9574;">"&#7723;"</span>, <span style="color: #2d9574;">"&#7830;"</span>, <span style="color: #2d9574;">"&#7717;"</span><span style="color: #6c3163;">]</span>,
+                    <span style="color: #3a81c3;">}</span>
+</pre>
+</div>
+
+<p>
+Here we will replace all vowels (svara [स्वरा]) with <code>''</code> (remove all vowels)
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #3a81c3;">input</span>=iast_text
+<span style="color: #715ab1;">replace_dictionary</span>=basic_stem_dic
+
+<span style="color: #3a81c3; font-weight: bold;">def</span> <span style="color: #6c3163; font-weight: bold;">basic_hash</span><span style="color: #3a81c3;">(</span>iast_text<span style="color: #3a81c3;">)</span>: <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">if text is in hin,kan,tel,mal,guj,..etc need to convert to iast </span>
+    <span style="color: #715ab1;">basic_stem_dict</span> = IAST.zero_vowels
+    basic_stem_dict.update<span style="color: #3a81c3;">(</span>IAST.basic_truncated_consonat<span style="color: #3a81c3;">)</span>
+    <span style="color: #715ab1;">output</span> =IAST.replace_m2m<span style="color: #3a81c3;">(</span>iast_text,basic_stem_dict<span style="color: #3a81c3;">)</span> <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">IAST.replace_m2m(iast_text,basic_stem_dict) # this is many to many mapping</span>
+    <span style="color: #3a81c3; font-weight: bold;">return</span> output
+<span style="color: #3a81c3; font-weight: bold;">def</span> <span style="color: #6c3163; font-weight: bold;">replace_m2m</span><span style="color: #3a81c3;">(</span>output_data,info_dict<span style="color: #3a81c3;">)</span>:
+    <span style="color: #3a81c3; font-weight: bold;">for</span> dest <span style="color: #3a81c3; font-weight: bold;">in</span> info_dict.keys<span style="color: #3a81c3;">()</span>:
+        <span style="color: #715ab1;">source</span> = info_dict<span style="color: #3a81c3;">[</span>dest<span style="color: #3a81c3;">]</span>
+        <span style="color: #715ab1;">output_data</span> = IAST.replace_m2o<span style="color: #3a81c3;">(</span>output_data, source=source, dest=dest<span style="color: #3a81c3;">)</span>
+<span style="color: #2aa1ae; background-color: #ecf3ec;">########################################</span><span style="color: #2aa1ae; background-color: #ecf3ec;">3</span>
+<span style="color: #3a81c3; font-weight: bold;">def</span> <span style="color: #6c3163; font-weight: bold;">replace_m2o</span><span style="color: #3a81c3;">(</span>text, source=<span style="color: #4e3163;">None</span>, dest=<span style="color: #4e3163;">None</span><span style="color: #3a81c3;">)</span>: <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span>
+    <span style="color: #3a81c3; font-weight: bold;">if</span> <span style="color: #3a81c3;">isinstance</span><span style="color: #3a81c3;">(</span>source, <span style="color: #3a81c3;">list</span><span style="color: #3a81c3;">)</span>:
+        <span style="color: #3a81c3; font-weight: bold;">for</span> source_letter <span style="color: #3a81c3; font-weight: bold;">in</span> source:
+            <span style="color: #715ab1;">text</span> = text.replace<span style="color: #3a81c3;">(</span>source_letter,dest<span style="color: #3a81c3;">)</span>
+    <span style="color: #3a81c3; font-weight: bold;">elif</span> <span style="color: #3a81c3;">isinstance</span><span style="color: #3a81c3;">(</span>source, <span style="color: #3a81c3;">str</span><span style="color: #3a81c3;">)</span>:
+        <span style="color: #715ab1;">text</span> = text.replace<span style="color: #3a81c3;">(</span>source,dest<span style="color: #3a81c3;">)</span>
+    <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print(text)</span>
+    <span style="color: #3a81c3; font-weight: bold;">return</span> text
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #715ab1;">search_word</span> = <span style="color: #2d9574;">' Dhritirashtra '</span> <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span>
+<span style="color: #715ab1;">search_word</span> = <span style="color: #2d9574;">'dhr&#805;tar&#257;&#7779;&#7789;ra uv&#257;ca'</span>
+<span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">search_word = 'kr&#803;s&#803;n&#803;a'</span>
+<span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">search_word = '&#2325;&#2371;&#2359;&#2381;&#2339;&#2366;'</span>
+
+<span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span><span style="color: #2d9574;">"# Original Text:"</span>, search_word<span style="color: #3a81c3;">)</span>
+<span style="color: #715ab1;">search_word</span> = search_word.strip<span style="color: #3a81c3;">()</span>.lower<span style="color: #3a81c3;">()</span>
+<span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span><span style="color: #2d9574;">'# # # text converted to iast format'</span><span style="color: #3a81c3;">)</span>
+<span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">to_iast</span>
+<span style="color: #715ab1;">search_iast</span> = iast.to_iast<span style="color: #3a81c3;">(</span>search_word<span style="color: #3a81c3;">)</span> <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">similar to idempotent matrx no loss of info if ':' not present</span>
+<span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>search_iast<span style="color: #3a81c3;">)</span>
+
+<span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span><span style="color: #2d9574;">'# # # BASIC HASHING'</span><span style="color: #3a81c3;">)</span>
+<span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>IAST.basic_hash<span style="color: #6c3163;">(</span>search_iast<span style="color: #6c3163;">)</span><span style="color: #3a81c3;">)</span>
+
+<span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span><span style="color: #2d9574;">'# # # NORMAL HASHING'</span><span style="color: #3a81c3;">)</span>
+<span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>IAST.normal_hash<span style="color: #6c3163;">(</span>search_iast<span style="color: #6c3163;">)</span><span style="color: #3a81c3;">)</span>
+
+<span style="color: #715ab1;">db_data</span> = <span style="color: #2d9574;">"""</span>
+<span style="color: #2d9574;">TEL= &#3111;&#3139;&#3108;&#3120;&#3134;&#3127;&#3149;&#3103;&#3149;&#3120; &#3081;&#3125;&#3134;&#3098; |</span>
+<span style="color: #2d9574;">KAN= &#3239;&#3267;&#3236;&#3248;&#3262;&#3255;&#3277;&#3231;&#3277;&#3248; &#3209;&#3253;&#3262;&#3226; &#2404;   </span>
+<span style="color: #2d9574;">MAL= &#3367;&#3395;&#3364;&#3376;&#3390;&#3383;&#3405;&#3359;&#3405;&#3376; &#3337;&#3381;&#3390;&#3354; &#2404;   </span>
+<span style="color: #2d9574;">HIN= &#2343;&#2371;&#2340;&#2352;&#2366;&#2359;&#2381;&#2335;&#2381;&#2352; &#2313;&#2357;&#2366;&#2330;    |</span>
+<span style="color: #2d9574;">ORI= &#2855;&#2883;&#2852;&#2864;&#2878;&#2871;&#2893;&#2847;&#2893;&#2864; &#2825;&#2869;&#2878;&#2842; | </span>
+<span style="color: #2d9574;">BEN= &#2471;&#2499;&#2468;&#2480;&#2494;&#2487;&#2509;&#2463;&#2509;&#2480; &#2441;&#2476;&#2494;&#2458; |   </span>
+<span style="color: #2d9574;">GUJ= &#2727;&#2755;&#2724;&#2736;&#2750;&#2743;&#2765;&#2719;&#2765;&#2736; &#2697;&#2741;&#2750;&#2714; |  </span>
+<span style="color: #2d9574;">TAM= &#2980;&#3021;&#2993;&#3009;&#2980;&#2992;&#3006;&#2999;&#3021;&#2975;&#3021;&#2992; &#2953;&#2997;&#3006;&#2970; |    </span>
+<span style="color: #2d9574;">"""</span>
+
+<span style="color: #715ab1;">data_iast</span> = iast.to_iast<span style="color: #3a81c3;">(</span>db_data<span style="color: #3a81c3;">)</span>
+<span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span><span style="color: #2d9574;">'# # # text converted to iast format'</span><span style="color: #3a81c3;">)</span>
+<span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>data_iast<span style="color: #3a81c3;">)</span>
+
+<span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span><span style="color: #2d9574;">'# # # BASIC STEM TEXT'</span><span style="color: #3a81c3;">)</span>
+<span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>IAST.basic_hash<span style="color: #6c3163;">(</span>data_iast<span style="color: #6c3163;">)</span><span style="color: #3a81c3;">)</span>
+
+<span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span><span style="color: #2d9574;">'# # # NORMAL STEM TEXT'</span><span style="color: #3a81c3;">)</span>
+<span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>IAST.normal_hash<span style="color: #6c3163;">(</span>data_iast<span style="color: #6c3163;">)</span><span style="color: #3a81c3;">)</span>
+</pre>
+</div>
+
+<pre class="example" id="orgec0940b">
+# Original Text: dhr̥tarāṣṭra uvāca
+# # # text converted to iast format
+dhr̥tarāṣṭra uvāca
+# # # BASIC HASHING
+drtrstr vc
+# # # NORMAL HASHING
+drtarastra uvaca
+# # # text converted to iast format
+
+TEL= dhr̥tarāṣṭra uvāca |
+KAN= dhr̥tarāṣṭra uvāca |    
+MAL= dhr̥tarāṣṭra uvāca |    
+HIN= dhr̥tarāṣṭra uvāca |
+ORI= dhr̥tarāṣṭra uvāca | 
+BEN= dhr̥tarāṣṭra ubāca |    
+GUJ= dhr̥tarāṣṭra uvāca |   
+TAM= ta்ṟutarāṣa்ṭa்ra uvāca |  
+
+# # # BASIC STEM TEXT
+
+TEL= drtrstr vc |
+KAN= drtrstr vc |    
+MAL= drtrstr vc |    
+HIN= drtrstr vc |
+ORI= drtrstr vc | 
+BEN= drtrstr bc |    
+GUJ= drtrstr vc |   
+TAM= t்rtrs்t்r vc |    
+
+# # # NORMAL STEM TEXT
+
+TEL= drtarastra uvaca |
+KAN= drtarastra uvaca |  
+MAL= drtarastra uvaca |  
+HIN= drtarastra uvaca   |
+ORI= drtarastra uvaca | 
+BEN= drtarastra ubaca |  
+GUJ= drtarastra uvaca | 
+TAM= ta்rutarasa்ta்ra uvaca |  
+</pre>
+</div>
+</div>
+
+<div id="outline-container-importexport-database" class="outline-2">
+<h2 id="importexport-database">Import/Export database</h2>
+<div class="outline-text-2" id="text-importexport-database">
+</div>
+<div id="outline-container-export-db-to-excel" class="outline-3">
+<h3 id="export-db-to-excel">Export: db to excel</h3>
+<div class="outline-text-3" id="text-export-db-to-excel">
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #3a81c3; font-weight: bold;">import</span> pandas <span style="color: #3a81c3; font-weight: bold;">as</span> pd 
+<span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">pd.read_sql_table(iast.alphabet, iast.db_connect)</span>
+<span style="color: #715ab1;">alphabets</span>= pd.read_sql_query<span style="color: #3a81c3;">(</span>f<span style="color: #2d9574;">"SELECT * FROM </span>{iast.alphabet}<span style="color: #2d9574;">"</span>, iast.db_connect<span style="color: #3a81c3;">)</span>
+<span style="color: #715ab1;">barakhadi</span> = pd.read_sql_query<span style="color: #3a81c3;">(</span>f<span style="color: #2d9574;">"SELECT * FROM </span>{iast.barakhadi}<span style="color: #2d9574;">"</span>, iast.db_connect<span style="color: #3a81c3;">)</span>
+
+<span style="color: #3a81c3; font-weight: bold;">with</span> pd.ExcelWriter<span style="color: #3a81c3;">(</span><span style="color: #2d9574;">'IASTv2.xlsx'</span>, mode=<span style="color: #2d9574;">"w"</span>,engine=<span style="color: #2d9574;">"openpyxl"</span><span style="color: #3a81c3;">)</span><span style="color: #3a81c3; font-weight: bold;">as</span> writer:
+    alphabets.to_excel<span style="color: #3a81c3;">(</span>writer, sheet_name=iast.alphabet,index=<span style="color: #4e3163;">False</span><span style="color: #3a81c3;">)</span>
+    barakhadi.to_excel<span style="color: #3a81c3;">(</span>writer,sheet_name=iast.barakhadi,index=<span style="color: #4e3163;">False</span><span style="color: #3a81c3;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-import-db-from-excel" class="outline-3">
+<h3 id="import-db-from-excel">Import db from excel</h3>
+<div class="outline-text-3" id="text-import-db-from-excel">
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #3a81c3; font-weight: bold;">import</span> pandas <span style="color: #3a81c3; font-weight: bold;">as</span> pd
+<span style="color: #3a81c3; font-weight: bold;">import</span> sqlite3
+<span style="color: #715ab1;">path</span> = <span style="color: #2d9574;">'IAST-modified.xlsx'</span>
+<span style="color: #715ab1;">alphabets</span> = pd.read_excel<span style="color: #3a81c3;">(</span>path,sheet_name=<span style="color: #2d9574;">'IndianAlphabet'</span><span style="color: #3a81c3;">)</span>
+<span style="color: #715ab1;">barakhadi</span> = pd.read_excel<span style="color: #3a81c3;">(</span>path,sheet_name=<span style="color: #2d9574;">'Barakhadi'</span><span style="color: #3a81c3;">)</span>
+<span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">Create new database if not exist and replace old talbe</span>
+<span style="color: #715ab1;">connect</span> = sqlite3.connect<span style="color: #3a81c3;">(</span><span style="color: #2d9574;">'iast-generated.db'</span><span style="color: #3a81c3;">)</span>
+alphabets.to_sql<span style="color: #3a81c3;">(</span><span style="color: #2d9574;">'IndianAlphabet'</span>, connect, if_exists=<span style="color: #2d9574;">'replace'</span>,index=<span style="color: #4e3163;">False</span><span style="color: #3a81c3;">)</span>
+barakhadi.to_sql<span style="color: #3a81c3;">(</span><span style="color: #2d9574;">'Barakhadi'</span>, connect, if_exists=<span style="color: #2d9574;">'replace'</span>,index=<span style="color: #4e3163;">False</span><span style="color: #3a81c3;">)</span>
+</pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Karthik</p>
-<p class="date">Created: 2023-12-01 Fri 18:41</p>
+<p class="date">Created: 2023-12-01 Fri 22:22</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

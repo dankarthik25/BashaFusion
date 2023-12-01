@@ -5,7 +5,7 @@ with open("IastFramework/README.md", "r") as f:
 
 setup(
     name="IastFramework",
-    version="0.0.6",
+    version="0.0.7",
     description="A package used to convert indic language to iast & iast to inidc langauge viceversa",
     packages=['IastFramework'],
     package_data={'IastFramework': ["iast-token.db"]},
@@ -18,8 +18,8 @@ setup(
     author="Dan Karthik",
     author_email="dankarthik25@gmail.com",
     project_urls= {
-        "Documentation": "https://dankarthik25.github.io/IastFramework"
-        "Source" : "https://github.com/dankarthik25/IastFramework"
+        "Documentation": "https://dankarthik25.github.io/IastFramework",
+        "Source" : "https://github.com/dankarthik25/IastFramework",
 },
     license="MIT",
     classifiers=[
