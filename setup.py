@@ -17,6 +17,10 @@ setup(
     url="https://github.com/dankarthik25/IastFramework",
     author="Dan Karthik",
     author_email="dankarthik25@gmail.com",
+    project_urls= {
+        "Documentation": "https://dankarthik25.github.io/IastFramework"
+        "Source" : "https://github.com/dankarthik25/IastFramework"
+},
     license="MIT",
     classifiers=[
         "License :: OSI Approved :: MIT License",

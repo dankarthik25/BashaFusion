@@ -1,0 +1,26 @@
+* Createa pypi library
+WebDocumentaion: https://rich.readthedocs.io/en/stable/
+
+
+
+Must use MIT Licences
+
+wheel : binary version of code,
+
+# 1st
+pip install wheel
+python setup.py bdist_wheel sdist
+    # bdist_whell : binary dist version file 
+    # sdist :source dist
+twine check dist/*  # check before uploading
+
+
+twine upload -r testpypi dist/*     # upload to testpypi
+# twine upload dist/*               # upload to pypi
+
+
+twine upload -r testpypi --skip-existing dist/*
+
+username : __token__
+password : enter the token
+
