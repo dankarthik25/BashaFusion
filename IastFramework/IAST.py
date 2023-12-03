@@ -58,10 +58,12 @@ class IAST():
                         }
     
     
-    def __init__(self,db_path=None,table_name_alpha='IndianAlphabet',table_name_barakadi='Barakhadi' ):
+    def __init__(self,db_path=None,table_name_alpha='IndianAlphabet',table_name_barakadi='Barakhadi',table_name_inv_alpha='InvAlpha',table_name_inv_bara='InvBara' ):
         if db_path is None:
             dir_path = os.path.dirname(__file__)
+#            dir_path = os.getcwd()
             self.db_path=os.path.join(dir_path,'iast-token.db')
+#            self.db_path=os.path.join(dir_path,'iastv3.db')
 #            self.db_connect = sqlite3.connect(os.path.join(dir_path,'iast-token.db'))
         else:
             self.db_path=db_path
@@ -71,7 +73,8 @@ class IAST():
         self.db_connect = sqlite3.connect(self.db_path)
         self.alphabet = table_name_alpha
         self.barakhadi = table_name_barakadi
-
+        self.inv_alphabet = table_name_inv_alpha
+        self.inv_barakhadi = table_name_inv_bara
         self.halant_list = self.get_halant_list() #  ['्', '্', '્', '್', '്', '୍', '్']
 # phonetic search algo inicialization
     def set_query(self,query):
@@ -124,6 +127,7 @@ class IAST():
         letter = 'ŭ'
         query = f"SELECT * FROM {self.barakhadi} WHERE IAST='{letter}'" 
         data =self.get_query(query)
+        # print(data)
         del data[0]['IAST']
         halant_list = []
         for value in data[0].values():
@@ -297,6 +301,8 @@ class IAST():
         return tokens
 
     def iast2tokens(word):
+        if len(word) <=1:
+            return word
     # def iast2tokens(vowel_plist,consonant_list,  word):        
         vowel_plist=IAST.vowel_plist
         consonant_list=IAST.consonant_list
@@ -324,8 +330,11 @@ class IAST():
         input_tokens=''
         output_string = []
         for token in tokens:
-            query_bara = f"""SELECT IAST,{indic_lang} FROM {self.barakhadi} WHERE IAST LIKE '%{token}'"""
-            query_alpha = f"""SELECT type, IAST,{indic_lang} FROM {self.alphabet} WHERE IAST LIKE '{token}%'"""
+            # query_bara = f"""SELECT IAST,{indic_lang} FROM {self.barakhadi} WHERE IAST LIKE '%{token}'"""
+            # query_alpha = f"""SELECT type, IAST,{indic_lang} FROM {self.alphabet} WHERE IAST LIKE '{token}%'"""
+            query_bara = f"""SELECT IAST,{indic_lang} FROM {self.inv_barakhadi} WHERE IAST ='{token}'"""
+            query_alpha = f"""SELECT type, IAST,{indic_lang} FROM {self.inv_alphabet} WHERE IAST='{token}'"""
+
             # print(query_bara)
             # print(query_alpha)
             data_alpha = self.get_query(query_alpha)
@@ -344,27 +353,18 @@ class IAST():
                 temp_dic['type']=data_alpha[0]['type']
                 # temp_dic['alph']=data_alpha[0][indic_lang] # wrong method if token = n ,n̆ḍa, n̆ja then : 
                 # we 1st search result is none which we need to filter
-                for entry in data_alpha:
-                    if token =='r':
-                        # print(entry)
-                        if entry['IAST']=='ra':
-                            temp_dic['alph']=entry[indic_lang]
-                            temp_dic['type']=entry['type']
-                            # print(temp_dic)                    
-                            break        
-
-                    if token =='l':
-                        if entry['IAST']=='la':
-                            temp_dic['alph']=entry[indic_lang]
-                            temp_dic['type']=entry['type']
-                            # print(temp_dic)                    
-                            break        
-                        
-                    if entry[indic_lang] is not None and( token!='r') and ( token!='l') :
-                        # print(entry['Telugu'],entry['IAST'],entry['type'])
+                for entry in data_alpha: 
+                    if entry[indic_lang] is not None :                        
+                        # print(entry[indic_lang],entry['IAST'],entry['type'])
                         temp_dic['alph']=entry[indic_lang]
                         temp_dic['type']=entry['type']
-                        break        
+                        break  
+                    else:
+                        # print(f'In entry:{entry} indic_lang: {indic_lang} is None need to update dic')
+                        temp_dic['alph']=entry[indic_lang]
+                        temp_dic['type']=entry['type']
+                        break
+    
                 # output_string +=' | '+ data_alpha[0][indic_lang]+' : '  +data_alpha[0]['type'] +' | '
             else:
                 temp_dic['alph']=None
@@ -406,15 +406,18 @@ class IAST():
             if 'type' in item.keys() and item['type']=='consonants':
                 if 'type' in next_item.keys() and next_item['type']=='vowel':
                     # print(item['alph'], end=" ")
-                    output +=item['alph']
-                    print_status =True
+                    if item['alph'] is not None :
+                        output +=item['alph']
+                        print_status =True
                 elif 'type' in next_item.keys() and next_item['type']=='consonants':
                     # print(item['alph']+halant,end="")
-                    output +=item['alph']+halant
-                    print_status =True
+                    if item['alph'] is not None :
+                        output +=item['alph']+halant
+                        print_status =True
                 elif 'type' not in next_item: # word ending with consonant and halant
-                    output +=item['alph']+halant
-                    print_status =True
+                    if item['alph'] is not None :
+                        output +=item['alph']+halant
+                        print_status =True
                     
                     
             if 'type' in item.keys() and item['type']=='vowel':
@@ -426,14 +429,16 @@ class IAST():
                         print_status =True                            
                         pass
                     else:        
-                        output +=item['bara']
-                        print_status =True            
+                        if item['bara'] is not None :                                            
+                            output +=item['bara']
+                            print_status =True            
                     # print(item)
 
                 if 'type' in prev_item.keys() and prev_item['type']=='vowel':
-                    output +=item['bara']            
-                    # print(item)
-                    print_status =True
+                    if item['bara'] is not None :                    
+                        output +=item['bara']            
+                        # print(item)
+                        print_status =True
                 # pass
                 if 'type' not in prev_item : # starting of word or starting of line
                     if item['alph'] is not None :
@@ -457,9 +462,10 @@ class IAST():
         # print(tokens)
         dict_tokene_list = self.tokens2dict_tokenes(tokens,indic_lang)
         # print(output_string)
-        halant=self.get_indic_halant(indic_lang)
+        # halant=self.get_indic_halant(indic_lang)
+        query_alpha = f"""SELECT IAST,{indic_lang} FROM {self.inv_barakhadi} WHERE IAST='ŭ';"""
+        data_alpha = self.get_query(query_alpha)
+        halant = self.get_query(query_alpha)[0][indic_lang]
         # print(halant)
         output=IAST.dict_tokens2indic(dict_tokene_list,halant)
         return output
-
-

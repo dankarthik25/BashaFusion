@@ -5,7 +5,7 @@ with open("IastFramework/README.md", "r") as f:
 
 setup(
     name="IastFramework",
-    version="0.0.7",
+    version="0.0.9",
     description="A package used to convert indic language to iast & iast to inidc langauge viceversa",
     packages=['IastFramework'],
     package_data={'IastFramework': ["iast-token.db"]},

@@ -2,8 +2,9 @@
 A package used to convert indic language to `iast` and `iast` to inidc langauge viceversa.
 
 ### Installation
-```sh
-pip install IastFramework
+```bash
+pip install -i https://test.pypi.org/simple/ IastFramework # test pypi
+pip install IastFramework  # still in development
 ```
 
 
@@ -11,6 +12,10 @@ pip install IastFramework
 
 ### Usage
 ```python
+import sqlite3
+import os
+import sys
+
 from IastFramework import IAST
 
 #create a IAST object
