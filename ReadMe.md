@@ -1,17 +1,17 @@
 <h1 align="center">
-<img style='position: relative;  top: 0px;  right: 0px; width:70%;'  src="IastFramework/images/hjexl3i91j0so035gees.png"  >
+<img style='position: relative;  top: 0px;  right: 0px; width:70%;'  src="BashaFusion/images/hjexl3i91j0so035gees.png"  >
 </h1>
 
-# IASTFrameWork
+# BashaFusion
 
 **IAST FrameWork** is a NLP FrameWork build specifically for [Indic Languages/Scripts](https://en.wikipedia.org/wiki/Brahmic_scripts) <br>
 Where **IAST Script** [lossless romanisation of [Indic scripts](https://en.wikipedia.org/wiki/Brahmic_scripts) to  [Latin script](https://en.wikipedia.org/wiki/Latin_script)] is used as base for all Indic Languages 
 
 **IAST FrameWork** consist of 
-- Lossless convertion of Indic Languages (Hindi, Gujarathi, Malayalam , Kannada, Telugu, Tamil, Odia, Bengali )  into **IAST Script** `iast.to_iast(indic_script)`
-- Convert **IAST Script**  to Indic Languages (Hindi, Malyalam, Kannada, Telugu) `iast.iast2indic(iast_script,indic_lang)`<br>
+- Lossless convertion of Indic Languages (Hindi, Gujarathi, Malayalam , Kannada, Telugu, Tamil, Odia, Bengali )  into **IAST Script** `bshf.to_iast(indic_script)`
+- Convert **IAST Script**  to Indic Languages (Hindi, Malyalam, Kannada, Telugu) `bshf.iast2indic(iast_script,indic_lang)`<br>
     for Tamil, Odia, Bengali, Gujarathi in progress
-- Use IAST Char as Phonetic Hash for **Phonetic Based Search Algorithm** `IAST.basic_hash` and `IAST.normal_hash`
+- Use IAST Char as Phonetic Hash for **Phonetic Based Search Algorithm** `BashaFusion.basic_hash` and `BashaFusion.normal_hash`
 - Using  **IAST Phonetic Hash** for Search Algorithm
 <br>
 <br>
@@ -58,13 +58,13 @@ Here is the table which is used in the code to link different Indic Scripts http
 import sqlite3
 import sys
 #from IAST import IAST
-from IASTFramework import IAST
+from BashaFusion import BashaFusion
 
 db_path ='iast-map-modified.db'
 # db_path = 'iast-token.db'    
 table_name_alpha= 'IndianAlphabet'
 table_name_barakadi= 'Barakhadi'
-iast = IAST(db_path,table_name_alpha,table_name_barakadi)
+iast = BashaFusion(db_path,table_name_alpha,table_name_barakadi)
 ```
 
 # Convert Indic Language to IAST
@@ -102,12 +102,12 @@ Output
 
 
 ```python
-print(iast.alphabet) # IndianAlphabet
-print(iast.barakhadi)  # Barakhadi
-query = IAST.get_iast_idx_query('ध',iast.alphabet) # 
+print(bshf.alphabet) # IndianAlphabet
+print(bshf.barakhadi)  # Barakhadi
+query = BashaFusion.get_iast_idx_query('ध',bshf.alphabet) # 
 print(query.replace('\n','').replace("  ","").replace('OR',' OR')) 
 # print()
-iast.get_query(query)
+bshf.get_query(query)
 # [{'IAST': 'dha', 'Devanagari': 'ध', 'Bengali–Assamese': 'ধ', 'Gujarati': 'ધ', 'Gurmukhi': 'ਧ', 'Kannada': 'ಧ', 'Malayalam': 'ധ', 'Nastaliq': 'دھ', 'Odia': 'ଧ', 'Sinhala': 'ධ', 'Tamil': None, 'Telugu': 'ధ'}]
 
 ```
@@ -138,25 +138,25 @@ iast.get_query(query)
 
 
 ```python
-print(iast.get_halant_list()) #>>  ['्', '্', '્', '್', '്', '୍', '్']
-print(iast.('ధృత్రాష్ట్ర ఉవాచ'))
-# iast.halant_list
+print(bshf.get_halant_list()) #>>  ['्', '্', '્', '್', '്', '୍', '్']
+print(bshf.('ధృత్రాష్ట్ర ఉవాచ'))
+# bshf.halant_list
 ```
 
     ['्', '্', '્', '್', '്', '୍', '్']
     dhr̥trāṣṭra uvāca
 
 
-## Convert Indic sting to iast format `iast.to_iast(word)` 
+## Convert Indic sting to iast format `bshf.to_iast(word)` 
 
 ```python
 # def to_iast(self,word): 
 to_iast = ''
 for letter in word: # word
-    query = IAST.get_iast_idx_query(letter,self.alphabet)    
+    query = BashaFusion.get_iast_idx_query(letter,self.alphabet)    
     alpha_token =self.get_query(query)
     
-    query = IAST.get_iast_idx_query(letter,self.barakhadi)    
+    query = BashaFusion.get_iast_idx_query(letter,self.barakhadi)    
     barakhadi_token =self.get_query(query)
     
     if len(alpha_token) !=0:
@@ -177,7 +177,7 @@ for letter in word: # word
 
 ```python
 text = '''ଧୃତରାଷ୍ଟ୍ର ଉଵାଚ |\tধৃতরাষ্ট্র উবাচ |\tધૃતરાષ્ટ્ર ઉવાચ |\tத்றுதராஷ்ட்ர உவாச |'''
-print(iast.to_iast(text))
+print(bshf.to_iast(text))
 ```
 
     dhr̥tarāṣṭra uvāca |	dhr̥tarāṣṭra ubāca |	dhr̥tarāṣṭra uvāca |	ta்ṟutarāṣa்ṭa்ra uvāca |
@@ -188,8 +188,8 @@ print(iast.to_iast(text))
 
 ```python
 text = 'த்றுதராஷ்ட்ர உவாச'
-print(iast.to_iast(text))
-iast.debug_letterbyletter(text)
+print(bshf.to_iast(text))
+bshf.debug_letterbyletter(text)
 # chr(805)
 ```
 
@@ -213,7 +213,7 @@ iast.debug_letterbyletter(text)
     letter= ச 	| ascii(letter) =2970	| iast = ca
 
 
-## Testing `iast.to_iast(word)`
+## Testing `bshf.to_iast(word)`
 
 
 ```python
@@ -260,32 +260,32 @@ for line_idx in range(min_len-1):
     print("-"*40)
     line = f_telugu.strip().split('\n')[line_idx]
     if len(line):
-        print(f"""TEL\t| {line.strip()}\t| {iast.to_iast( line)} """)
+        print(f"""TEL\t| {line.strip()}\t| {bshf.to_iast( line)} """)
     line = f_kanada.strip().split('\n')[line_idx]
     if len(line):
-        print(f"""KAN\t| {line.strip()}\t| {iast.to_iast( line)} """)
+        print(f"""KAN\t| {line.strip()}\t| {bshf.to_iast( line)} """)
     line = f_malayalam.strip().split('\n')[line_idx]
     if len(line):
-        print(f"""MAL\t| {line.strip()}\t| {iast.to_iast( line)} """)
+        print(f"""MAL\t| {line.strip()}\t| {bshf.to_iast( line)} """)
     line = f_hindi.strip().split('\n')[line_idx]
     if len(line):
-        print(f"""HIN\t| {line.strip()}\t| {iast.to_iast( line)} """)
-        # print(f""" {iast.to_iast( line)} """)
+        print(f"""HIN\t| {line.strip()}\t| {bshf.to_iast( line)} """)
+        # print(f""" {bshf.to_iast( line)} """)
     line = f_oriya.strip().split('\n')[line_idx]
     if len(line):
-        print(f"""ORI\t| {line.strip()}\t| {iast.to_iast( line)} """)
+        print(f"""ORI\t| {line.strip()}\t| {bshf.to_iast( line)} """)
 
     line = f_bengali.strip().split('\n')[line_idx]
     if len(line):
-        print(f"""BEN\t| {line.strip()}\t| {iast.to_iast( line)} """)
+        print(f"""BEN\t| {line.strip()}\t| {bshf.to_iast( line)} """)
         
     line = f_gujarati.strip().split('\n')[line_idx]
     if len(line):
-        print(f"""GUJ\t| {line.strip()}\t| {iast.to_iast( line)} """)
+        print(f"""GUJ\t| {line.strip()}\t| {bshf.to_iast( line)} """)
 
     line = f_tamil.strip().split('\n')[line_idx]
     if len(line):
-        print(f"""TAM\t| {line.strip()}\t| {iast.to_iast( line)} """)
+        print(f"""TAM\t| {line.strip()}\t| {bshf.to_iast( line)} """)
 ```
 
     157 469 157 140
@@ -317,7 +317,7 @@ for line_idx in range(min_len-1):
     ORI	| ନରକେ﻿‌உନିୟତଂ ଵାସୋ ଭଵତୀତ୍ୟନୁଶୁଶ୍ରୁମ || 44 ||	| narakē﻿‌uniẏataṁ vāso bhavatītẏanuśuśruma || 44 || 
 
 
-## Use Case of `iast.to_iast(word)` 
+## Use Case of `bshf.to_iast(word)` 
 
 
 ```python
@@ -347,8 +347,8 @@ f_tamil = """ആലായാല്‍ തറ വേണം  അടുത്തൊ
 lines = f_tamil.strip().split('\n')
 for line in lines:
     if len(line):
-        print(f"""{iast.to_iast( line)} """)
-        # print(f"""MAL \t {line.strip()}\t {iast.to_iast( line)} """)
+        print(f"""{bshf.to_iast( line)} """)
+        # print(f"""MAL \t {line.strip()}\t {bshf.to_iast( line)} """)
 ```
 
     ālāyāl taṟa vēṇaṁ  aṭuttorampalaṁ vēṇaṁ 
@@ -369,18 +369,18 @@ for line in lines:
     pārātirippān cila padavi nallū 
 
 
-# IAST to Indic Language `iast.iast2indic(iast_word,indic_lang)` 
+# IAST to Indic Language `bshf.iast2indic(iast_word,indic_lang)` 
 
 Step to iast_string to indic language
 - convert given **iast_string** `kiṁ rānsakhīṁ` to **iast_tokens**  `['k', 'i', 'ṁ',' ', 'r', 'ā', 'n', 's', 'a', 'kh', 'ī', 'ṁ', 's', 't', 'a', 'th', 'ā']`
 ```python
-IAST.iast2tokens('kiṁ rānsakhīṁ') # >>> ['k', 'i', 'ṁ',' ', 'r', 'ā', 'n', 's', 'a', 'kh', 'ī', 'ṁ', 's', 't', 'a', 'th', 'ā']
+BashaFusion.iast2tokens('kiṁ rānsakhīṁ') # >>> ['k', 'i', 'ṁ',' ', 'r', 'ā', 'n', 's', 'a', 'kh', 'ī', 'ṁ', 's', 't', 'a', 'th', 'ā']
 ```
 - Convert token to `indic lang` add properties(language, vowel/consonant, charater symbol) to each  **token**  `['k', 'i', 'ṁ']`
 
 ```python
-tokens = IAST.iast2tokens('kiṁ')    # >>> `['k', 'i', 'ṁ']`
-iast.tokens2dict_tokenes(tokens,indic_lang)
+tokens = BashaFusion.iast2tokens('kiṁ')    # >>> `['k', 'i', 'ṁ']`
+bshf.tokens2dict_tokenes(tokens,indic_lang)
 # >>>
 [
  {'IAST': 'k', 'lang': 'Telugu', 'type': 'consonants', 'alph': 'క', 'bara': None},
@@ -392,7 +392,7 @@ iast.tokens2dict_tokenes(tokens,indic_lang)
 
 
 
-## IAST String to tokens `IAST.iast2tokens(word)`
+## IAST String to tokens `BashaFusion.iast2tokens(word)`
 
 iast string is split into group of iast character : some like `kha` and `ka` we need prioritise `kha` so we created priority dictionary
 ```python
@@ -414,11 +414,11 @@ consonant_list = [['n̆g', 'n̆j', 'n̆ḍ', 'n̆d', 'm̆b', 'k͟h'], # len of i
                   ]
                   
 # def iast2tokens(word):
-vowel_plist=IAST.vowel_plist
-consonant_list=IAST.consonant_list
+vowel_plist=BashaFusion.vowel_plist
+consonant_list=BashaFusion.consonant_list
 
 iast_tokens= []
-vowel_tokens = IAST.lex_iast(vowel_plist,word)
+vowel_tokens = BashaFusion.lex_iast(vowel_plist,word)
 # print(vowel_tokens)
 if word[-1*len(vowel_tokens[-1]):]==vowel_tokens[-1]:
     pass
@@ -429,10 +429,10 @@ else:
     # print(vowel_tokens)
 for i in vowel_tokens:
     # print(i, lex_iast(consonant_list,i))
-    if len(IAST.lex_iast(consonant_list,i)) <=1:
+    if len(BashaFusion.lex_iast(consonant_list,i)) <=1:
         iast_tokens.append(i)
     else:
-        iast_tokens.extend(IAST.lex_iast(consonant_list,i))                  
+        iast_tokens.extend(BashaFusion.lex_iast(consonant_list,i))                  
 iast_tokens
 ```
 
@@ -504,15 +504,15 @@ def lex_iast(keyword, word):
 
 ```python
 word = 'kaṁ  itāḥ kiṁ  yuyutsavaḥ kl̥̄ kl̥ pāṇḍavānīkaṁ itāḥ kiṁ āṁ  īṁ   yuyutsuṁ  kiṁ rānsakhīṁstathā'
-print(IAST.iast2tokens( word) )
+print(BashaFusion.iast2tokens( word) )
 ```
 
     ['k', 'a', 'ṁ', '  ', 'i', 't', 'ā', 'ḥ', ' ', 'k', 'i', 'ṁ', '  ', 'y', 'u', 'y', 'u', 't', 's', 'a', 'v', 'aḥ', ' ', 'k', 'l̥̄', ' ', 'k', 'l̥', ' ', 'p', 'ā', 'ṇ', 'ḍ', 'a', 'v', 'ā', 'n', 'ī', 'k', 'a', 'ṁ', ' ', 'i', 't', 'ā', 'ḥ', ' ', 'k', 'i', 'ṁ', ' ', 'ā', 'ṁ', '  ', 'ī', 'ṁ', '   ', 'y', 'u', 'y', 'u', 't', 's', 'u', 'ṁ', '  ', 'k', 'i', 'ṁ', ' ', 'r', 'ā', 'n', 's', 'a', 'kh', 'ī', 'ṁ', 's', 't', 'a', 'th', 'ā']
 
 
-## Convert token (IAST Char) to Indic Charater and indic propertices  `iast.tokens2dict_tokenes(tokens,indic_lang)`
+## Convert token (IAST Char) to Indic Charater and indic propertices  `bshf.tokens2dict_tokenes(tokens,indic_lang)`
 
-iast.tokens2dict_tokenes(tokens,indic_lang)
+bshf.tokens2dict_tokenes(tokens,indic_lang)
 - each `iast token`(token) we search for aplhabet and barakhadi table
   - In alphabet input token is like `k, kh, g, gh...etc` which we need to match with `ka, kha, ga, gha,....etc` so <br>
   In SQL Alphabet query we use `{token}%`
@@ -579,10 +579,10 @@ return output_string
 
 ```python
 indic_lang = 'Telugu' # 'Kannada' # 'Telugu'
-# tokens = IAST.iast2tokens(vowel_plist, consonant_list, word) 
-tokens = IAST.iast2tokens( word) 
+# tokens = BashaFusion.iast2tokens(vowel_plist, consonant_list, word) 
+tokens = BashaFusion.iast2tokens( word) 
 # print(tokens)
-output_string = iast.tokens2dict_tokenes(tokens,indic_lang)
+output_string = bshf.tokens2dict_tokenes(tokens,indic_lang)
 # print(output_string)
 for i in output_string:
     print(i)
@@ -783,13 +783,13 @@ return output
 word = 'kaṁ  itāḥ kiṁ  yuyutsavaḥ  pāṇḍavānīkaṁ itāḥ kiṁ āṁ  īṁ  kiṁ yuyutsuṁ rānsakhīṁstathā'
 indic_lang = 'Telugu' # 'Kannada' # 'Telugu'
 # def iast2indic(iast,vowel_plist,consonant_list,word,indic_lang):
-tokens= IAST.iast2tokens( word)
+tokens= BashaFusion.iast2tokens( word)
 
-dict_tokene_list = iast.tokens2dict_tokenes(tokens,indic_lang)
+dict_tokene_list = bshf.tokens2dict_tokenes(tokens,indic_lang)
 # print(output_string)
-halant=iast.get_indic_halant(indic_lang)
+halant=bshf.get_indic_halant(indic_lang)
 
-output=IAST.dict_tokens2indic(dict_tokene_list,halant)
+output=BashaFusion.dict_tokens2indic(dict_tokene_list,halant)
 print(word)
 print(tokens)
 # print(halant)
@@ -835,8 +835,8 @@ for line in text.split('\n'):
     # print(line.split(" "))
     for word in line.split(" "):
         # print('\nword:',word, 'len of word:',len(word))
-        # output =iast.iast2indic(vowel_plist,consonant_list,word,indic_lang)
-        output =iast.iast2indic(word,indic_lang)
+        # output =bshf.iast2indic(vowel_plist,consonant_list,word,indic_lang)
+        output =bshf.iast2indic(word,indic_lang)
 #         # print(l)
         print(output, end=' ')
     
@@ -986,14 +986,14 @@ input=iast_text
 replace_dictionary=basic_stem_dic
 
 def basic_hash(iast_text): # if text is in hin,kan,tel,mal,guj,..etc need to convert to iast 
-    basic_stem_dict = IAST.zero_vowels
-    basic_stem_dict.update(IAST.basic_truncated_consonat)
-    output =IAST.replace_m2m(iast_text,basic_stem_dict) # IAST.replace_m2m(iast_text,basic_stem_dict) # this is many to many mapping
+    basic_stem_dict = BashaFusion.zero_vowels
+    basic_stem_dict.update(BashaFusion.basic_truncated_consonat)
+    output =BashaFusion.replace_m2m(iast_text,basic_stem_dict) # BashaFusion.replace_m2m(iast_text,basic_stem_dict) # this is many to many mapping
     return output
 def replace_m2m(output_data,info_dict):
     for dest in info_dict.keys():
         source = info_dict[dest]
-        output_data = IAST.replace_m2o(output_data, source=source, dest=dest)
+        output_data = BashaFusion.replace_m2o(output_data, source=source, dest=dest)
 ########################################3
 def replace_m2o(text, source=None, dest=None): # 
     if isinstance(source, list):
@@ -1016,14 +1016,14 @@ print("# Original Text:", search_word)
 search_word = search_word.strip().lower()
 print('# # # text converted to iast format')
 # to_iast
-search_iast = iast.to_iast(search_word) # similar to idempotent matrx no loss of info if ':' not present
+search_iast = bshf.to_iast(search_word) # similar to idempotent matrx no loss of info if ':' not present
 print(search_iast)
 
 print('# # # BASIC HASHING')
-print(IAST.basic_hash(search_iast))
+print(BashaFusion.basic_hash(search_iast))
 
 print('# # # NORMAL HASHING')
-print(IAST.normal_hash(search_iast))
+print(BashaFusion.normal_hash(search_iast))
 
 db_data = """
 TEL= ధృతరాష్ట్ర ఉవాచ |
@@ -1036,15 +1036,15 @@ GUJ= ધૃતરાષ્ટ્ર ઉવાચ |
 TAM= த்றுதராஷ்ட்ர உவாச |	
 """
 
-data_iast = iast.to_iast(db_data)
+data_iast = bshf.to_iast(db_data)
 print('# # # text converted to iast format')
 print(data_iast)
 
 print('# # # BASIC STEM TEXT')
-print(IAST.basic_hash(data_iast))
+print(BashaFusion.basic_hash(data_iast))
 
 print('# # # NORMAL STEM TEXT')
-print(IAST.normal_hash(data_iast))
+print(BashaFusion.normal_hash(data_iast))
 ```
 
     # Original Text: dhr̥tarāṣṭra uvāca
@@ -1094,13 +1094,13 @@ print(IAST.normal_hash(data_iast))
 ## Export: db to excel 
 ``` python
 import pandas as pd 
-# pd.read_sql_table(iast.alphabet, iast.db_connect)
-alphabets= pd.read_sql_query(f"SELECT * FROM {iast.alphabet}", iast.db_connect)
-barakhadi = pd.read_sql_query(f"SELECT * FROM {iast.barakhadi}", iast.db_connect)
+# pd.read_sql_table(bshf.alphabet, bshf.db_connect)
+alphabets= pd.read_sql_query(f"SELECT * FROM {bshf.alphabet}", bshf.db_connect)
+barakhadi = pd.read_sql_query(f"SELECT * FROM {bshf.barakhadi}", bshf.db_connect)
 
 with pd.ExcelWriter('IASTv2.xlsx', mode="w",engine="openpyxl")as writer:
-    alphabets.to_excel(writer, sheet_name=iast.alphabet,index=False)
-    barakhadi.to_excel(writer,sheet_name=iast.barakhadi,index=False)
+    alphabets.to_excel(writer, sheet_name=bshf.alphabet,index=False)
+    barakhadi.to_excel(writer,sheet_name=bshf.barakhadi,index=False)
 ```
 
 ## Import db from excel 
