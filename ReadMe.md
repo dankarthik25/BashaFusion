@@ -1,10 +1,10 @@
 <h1 align="center">
-<img style='position: relative;  top: 0px;  right: 0px; width:70%;'  src="BashaFusion/images/hjexl3i91j0so035gees.png"  >
+<img style='position: relative;  top: 0px;  right: 0px; width:20%;'  src="BashaFusion/images/hjexl3i91j0so035gees.png"  >
 </h1>
 
-# BashaFusion
+# BashaFusion (PhoneticMap)
 
-**IAST FrameWork** is a NLP FrameWork build specifically for [Indic Languages/Scripts](https://en.wikipedia.org/wiki/Brahmic_scripts) <br>
+**BashaFusion** is a PhoneticMap  build specifically for [Indic Languages/Scripts](https://en.wikipedia.org/wiki/Brahmic_scripts) <br>
 Where **IAST Script** [lossless romanisation of [Indic scripts](https://en.wikipedia.org/wiki/Brahmic_scripts) to  [Latin script](https://en.wikipedia.org/wiki/Latin_script)] is used as base for all Indic Languages 
 
 **IAST FrameWork** consist of 
@@ -13,37 +13,14 @@ Where **IAST Script** [lossless romanisation of [Indic scripts](https://en.wikip
     for Tamil, Odia, Bengali, Gujarathi in progress
 - Use IAST Char as Phonetic Hash for **Phonetic Based Search Algorithm** `BashaFusion.basic_hash` and `BashaFusion.normal_hash`
 - Using  **IAST Phonetic Hash** for Search Algorithm
+- `Phonetic Word Search`: Searching word which sound similar or Phoneticly Similar in different languages like hinid, kannada, malayalam,telugu,Odia,Bengali,Gujarathi...etc
+- `Not Started`: addon for bash regual expression function to include `Phonetic Word Search` for Indic Language 
+-  `Inprogress`: Mapping all Indic alphabets to [International Phonetic Alphabet (IPA)](https://en.wikipedia.org/wiki/International_Phonetic_Alphabet) 
+- `Not Started`: Generated Phonetic Word  given new indic word using  Phonetic Mapped Alphabet
+- `Not Started`: Generating audio file for  indic word
+- `Not Started`: Pull request of Postgress to include **Phonetic Alphabet Search** in IPA and IAST format 
 <br>
 <br>
-Future Scope
-
-- Creating and Linking Indic Language  OpenSource Dictionary  Olam, Alar dictionary, [Monier Williams Sanskrit Dictionary](https://kosha.sanskrit.today/word/en/stem#) [github GNU Licence v3](https://github.com/drdhaval2785/PyCDSL)   ...etc <br>
-    linking dictionary either by it 
-    - **pronunciation** *(phonetic hash)* or 
-    - by it **meaning**.
-    - Steam word and Lemmatization word in both lanaguages
-- Using IAST as writing system: Creating Steamming and Lemmatization library for (Common Words) in all Indic languages.<br>
-    Most of Indic Language word has (common words) most of them are derived from sanskrit
-
-
-- Creating OpenSouce DataSet of common Indic Language NER Library simillar to   https://stanfordnlp.github.io/CoreNLP/assets/images/demo.png using<br> OpenSource Tools: <br>
-https://github.com/prasadchandan/st_ner_annotate <br>
-https://github.com/explosion/spacy-streamlit <br>
-
-
-
-
-
-- Using IAST as Language as basis for **NLU** Natural Language Understanding for all Indic language.<br>
-    Simillar Rules,Grammer can be group<br>
-    **Advatages of IAST**: Suppose if we develop OpenSource NLU for ( Kannada or Malayalam) then due to IAST writing system the logic  can be easily understanded by other Indic User like (Tamil, Telug, Hindi)...etc<br>
-    This will help other Indic Language NLP developer to understand and develop NLP for there Indic Language.
-
-- Using IAST as Language as basis for **NLG** Natural Language Generation for all Indic language.<br>
-
-
-
-
 
 
 # IAST
@@ -59,13 +36,16 @@ import sqlite3
 import sys
 #from IAST import IAST
 from BashaFusion import BashaFusion
-
-db_path ='iast-map-modified.db'
-# db_path = 'iast-token.db'    
-table_name_alpha= 'IndianAlphabet'
-table_name_barakadi= 'Barakhadi'
 bshf = BashaFusion() 
-# bshf = BashaFusion(db_path,table_name_alpha,table_name_barakadi)
+
+# # # # # # # # # # # 
+# Using custom table/db
+# # # # # # # # # # # 
+
+# db_path = 'iast-token.db'    
+# table_name_alpha= 'IndianAlphabet'
+# table_name_barakadi= 'Barakhadi'
+# bshf = BashaFusion(db_path='iast-token.db', table_name_alpha='IndianAlphabet',table_name_barakadi='Barakhadi')
 ```
 
 # Convert Indic Language to IAST
@@ -1116,3 +1096,35 @@ connect = sqlite3.connect('iast-generated.db')
 alphabets.to_sql('IndianAlphabet', connect, if_exists='replace',index=False)
 barakhadi.to_sql('Barakhadi', connect, if_exists='replace',index=False)
 ```
+
+
+# Future Scope
+
+- Creating and Linking Indic Language  OpenSource Dictionary  Olam, Alar dictionary, [Monier Williams Sanskrit Dictionary](https://kosha.sanskrit.today/word/en/stem#) [github GNU Licence v3](https://github.com/drdhaval2785/PyCDSL)   ...etc <br>
+    linking dictionary either by it 
+    - **pronunciation** *(phonetic hash)* or 
+    - by it **meaning**.
+    - Steam word and Lemmatization word in both lanaguages
+- Using IAST as writing system: Creating Steamming and Lemmatization library for (Common Words) in all Indic languages.<br>
+    Most of Indic Language word has (common words) most of them are derived from sanskrit
+
+
+- Creating OpenSouce DataSet of common Indic Language NER Library simillar to   https://stanfordnlp.github.io/CoreNLP/assets/images/demo.png using<br> OpenSource Tools: <br>
+https://github.com/prasadchandan/st_ner_annotate <br>
+https://github.com/explosion/spacy-streamlit <br>
+
+
+
+
+
+- Using IAST as Language as basis for **NLU** Natural Language Understanding for all Indic language.<br>
+    Simillar Rules,Grammer can be group<br>
+    **Advatages of IAST**: Suppose if we develop OpenSource NLU for ( Kannada or Malayalam) then due to IAST writing system the logic  can be easily understanded by other Indic User like (Tamil, Telug, Hindi)...etc<br>
+    This will help other Indic Language NLP developer to understand and develop NLP for there Indic Language.
+
+- Using IAST as Language as basis for **NLG** Natural Language Generation for all Indic language.<br>
+
+
+
+
+
