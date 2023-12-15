@@ -64,7 +64,8 @@ db_path ='iast-map-modified.db'
 # db_path = 'iast-token.db'    
 table_name_alpha= 'IndianAlphabet'
 table_name_barakadi= 'Barakhadi'
-iast = BashaFusion(db_path,table_name_alpha,table_name_barakadi)
+bshf = BashaFusion() 
+# bshf = BashaFusion(db_path,table_name_alpha,table_name_barakadi)
 ```
 
 # Convert Indic Language to IAST
