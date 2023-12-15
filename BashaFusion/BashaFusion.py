@@ -2,7 +2,7 @@ import sqlite3
 import sys
 import os
 
-class IAST():
+class BashaFusion():
     vowel_plist=[['r̥̄', 'l̥̄'], 
                  ['r̥', 'au', 'ai', 'ụ̄ ', 'ạ̄ ', 'oṁ', 'm̐', 'aḥ', 'l̥'], 
                  ['a', 'ā', 'ạ', 'ụ', 'æ', 'ǣ', 'i', 'ī', 'u', 'ū', 'e', 'ē', 'ê', 'ê',
@@ -140,10 +140,10 @@ class IAST():
     def to_iast(self,word): # arg can be word, sentance, line, para, whole doc
         output_token = ''
         for letter in word: # word
-            query = IAST.get_iast_idx_query(letter,self.alphabet)    
+            query = BashaFusion.get_iast_idx_query(letter,self.alphabet)    
             alpha_token =self.get_query(query)
             
-            query = IAST.get_iast_idx_query(letter,self.barakhadi)    
+            query = BashaFusion.get_iast_idx_query(letter,self.barakhadi)    
             barakhadi_token =self.get_query(query)
             
             if len(alpha_token) !=0:
@@ -172,10 +172,10 @@ class IAST():
     def debug_letterbyletter(self,text):
     # text =' ധർമക്ഷേത്രേ കുരുക്ഷേത്രേ സമവേതാ യുയുത്സവഃ ।' #	| dhaർmakṣētrē kurukṣētrē samavētā yuyutsavaḥ |  
         for letter in text: 
-            query = IAST.get_iast_idx_query(letter,self.alphabet)    
+            query = BashaFusion.get_iast_idx_query(letter,self.alphabet)    
             alpha_token =self.get_query(query)
             
-            query = IAST.get_iast_idx_query(letter,self.barakhadi)    
+            query = BashaFusion.get_iast_idx_query(letter,self.barakhadi)    
             barakhadi_token =self.get_query(query)
             
             output_token=''
@@ -206,21 +206,21 @@ class IAST():
     def replace_m2m(output_data,info_dict):
         for dest in info_dict.keys():
             source = info_dict[dest]
-            output_data = IAST.replace_m2o(output_data, source=source, dest=dest)
+            output_data = BashaFusion.replace_m2o(output_data, source=source, dest=dest)
         return output_data
 
     # Basic Stemming
     def basic_hash(iast_text): # if text is in hin,kan,tel,mal,guj,..etc need to convert to iast 
-        basic_stem_dict = IAST.zero_vowels
-        basic_stem_dict.update(IAST.basic_truncated_consonat)
-        output =IAST.replace_m2m(iast_text,basic_stem_dict)
+        basic_stem_dict = BashaFusion.zero_vowels
+        basic_stem_dict.update(BashaFusion.basic_truncated_consonat)
+        output =BashaFusion.replace_m2m(iast_text,basic_stem_dict)
         return output
         
     # Normal Stemming
     def normal_hash(iast_text):
-        normal_stem_dict = IAST.truncated_vowels
-        normal_stem_dict.update(IAST.basic_truncated_consonat)
-        output = IAST.replace_m2m(iast_text,normal_stem_dict)
+        normal_stem_dict = BashaFusion.truncated_vowels
+        normal_stem_dict.update(BashaFusion.basic_truncated_consonat)
+        output = BashaFusion.replace_m2m(iast_text,normal_stem_dict)
         return output
     
     def get_indic_symbol_query(iast_letter,language,table_name): # query given indic letter will return iast mapped value 
@@ -304,11 +304,11 @@ class IAST():
         if len(word) <=1:
             return word
     # def iast2tokens(vowel_plist,consonant_list,  word):        
-        vowel_plist=IAST.vowel_plist
-        consonant_list=IAST.consonant_list
+        vowel_plist=BashaFusion.vowel_plist
+        consonant_list=BashaFusion.consonant_list
 
         iast_tokens= []
-        vowel_tokens = IAST.lex_iast(vowel_plist,word)
+        vowel_tokens = BashaFusion.lex_iast(vowel_plist,word)
         # print(vowel_tokens)
         if word[-1*len(vowel_tokens[-1]):]==vowel_tokens[-1]:
             pass
@@ -319,10 +319,10 @@ class IAST():
             # print(vowel_tokens)
         for i in vowel_tokens:
             # print(i, lex_iast(consonant_list,i))
-            if len(IAST.lex_iast(consonant_list,i)) <=1:
+            if len(BashaFusion.lex_iast(consonant_list,i)) <=1:
                 iast_tokens.append(i)
             else:
-                iast_tokens.extend(IAST.lex_iast(consonant_list,i))
+                iast_tokens.extend(BashaFusion.lex_iast(consonant_list,i))
         return iast_tokens
 
 
@@ -453,12 +453,12 @@ class IAST():
     
     # def iast2indic(self,vowel_plist,consonant_list,word,indic_lang):    
     def iast2indic(self,word,indic_lang):
-        vowel_plist=IAST.vowel_plist
-        consonant_list=IAST.consonant_list
+        vowel_plist=BashaFusion.vowel_plist
+        consonant_list=BashaFusion.consonant_list
         if len(word)==0:
             return word
-        tokens= IAST.iast2tokens(word)
-        # tokens= IAST.iast2tokens(vowel_plist,consonant_list,  word)
+        tokens= BashaFusion.iast2tokens(word)
+        # tokens= BashaFusion.iast2tokens(vowel_plist,consonant_list,  word)
         # print(tokens)
         dict_tokene_list = self.tokens2dict_tokenes(tokens,indic_lang)
         # print(output_string)
@@ -467,5 +467,5 @@ class IAST():
         data_alpha = self.get_query(query_alpha)
         halant = self.get_query(query_alpha)[0][indic_lang]
         # print(halant)
-        output=IAST.dict_tokens2indic(dict_tokene_list,halant)
+        output=BashaFusion.dict_tokens2indic(dict_tokene_list,halant)
         return output

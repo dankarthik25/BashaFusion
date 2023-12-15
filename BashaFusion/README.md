@@ -1,10 +1,10 @@
-# IastFramework
+# BashaFusion
 A package used to convert indic language to `iast` and `iast` to inidc langauge viceversa.
 
 ### Installation
 ```bash
-pip install -i https://test.pypi.org/simple/ IastFramework # test pypi
-pip install IastFramework  # still in development
+pip install -i https://test.pypi.org/simple/ BashaFusion # test pypi
+pip install BashaFusion  # still in development
 ```
 
 
@@ -16,7 +16,7 @@ import sqlite3
 import os
 import sys
 
-from IastFramework import IAST
+from BashaFusion import IAST
 
 #create a IAST object
 iast = IAST()
@@ -43,7 +43,17 @@ word = 'kaṁ  itāḥ kiṁ  yuyutsavaḥ kl̥̄ kl̥ pāṇḍavānīkaṁ it�
 print(IAST.iast2tokens( word) )
 # >>> ['k', 'a', 'ṁ', '  ', 'i', 't', 'ā', 'ḥ', ' ', 'k', 'i', 'ṁ', '  ', 'y', 'u', 'y', 'u', 't', 's', 'a', 'v', 'aḥ', ' ', 'k', 'l̥̄', ' ', 'k', 'l̥', ' ', 'p', 'ā', 'ṇ', 'ḍ', 'a', 'v', 'ā', 'n', 'ī', 'k', 'a', 'ṁ', ' ', 'i', 't', 'ā', 'ḥ', ' ', 'k', 'i', 'ṁ', ' ', 'ā', 'ṁ', '  ', 'ī', 'ṁ', '   ', 'y', 'u', 'y', 'u', 't', 's', 'u', 'ṁ', '  ', 'k', 'i', 'ṁ', ' ', 'r', 'ā', 'n', 's', 'a', 'kh', 'ī', 'ṁ', 's', 't', 'a', 'th', 'ā']
 indic_lang = 'Telugu' # 'Kannada' # 'Telugu', 'Odia', 'Gujarati', 'Bengali-Assamsese', 
-# 'Tamil' # in developement
+# indic_lang='Devanagari'
+# indic_lang='Kannada'
+# indic_lang='Telugu'
+# indic_lang='Odia'
+# indic_lang='Bengali–Assamese'
+# indic_lang='Tamil' # In development state
+
+print(iast.iast2indic(word,indic_lang))
+
+
+
 IAST.dict_tokens2indic(dict_tokene_list,halant)
 # >>> కం  ఇతాః కిం  యుయుత్సవః  పాణ్డవానీకం ఇతాః కిం ఆం  ఈం  కిం యుయుత్సుం రాన్సఖీంస్తథా
 ```
@@ -75,11 +85,11 @@ print('NORMAL HASHING',IAST.normal_hash(search_iast))
 
 
 ### Contribute
-**`InProgress`** Research and Analysis is going on in  Tamil Script, Nastaliq Script, Sinhala Script.<br>
+**`InProgress`** Research and Analysis is going on in  Tamil Script, Nastaliq Script(Urdu, Arabic), Sinhala(Sri Lanka) Script.<br>
 
 
 
 ### Issue
-Please [open an issue ](https://github.com/dankarthik25/IAST-Framework/issues "open an issue ")<br>
+Please [open an issue ](https://github.com/dankarthik25/BashaFusion/issues "open an issue ")<br>
 here in case any bug was encountered. 
 Mail id : dankarthik25@gmail.com
