@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-12-15 Fri 14:53 -->
+<!-- 2023-12-15 Fri 16:25 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>BashaFusion</title>
@@ -208,26 +208,26 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org8e31e41">IAST</a></li>
-<li><a href="#org1162abb">Installation</a></li>
-<li><a href="#org82d04a5">Convert Indic Language to IAST</a>
+<li><a href="#org4f625ba">IAST</a></li>
+<li><a href="#orgbd79d2f">Installation</a></li>
+<li><a href="#org61469b4">Convert Indic Language to IAST</a>
 <ul>
-<li><a href="#org74b6a89">SQL query to search Indic Character in all Lanaguages</a></li>
-<li><a href="#org98ff43a">Convert Indic sting to iast format <code>bshf.to_iast(word)</code></a></li>
-<li><a href="#org0abb197">Debug <code>to_iast</code> : character by character</a></li>
-<li><a href="#orgd376296">Testing <code>bshf.to_iast(word)</code></a></li>
-<li><a href="#org7e7c910">Use Case of <code>bshf.to_iast(word)</code></a></li>
+<li><a href="#orgc8fbf4d">SQL query to search Indic Character in all Lanaguages</a></li>
+<li><a href="#org8826cf6">Convert Indic sting to iast format <code>bshf.to_iast(word)</code></a></li>
+<li><a href="#org082fb83">Debug <code>to_iast</code> : character by character</a></li>
+<li><a href="#org23b2420">Testing <code>bshf.to_iast(word)</code></a></li>
+<li><a href="#orgde7a974">Use Case of <code>bshf.to_iast(word)</code></a></li>
 </ul>
 </li>
-<li><a href="#org77fd8be">IAST to Indic Language <code>bshf.iast2indic(iast_word,indic_lang)</code></a>
+<li><a href="#org1a19642">IAST to Indic Language <code>bshf.iast2indic(iast_word,indic_lang)</code></a>
 <ul>
-<li><a href="#iast-string-to-tokens-bshf.iast2tokensword">IAST String to tokens <code>BashaFusion.iast2tokens(word)</code></a>
+<li><a href="#orgb1c6ab1">IAST String to tokens <code>BashaFusion.iast2tokens(word)</code></a>
 <ul>
 <li><a href="#lex_token"><code>lex_token</code></a></li>
 </ul>
 </li>
-<li><a href="#org1e177ea">Convert token (IAST Char) to Indic Charater and indic propertices</a></li>
-<li><a href="#org12d0bd5">rule and heuristics</a></li>
+<li><a href="#orgbfb65c4">Convert token (IAST Char) to Indic Charater and indic propertices</a></li>
+<li><a href="#orgfe4ef7c">rule and heuristics</a></li>
 <li><a href="#create-indic-string-using-indic-dictionary-tokens">Create Indic String using indic dictionary tokens</a></li>
 </ul>
 </li>
@@ -238,8 +238,8 @@
 <li><a href="#import-db-from-excel">Import db from excel</a></li>
 </ul>
 </li>
-<li><a href="#org665081f">Summary</a></li>
-<li><a href="#org09fc2fa">Doc</a></li>
+<li><a href="#org0a2478f">Summary</a></li>
+<li><a href="#org6ff4289">Doc</a></li>
 </ul>
 </div>
 </div>
@@ -248,11 +248,14 @@
 </div>
 
 <p>
-pip webpage: <a href="https://test.pypi.org/project/BashaFusion/">https://test.pypi.org/project/BashaFusion/</a> 
+pip Package: <a href="https://pypi.org/project/BashaFusion/">https://pypi.org/project/BashaFusion/</a> <br />
+ReadMe github Page: <a href="https://dankarthik25.github.io/BashaFusion/">https://dankarthik25.github.io/BashaFusion/</a> <br />
+source code: <a href="https://github.com/dankarthik25/BashaFusion">https://github.com/dankarthik25/BashaFusion</a> <br />
 </p>
+
+
 <pre class="example">
-pip install -i https://test.pypi.org/simple/ BashaFusion 
-pip install BashaFusion 
+pip install BashaFusion
 </pre>
 
 <p>
@@ -260,9 +263,9 @@ POC: <a href="https://github.com/dankarthik25/BashaFusion">https://github.com/da
 </p>
 
 
-<div id="outline-container-org8e31e41" class="outline-2">
-<h2 id="org8e31e41">IAST</h2>
-<div class="outline-text-2" id="text-org8e31e41">
+<div id="outline-container-org4f625ba" class="outline-2">
+<h2 id="org4f625ba">IAST</h2>
+<div class="outline-text-2" id="text-org4f625ba">
 <p>
 <b><b><a href="https://en.wikipedia.org/wiki/International_Alphabet_of_Sanskrit_Transliteration">IAST</a>:</b></b> International Alphabet of Sanskrit Transliteration  is a transliteration scheme that allows the lossless romanisation of <a href="https://en.wikipedia.org/wiki/Brahmic_scripts">Indic scripts</a> as employed by Sanskrit and related Indic languages.<br />
 <b><b><a href="https://en.wikipedia.org/wiki/ISO_15919">ISO 15919</a></b></b> published in 2001 and uses <a href="https://en.wikipedia.org/wiki/Diacritic">diacritics</a> to map the much larger set of consonants and vowels in Brahmic and Nastaliq scripts to the <a href="https://en.wikipedia.org/wiki/Latin_script">Latin script</a>. <br />
@@ -272,12 +275,12 @@ Here is the table which is used in the code to link different Indic Scripts <a h
 </div>
 
 
-<div id="outline-container-org1162abb" class="outline-2">
-<h2 id="org1162abb">Installation</h2>
-<div class="outline-text-2" id="text-org1162abb">
+<div id="outline-container-orgbd79d2f" class="outline-2">
+<h2 id="orgbd79d2f">Installation</h2>
+<div class="outline-text-2" id="text-orgbd79d2f">
 <div class="org-src-container">
-<pre class="src src-sh">pip install -i https://test.pypi.org/simple/ BashaFusion <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">working link</span>
-pip install BashaFusion  <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">underdevelopmenet</span>
+<pre class="src src-sh"><span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">pip install -i https://test.pypi.org/simple/ BashaFusion # working link</span>
+pip install BashaFusion 
 
 </pre>
 </div>
@@ -303,23 +306,23 @@ pip install BashaFusion  <span style="color: #2aa1ae; background-color: #ecf3ec;
 <span style="color: #715ab1;">table_name_alpha</span>= <span style="color: #2d9574;">'IndianAlphabet'</span>
 <span style="color: #715ab1;">table_name_barakadi</span>= <span style="color: #2d9574;">'Barakhadi'</span>
 
-<span style="color: #715ab1;">iast</span> = BashaFusion<span style="color: #3a81c3;">(</span>db_path,table_name_alpha,table_name_barakadi<span style="color: #3a81c3;">)</span>
+<span style="color: #715ab1;">bshfx</span> = BashaFusion<span style="color: #3a81c3;">(</span>db_path,table_name_alpha,table_name_barakadi<span style="color: #3a81c3;">)</span>
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org82d04a5" class="outline-2">
-<h2 id="org82d04a5">Convert Indic Language to IAST</h2>
-<div class="outline-text-2" id="text-org82d04a5">
+<div id="outline-container-org61469b4" class="outline-2">
+<h2 id="org61469b4">Convert Indic Language to IAST</h2>
+<div class="outline-text-2" id="text-org61469b4">
 <p>
 Convert hindi, Bengali,Gujarati, Kannadam Odia, Tamil, Telugu to `iast` format 
 </p>
 </div>
 
 
-<div id="outline-container-org74b6a89" class="outline-3">
-<h3 id="org74b6a89">SQL query to search Indic Character in all Lanaguages</h3>
-<div class="outline-text-3" id="text-org74b6a89">
+<div id="outline-container-orgc8fbf4d" class="outline-3">
+<h3 id="orgc8fbf4d">SQL query to search Indic Character in all Lanaguages</h3>
+<div class="outline-text-3" id="text-orgc8fbf4d">
 <div class="org-src-container">
 <pre class="src src-sql"><span style="color: #3a81c3; font-weight: bold;">SELECT</span> * <span style="color: #3a81c3; font-weight: bold;">FROM</span> IndianAlphabet 
     <span style="color: #3a81c3; font-weight: bold;">WHERE</span> Devanagari == <span style="color: #2d9574;">'&#2343;'</span> 
@@ -400,9 +403,9 @@ SELECT * FROM IndianAlphabet WHERE Devanagari == 'ध' OR Bengali–Assamese == 
 
 
 
-<div id="outline-container-org98ff43a" class="outline-3">
-<h3 id="org98ff43a">Convert Indic sting to iast format <code>bshf.to_iast(word)</code></h3>
-<div class="outline-text-3" id="text-org98ff43a">
+<div id="outline-container-org8826cf6" class="outline-3">
+<h3 id="org8826cf6">Convert Indic sting to iast format <code>bshf.to_iast(word)</code></h3>
+<div class="outline-text-3" id="text-org8826cf6">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">def to_iast(self,word): </span>
 <span style="color: #715ab1;">to_iast</span> = <span style="color: #2d9574;">''</span>
@@ -435,15 +438,15 @@ SELECT * FROM IndianAlphabet WHERE Devanagari == 'ध' OR Bengali–Assamese == 
 </pre>
 </div>
 
-<pre class="example" id="orgeab6359">
+<pre class="example" id="org2c2b118">
 dhr̥tarāṣṭra uvāca |    dhr̥tarāṣṭra ubāca |    dhr̥tarāṣṭra uvāca |    ta்ṟutarāṣa்ṭa்ra uvāca |
 </pre>
 </div>
 </div>
 
-<div id="outline-container-org0abb197" class="outline-3">
-<h3 id="org0abb197">Debug <code>to_iast</code> : character by character</h3>
-<div class="outline-text-3" id="text-org0abb197">
+<div id="outline-container-org082fb83" class="outline-3">
+<h3 id="org082fb83">Debug <code>to_iast</code> : character by character</h3>
+<div class="outline-text-3" id="text-org082fb83">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #715ab1;">text</span> = <span style="color: #2d9574;">'&#2980;&#3021;&#2993;&#3009;&#2980;&#2992;&#3006;&#2999;&#3021;&#2975;&#3021;&#2992; &#2953;&#2997;&#3006;&#2970;'</span>
 <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>bshf.to_iast<span style="color: #6c3163;">(</span>text<span style="color: #6c3163;">)</span><span style="color: #3a81c3;">)</span>
@@ -452,7 +455,7 @@ bshf.debug_letterbyletter<span style="color: #3a81c3;">(</span>text<span style="
 </pre>
 </div>
 
-<pre class="example" id="orge63cbbb">
+<pre class="example" id="org0083e9b">
 ta்ṟutarāṣa்ṭa்ra uvāca
 letter= த   | ascii(letter) =2980   | iast = ta
 letter= ்   | ascii(letter) =3021   | iast = ்
@@ -475,9 +478,9 @@ letter= ச   | ascii(letter) =2970   | iast = ca
 </div>
 </div>
 
-<div id="outline-container-orgd376296" class="outline-3">
-<h3 id="orgd376296">Testing <code>bshf.to_iast(word)</code></h3>
-<div class="outline-text-3" id="text-orgd376296">
+<div id="outline-container-org23b2420" class="outline-3">
+<h3 id="org23b2420">Testing <code>bshf.to_iast(word)</code></h3>
+<div class="outline-text-3" id="text-org23b2420">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">for line in text_telugu.strip().split('\n'):</span>
 <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">source : https://hinduliterature.org/tamil/scriptures/srimad_bhagawad_gita_chapter_1.php</span>
@@ -551,7 +554,7 @@ letter= ச   | ascii(letter) =2970   | iast = ca
 </pre>
 </div>
 
-<pre class="example" id="orgcbf1786">
+<pre class="example" id="org5456422">
 157 469 157 140
 LANGUAGE    | Origian Language Script   | IAST CONVERT Script 
 0
@@ -583,9 +586,9 @@ ORI | ନରକେ﻿‌உନିୟତଂ ଵାସୋ ଭଵତୀତ୍ୟନ
 </div>
 </div>
 
-<div id="outline-container-org7e7c910" class="outline-3">
-<h3 id="org7e7c910">Use Case of <code>bshf.to_iast(word)</code></h3>
-<div class="outline-text-3" id="text-org7e7c910">
+<div id="outline-container-orgde7a974" class="outline-3">
+<h3 id="orgde7a974">Use Case of <code>bshf.to_iast(word)</code></h3>
+<div class="outline-text-3" id="text-orgde7a974">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #715ab1;">f_tamil</span> = <span style="color: #2d9574;">"""&#3334;&#3378;&#3390;&#3375;&#3390;&#3378;&#3405;&#8205; &#3364;&#3377; &#3381;&#3399;&#3363;&#3330;  &#3333;&#3359;&#3393;&#3364;&#3405;&#3364;&#3402;&#3376;&#3374;&#3405;&#3370;&#3378;&#3330; &#3381;&#3399;&#3363;&#3330;</span>
 <span style="color: #2d9574;">&#3334;&#3378;&#3391;&#3368;&#3393; &#3354;&#3399;&#3376;&#3405;&#8205;&#3368;&#3405;&#3368;&#3402;&#3376;&#3393; &#3349;&#3393;&#3379;&#3381;&#3393;&#3330; &#3381;&#3399;&#3363;&#3330;</span>
@@ -618,7 +621,7 @@ ORI | ନରକେ﻿‌உନିୟତଂ ଵାସୋ ଭଵତୀତ୍ୟନ
 </pre>
 </div>
 
-<pre class="example" id="orgc716bb0">
+<pre class="example" id="org0d2ac4a">
 ālāyāl taṟa vēṇaṁ  aṭuttorampalaṁ vēṇaṁ 
 ālinu cērnnoru kuḷavuṁ vēṇaṁ 
 kuḷippānāy kuḷaṁ vēṇaṁ  kuḷattil centāmara vēṇaṁ 
@@ -640,9 +643,9 @@ pārātirippān cila padavi nallū
 </div>
 </div>
 
-<div id="outline-container-org77fd8be" class="outline-2">
-<h2 id="org77fd8be">IAST to Indic Language <code>bshf.iast2indic(iast_word,indic_lang)</code></h2>
-<div class="outline-text-2" id="text-org77fd8be">
+<div id="outline-container-org1a19642" class="outline-2">
+<h2 id="org1a19642">IAST to Indic Language <code>bshf.iast2indic(iast_word,indic_lang)</code></h2>
+<div class="outline-text-2" id="text-org1a19642">
 <p>
 Step to iast_string to indic language - convert given <b>iast_string</b>
 <code>kiṁ rānsakhīṁ</code> to <b>iast_tokens</b>
@@ -676,9 +679,9 @@ bshf.tokens2dict_tokenes<span style="color: #3a81c3;">(</span>tokens,indic_lang<
 </ul>
 </div>
 
-<div id="outline-container-iast-string-to-tokens-bshf.iast2tokensword" class="outline-3">
-<h3 id="iast-string-to-tokens-bshf.iast2tokensword">IAST String to tokens <code>BashaFusion.iast2tokens(word)</code></h3>
-<div class="outline-text-3" id="text-iast-string-to-tokens-bshf.iast2tokensword">
+<div id="outline-container-orgb1c6ab1" class="outline-3">
+<h3 id="orgb1c6ab1">IAST String to tokens <code>BashaFusion.iast2tokens(word)</code></h3>
+<div class="outline-text-3" id="text-orgb1c6ab1">
 <p>
 iast string is split into group of iast character : some like <code>kha</code> and
 <code>ka</code> we need prioritise <code>kha</code> so we created priority dictionary
@@ -799,16 +802,16 @@ try to match the keyword of diff len
 </pre>
 </div>
 
-<pre class="example" id="org1121d9c">
+<pre class="example" id="org85966ea">
 ['k', 'a', 'ṁ', '  ', 'i', 't', 'ā', 'ḥ', ' ', 'k', 'i', 'ṁ', '  ', 'y', 'u', 'y', 'u', 't', 's', 'a', 'v', 'aḥ', ' ', 'k', 'l̥̄', ' ', 'k', 'l̥', ' ', 'p', 'ā', 'ṇ', 'ḍ', 'a', 'v', 'ā', 'n', 'ī', 'k', 'a', 'ṁ', ' ', 'i', 't', 'ā', 'ḥ', ' ', 'k', 'i', 'ṁ', ' ', 'ā', 'ṁ', '  ', 'ī', 'ṁ', '   ', 'y', 'u', 'y', 'u', 't', 's', 'u', 'ṁ', '  ', 'k', 'i', 'ṁ', ' ', 'r', 'ā', 'n', 's', 'a', 'kh', 'ī', 'ṁ', 's', 't', 'a', 'th', 'ā']
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org1e177ea" class="outline-3">
-<h3 id="org1e177ea">Convert token (IAST Char) to Indic Charater and indic propertices</h3>
-<div class="outline-text-3" id="text-org1e177ea">
+<div id="outline-container-orgbfb65c4" class="outline-3">
+<h3 id="orgbfb65c4">Convert token (IAST Char) to Indic Charater and indic propertices</h3>
+<div class="outline-text-3" id="text-orgbfb65c4">
 <p>
 <code>bshf.tokens2dict_tokenes(tokens,indic_lang)</code>
 </p>
@@ -826,9 +829,9 @@ with <code>am, ah ....etc</code> so In SQL Barakadi query we use <code>%{token}<
 </div>
 </div>
 
-<div id="outline-container-org12d0bd5" class="outline-3">
-<h3 id="org12d0bd5">rule and heuristics</h3>
-<div class="outline-text-3" id="text-org12d0bd5">
+<div id="outline-container-orgfe4ef7c" class="outline-3">
+<h3 id="orgfe4ef7c">rule and heuristics</h3>
+<div class="outline-text-3" id="text-orgfe4ef7c">
 <p>
 for sql query like <code>n</code> will give result ,n̆ḍa,
 n̆ja=, n <br />
@@ -904,7 +907,7 @@ n̆ja=, n <br />
 </pre>
 </div>
 
-<pre class="example" id="org581fe57">
+<pre class="example" id="org6cae29e">
 {'IAST': 'k', 'lang': 'Telugu', 'type': 'consonants', 'alph': 'క', 'bara': None}
 {'IAST': 'a', 'lang': 'Telugu', 'type': 'vowel', 'alph': 'అ', 'bara': None}
 {'IAST': 'ṁ', 'lang': 'Telugu', 'alph': None, 'type': 'vowel', 'bara': 'ం'}
@@ -1124,7 +1127,7 @@ need to select (alpha or bara) in output
 </pre>
 </div>
 
-<pre class="example" id="orgd250c3d">
+<pre class="example" id="org323c9ee">
 kaṁ  itāḥ kiṁ  yuyutsavaḥ  pāṇḍavānīkaṁ itāḥ kiṁ āṁ  īṁ  kiṁ yuyutsuṁ rānsakhīṁstathā
 ['k', 'a', 'ṁ', '  ', 'i', 't', 'ā', 'ḥ', ' ', 'k', 'i', 'ṁ', '  ', 'y', 'u', 'y', 'u', 't', 's', 'a', 'v', 'aḥ', '  ', 'p', 'ā', 'ṇ', 'ḍ', 'a', 'v', 'ā', 'n', 'ī', 'k', 'a', 'ṁ', ' ', 'i', 't', 'ā', 'ḥ', ' ', 'k', 'i', 'ṁ', ' ', 'ā', 'ṁ', '  ', 'ī', 'ṁ', '  ', 'k', 'i', 'ṁ', ' ', 'y', 'u', 'y', 'u', 't', 's', 'u', 'ṁ', ' ', 'r', 'ā', 'n', 's', 'a', 'kh', 'ī', 'ṁ', 's', 't', 'a', 'th', 'ā']
 కం  ఇతాః కిం  యుయుత్సవః  పాణ్డవానీకం ఇతాః కిం ఆం  ఈం  కిం యుయుత్సుం రాన్సఖీంస్తథా
@@ -1171,7 +1174,7 @@ kaṁ  itāḥ kiṁ  yuyutsavaḥ  pāṇḍavānīkaṁ itāḥ kiṁ āṁ  �
 </pre>
 </div>
 
-<pre class="example" id="org813ad97">
+<pre class="example" id="orga4f7448">
 ఆలాయాల్ తఱ వేణం అటుత్తొరమ్పలం వేణం 
 ఆలిను చేర్న్నొరు కుళవుం వేణం  
 కుళిప్పానాయ్ కుళం వేణం  కుళత్తిల్ చెన్తామర వేణం  
@@ -1196,7 +1199,7 @@ kaṁ  itāḥ kiṁ  yuyutsavaḥ  pāṇḍavānīkaṁ itāḥ kiṁ āṁ  �
 </pre>
 </div>
 
-<pre class="example" id="org2dfa62b">
+<pre class="example" id="org5276027">
 ālāyāl taṟa vēṇaṁ aṭuttorampalaṁ vēṇaṁ
 आलायाल् तऱ वेणं अटुत्तोरम्पलं वेणं 
 ఆలాయాల్ తఱ వేణం అటుత్తొరమ్పలం వేణం
@@ -1389,7 +1392,7 @@ Here we will replace all vowels (svara [स्वरा]) with <code>''</code> (
 </pre>
 </div>
 
-<pre class="example" id="orgce04225">
+<pre class="example" id="orgacaf3b9">
 # Original Text: dhr̥tarāṣṭra uvāca
 # # # text converted to iast format
 dhr̥tarāṣṭra uvāca
@@ -1472,9 +1475,9 @@ barakhadi.to_sql<span style="color: #3a81c3;">(</span><span style="color: #2d957
 </div>
 </div>
 </div>
-<div id="outline-container-org665081f" class="outline-2">
-<h2 id="org665081f">Summary</h2>
-<div class="outline-text-2" id="text-org665081f">
+<div id="outline-container-org0a2478f" class="outline-2">
+<h2 id="org0a2478f">Summary</h2>
+<div class="outline-text-2" id="text-org0a2478f">
 <p>
 <b><b>IAST FrameWork</b></b> is a NLP FrameWork build specifically for <a href="https://en.wikipedia.org/wiki/Brahmic_scripts">Indic Languages/Scripts</a> <br />
 Where <b><b>IAST Script</b></b> [lossless romanisation of <a href="https://en.wikipedia.org/wiki/Brahmic_scripts">Indic scripts</a> to <a href="https://en.wikipedia.org/wiki/Latin_script">Latin script</a> is used as base for all Indic Languages 
@@ -1532,9 +1535,9 @@ This will help other Indic Language NLP developer to understand and develop NLP 
 </div>
 </div>
 
-<div id="outline-container-org09fc2fa" class="outline-2">
-<h2 id="org09fc2fa">Doc</h2>
-<div class="outline-text-2" id="text-org09fc2fa">
+<div id="outline-container-org6ff4289" class="outline-2">
+<h2 id="org6ff4289">Doc</h2>
+<div class="outline-text-2" id="text-org6ff4289">
 <p>
 Google Doc:
 </p>
@@ -1548,7 +1551,7 @@ Google Doc:
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Karthik</p>
-<p class="date">Created: 2023-12-15 Fri 14:53</p>
+<p class="date">Created: 2023-12-15 Fri 16:25</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

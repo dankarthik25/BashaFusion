@@ -1,25 +1,25 @@
 from setuptools import find_packages, setup
 
-with open("IastFramework/README.md", "r") as f:
+with open("BashaFusion/README.md", "r") as f:
     long_description = f.read()
 
 setup(
-    name="IastFramework",
-    version="0.0.9",
+    name="BashaFusion",
+    version="0.0.3",
     description="A package used to convert indic language to iast & iast to inidc langauge viceversa",
-    packages=['IastFramework'],
-    package_data={'IastFramework': ["iast-token.db"]},
+    packages=['BashaFusion'],
+    package_data={'BashaFusion': ["iast-token.db"]},
 
 #    packages=find_packages(where="app"),
     long_description=long_description,
     long_description_content_type="text/markdown",
 #    keyword='iast'
-    url="https://github.com/dankarthik25/IastFramework",
+    url="https://github.com/dankarthik25/BashaFusion",
     author="Dan Karthik",
     author_email="dankarthik25@gmail.com",
     project_urls= {
-        "Documentation": "https://dankarthik25.github.io/IastFramework",
-        "Source" : "https://github.com/dankarthik25/IastFramework",
+        "Documentation": "https://dankarthik25.github.io/BashaFusion",
+        "Source" : "https://github.com/dankarthik25/BashaFusion",
 },
     license="MIT",
     classifiers=[

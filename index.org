@@ -25,10 +25,13 @@
 </div>
 #+END_EXPORT
 
-pip webpage: https://test.pypi.org/project/BashaFusion/ 
-#+begin_src 
-pip install -i https://test.pypi.org/simple/ BashaFusion 
-pip install BashaFusion 
+pip Package: https://pypi.org/project/BashaFusion/ \\
+ReadMe github Page: https://dankarthik25.github.io/BashaFusion/ \\
+source code: https://github.com/dankarthik25/BashaFusion \\
+
+
+#+begin_src
+pip install BashaFusion
 #+end_src
 
 POC: https://github.com/dankarthik25/BashaFusion 
@@ -43,8 +46,8 @@ Here is the table which is used in the code to link different Indic Scripts http
 * Installation
 
 #+begin_src sh
-pip install -i https://test.pypi.org/simple/ BashaFusion # working link
-pip install BashaFusion  # underdevelopmenet
+# pip install -i https://test.pypi.org/simple/ BashaFusion # working link
+pip install BashaFusion 
 
 #+end_src
 
@@ -68,7 +71,7 @@ db_path = 'iast-token.db'
 table_name_alpha= 'IndianAlphabet'
 table_name_barakadi= 'Barakhadi'
 
-iast = BashaFusion(db_path,table_name_alpha,table_name_barakadi)
+bshfx = BashaFusion(db_path,table_name_alpha,table_name_barakadi)
 #+end_src
 * Convert Indic Language to IAST
 
