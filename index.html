@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-12-17 Sun 05:44 -->
+<!-- 2023-12-18 Mon 03:13 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>BashaFusion[PhoneticMap]</title>
+<title>BhashaFusion[PhoneticMap]</title>
 <meta name="author" content="Karthik" />
 <meta name="generator" content="Org Mode" />
 <style>
@@ -193,7 +193,7 @@
     { background-color: #ffff00; color: #000000; font-weight: bold; }
   .org-svg { }
 </style>
-<link rel="icon" type="image/png" href="BashaFusion/images/hjexl3i91j0so035gees.png">
+<link rel="icon" type="image/png" href="BhashaFusion/images/hjexl3i91j0so035gees.png">
 <link rel="stylesheet" type="text/css" href="dataset/readtheorg-htmlize.css"/>
 <link rel="stylesheet" type="text/css" href="dataset/readtheorg.css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -203,32 +203,32 @@
 </head>
 <body>
 <div id="content" class="content">
-<h1 class="title">BashaFusion[PhoneticMap]</h1>
+<h1 class="title">BhashaFusion[PhoneticMap]</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org8748002">BashaFusion (PhoneticMap)</a></li>
-<li><a href="#org63dc9a0">IAST</a></li>
-<li><a href="#org0c06344">Installation</a></li>
-<li><a href="#orgdaa1dac">Convert Indic Language to IAST</a>
+<li><a href="#org9cfed45">BhashaFusion (PhoneticMap)</a></li>
+<li><a href="#org1461bdf">Phonetic Nomenclature</a></li>
+<li><a href="#orgbce755d">Installation</a></li>
+<li><a href="#orgfe15460">Convert Indic Language to IAST</a>
 <ul>
-<li><a href="#orgb81da1c">SQL query to search Indic Character in all Lanaguages</a></li>
-<li><a href="#org2eac3fa">Convert Indic sting to iast format <code>bshf.to_iast(word)</code></a></li>
-<li><a href="#orga118537">Debug <code>to_iast</code> : character by character</a></li>
-<li><a href="#org9ee1811">Testing <code>bshf.to_iast(word)</code></a></li>
-<li><a href="#org4294c99">Use Case of <code>bshf.to_iast(word)</code></a></li>
+<li><a href="#orgb92a51f">SQL query to search Indic Character in all Lanaguages</a></li>
+<li><a href="#org79413d3">Convert Indic sting to iast format <code>phoneticmap.to_iast(word)</code></a></li>
+<li><a href="#orgf2b225a">Debug <code>to_iast</code> : character by character</a></li>
+<li><a href="#org0b67e9b">Testing <code>phoneticmap.to_iast(word)</code></a></li>
+<li><a href="#org191bd11">Use Case of <code>phoneticmap.to_iast(word)</code></a></li>
 </ul>
 </li>
-<li><a href="#orgefa5808">IAST to Indic Language <code>bshf.iast2indic(iast_word,indic_lang)</code></a>
+<li><a href="#org3f1c7c3">IAST to Indic Language <code>phoneticmap.iast2indic(iast_word,indic_lang)</code></a>
 <ul>
-<li><a href="#org8244fb5">IAST String to tokens <code>BashaFusion.iast2tokens(word)</code></a>
+<li><a href="#orge5f4ee8">IAST String to tokens <code>PhoneticMap.iast2tokens(word)</code></a>
 <ul>
 <li><a href="#lex_token"><code>lex_token</code></a></li>
 </ul>
 </li>
-<li><a href="#orga24b8e0">Convert token (IAST Char) to Indic Charater and indic propertices</a></li>
-<li><a href="#orgdad897f">rule and heuristics</a></li>
+<li><a href="#orgcf65a61">Convert token (IAST Char) to Indic Charater and indic propertices</a></li>
+<li><a href="#org6cb8ed5">rule and heuristics</a></li>
 <li><a href="#create-indic-string-using-indic-dictionary-tokens">Create Indic String using indic dictionary tokens</a></li>
 </ul>
 </li>
@@ -239,34 +239,31 @@
 <li><a href="#import-db-from-excel">Import db from excel</a></li>
 </ul>
 </li>
-<li><a href="#org851adca">Summary</a></li>
-<li><a href="#orgc0288b7">Doc</a></li>
+<li><a href="#org62f8497">Summary</a></li>
+<li><a href="#org1215115">Doc</a></li>
 </ul>
 </div>
 </div>
 <div style='position: relative'>
-      <img style='position: absolute;  top: 0px;  right: 0px; width:40%;'  src="BashaFusion/images/hjexl3i91j0so035gees.png"  >
+      <img style='position: absolute;  top: 0px;  right: 0px; width:40%;'  src="BhashaFusion/images/hjexl3i91j0so035gees.png"  >
 </div>
 
 <p>
-pip Package: <a href="https://pypi.org/project/BashaFusion/">https://pypi.org/project/BashaFusion/</a> <br />
-ReadMe Page: <a href="https://dankarthik25.github.io/BashaFusion/">https://dankarthik25.github.io/BashaFusion/</a> <br />
-source code: <a href="https://github.com/dankarthik25/BashaFusion">https://github.com/dankarthik25/BashaFusion</a> <br />
+pip Package: <a href="https://pypi.org/project/BhashaFusion/">https://pypi.org/project/BhashaFusion/</a> <br />
+ReadMe Page: <a href="https://dankarthik25.github.io/BhashaFusion/">https://dankarthik25.github.io/BhashaFusion/</a> <br />
+source code: <a href="https://github.com/dankarthik25/BhashaFusion">https://github.com/dankarthik25/BhashaFusion</a> <br />
 Excel Mapping Table: <a href="https://docs.google.com/spreadsheets/d/1wS98RWxqCQOCoR2H-E9kW0FUXC_Kvqoiz6NzSB2Fdto/">https://docs.google.com/spreadsheets/d/1wS98RWxqCQOCoR2H-E9kW0FUXC_Kvqoiz6NzSB2Fdto/</a>
 </p>
 
 <pre class="example">
-pip install BashaFusion
+pip install BhashaFusion
 </pre>
 
+<div id="outline-container-org9cfed45" class="outline-2">
+<h2 id="org9cfed45">BhashaFusion (PhoneticMap)</h2>
+<div class="outline-text-2" id="text-org9cfed45">
 <p>
-POC: <a href="https://github.com/dankarthik25/BashaFusion">https://github.com/dankarthik25/BashaFusion</a> 
-</p>
-<div id="outline-container-org8748002" class="outline-2">
-<h2 id="org8748002">BashaFusion (PhoneticMap)</h2>
-<div class="outline-text-2" id="text-org8748002">
-<p>
-<b>BashaFusion</b> is a PhoneticMap build specifically for <a href="https://en.wikipedia.org/wiki/Brahmic_scripts">Indic Languages/Scripts</a> <br />
+<b>BhashaFusion</b> is a PhoneticMap build specifically for <a href="https://en.wikipedia.org/wiki/Brahmic_scripts">Indic Languages/Scripts</a> <br />
 Where <b>IAST Script</b> [lossless romanisation of <a href="https://en.wikipedia.org/wiki/Brahmic_scripts">Indic scripts</a> to <a href="https://en.wikipedia.org/wiki/Latin_script">Latin script</a>] is used as base for all Indic Languages
 </p>
 
@@ -274,9 +271,9 @@ Where <b>IAST Script</b> [lossless romanisation of <a href="https://en.wikipedia
 <b>IAST FrameWork</b> consist of 
 </p>
 <ul class="org-ul">
-<li>Lossless convertion of Indic Languages (Hindi, Gujarathi, Malayalam , Kannada, Telugu, Tamil, Odia, Bengali ) into <b>IAST Script</b> <code>bshf.to_iast(indic_script)</code></li>
-<li>Convert <b>IAST Script</b> to Indic Languages (Hindi, Malyalam, Kannada, Telugu) <code>bshf.iast2indic(iast_script,indic_lang)</code> for Tamil, Odia, Bengali, Gujarathi in progress</li>
-<li>Use IAST Char as Phonetic Hash for <b>Phonetic Based Search Algorithm</b> <code>BashaFusion.basic_hash</code> and <code>BashaFusion.normal_hash</code></li>
+<li>Lossless convertion of Indic Languages (Hindi, Gujarathi, Malayalam , Kannada, Telugu, Tamil, Odia, Bengali ) into <b>IAST Script</b> <code>phoneticmap.to_iast(indic_script)</code></li>
+<li>Convert <b>IAST Script</b> to Indic Languages (Hindi, Malyalam, Kannada, Telugu) <code>phoneticmap.iast2indic(iast_script,indic_lang)</code> for Tamil, Odia, Bengali, Gujarathi in progress</li>
+<li>Use IAST Char as Phonetic Hash for <b>Phonetic Based Search Algorithm</b> <code>PhoneticMap.basic_hash</code> and <code>PhoneticMap.normal_hash</code></li>
 <li>Using <b>IAST Phonetic Hash</b> for Search Algorithm</li>
 <li><code>Phonetic Word Search</code>: Searching word which sound similar or Phoneticly Similar in different languages like hinid, kannada, malayalam, telugu, Odia, Bengali, Gujarathi &#x2026;etc</li>
 <li><code>Not Started</code>: addon for bash regual expression function to include <code>Phonetic Word Search</code> for Indic Language</li>
@@ -287,24 +284,26 @@ Where <b>IAST Script</b> [lossless romanisation of <a href="https://en.wikipedia
 </div>
 </div>
 
-<div id="outline-container-org63dc9a0" class="outline-2">
-<h2 id="org63dc9a0">IAST</h2>
-<div class="outline-text-2" id="text-org63dc9a0">
+<div id="outline-container-org1461bdf" class="outline-2">
+<h2 id="org1461bdf">Phonetic Nomenclature</h2>
+<div class="outline-text-2" id="text-org1461bdf">
 <p>
+<b><b><a href="https://en.wikipedia.org/wiki/International_Phonetic_Alphabet">IPA</a></b></b> The International Phonetic Alphabet (IPA) is an alphabetic system of phonetic notation based primarily on the Latin script. <br />
 <b><b><a href="https://en.wikipedia.org/wiki/International_Alphabet_of_Sanskrit_Transliteration">IAST</a>:</b></b> International Alphabet of Sanskrit Transliteration  is a transliteration scheme that allows the lossless romanisation of <a href="https://en.wikipedia.org/wiki/Brahmic_scripts">Indic scripts</a> as employed by Sanskrit and related Indic languages.<br />
 <b><b><a href="https://en.wikipedia.org/wiki/ISO_15919">ISO 15919</a></b></b> published in 2001 and uses <a href="https://en.wikipedia.org/wiki/Diacritic">diacritics</a> to map the much larger set of consonants and vowels in Brahmic and Nastaliq scripts to the <a href="https://en.wikipedia.org/wiki/Latin_script">Latin script</a>. <br />
-Here is the table which is used in the code to link different Indic Scripts <a href="https://docs.google.com/spreadsheets/d/1wS98RWxqCQOCoR2H-E9kW0FUXC_Kvqoiz6NzSB2Fdto/">https://docs.google.com/spreadsheets/d/1wS98RWxqCQOCoR2H-E9kW0FUXC_Kvqoiz6NzSB2Fdto/</a>
+Other Phonetic Mapping for Indic Scripts like :<a href="https://en.wikipedia.org/wiki/Harvard-Kyoto%20">Harvard-Kyoto</a>, <a href="https://en.wikipedia.org/wiki/ITRANS">ITRANS</a>, <a href="https://en.wikipedia.org/wiki/Velthuis">Velthuis</a> <br />
+Here is the table which is used in the code to link different Indic Scripts <a href="https://docs.google.com/spreadsheets/d/1wS98RWxqCQOCoR2H-E9kW0FUXC_Kvqoiz6NzSB2Fdto/">spreadsheets/IAST</a> <br />
 </p>
 </div>
 </div>
 
 
-<div id="outline-container-org0c06344" class="outline-2">
-<h2 id="org0c06344">Installation</h2>
-<div class="outline-text-2" id="text-org0c06344">
+<div id="outline-container-orgbce755d" class="outline-2">
+<h2 id="orgbce755d">Installation</h2>
+<div class="outline-text-2" id="text-orgbce755d">
 <div class="org-src-container">
-<pre class="src src-sh"><span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">pip install -i https://test.pypi.org/simple/ BashaFusion # working link</span>
-pip install BashaFusion 
+<pre class="src src-sh"><span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">pip install -i https://test.pypi.org/simple/ BhashaFusion # working link</span>
+pip install BhashaFusion 
 
 </pre>
 </div>
@@ -317,9 +316,9 @@ pip install BashaFusion
 <span style="color: #3a81c3; font-weight: bold;">import</span> os
 
 <span style="color: #2aa1ae; background-color: #ecf3ec;">#</span><span style="color: #2aa1ae; background-color: #ecf3ec;">from IAST import IAST</span>
-<span style="color: #3a81c3; font-weight: bold;">from</span> BashaFusion <span style="color: #3a81c3; font-weight: bold;">import</span> BashaFusion
+<span style="color: #3a81c3; font-weight: bold;">from</span> BhashaFusion <span style="color: #3a81c3; font-weight: bold;">import</span> PhoneticMap
 
-<span style="color: #715ab1;">bshf</span> = BashaFusion<span style="color: #3a81c3;">()</span> 
+<span style="color: #715ab1;">phoneticmap</span> = PhoneticMap<span style="color: #3a81c3;">()</span> 
 </pre>
 </div>
 
@@ -330,23 +329,23 @@ pip install BashaFusion
 <span style="color: #715ab1;">table_name_alpha</span>= <span style="color: #2d9574;">'IndianAlphabet'</span>
 <span style="color: #715ab1;">table_name_barakadi</span>= <span style="color: #2d9574;">'Barakhadi'</span>
 
-<span style="color: #715ab1;">bshfx</span> = BashaFusion<span style="color: #3a81c3;">(</span>db_path,table_name_alpha,table_name_barakadi<span style="color: #3a81c3;">)</span>
+<span style="color: #715ab1;">phoneticmap</span> = PhoneticMap<span style="color: #3a81c3;">(</span>db_path,table_name_alpha,table_name_barakadi<span style="color: #3a81c3;">)</span>
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-orgdaa1dac" class="outline-2">
-<h2 id="orgdaa1dac">Convert Indic Language to IAST</h2>
-<div class="outline-text-2" id="text-orgdaa1dac">
+<div id="outline-container-orgfe15460" class="outline-2">
+<h2 id="orgfe15460">Convert Indic Language to IAST</h2>
+<div class="outline-text-2" id="text-orgfe15460">
 <p>
 Convert hindi, Bengali,Gujarati, Kannadam Odia, Tamil, Telugu to `iast` format 
 </p>
 </div>
 
 
-<div id="outline-container-orgb81da1c" class="outline-3">
-<h3 id="orgb81da1c">SQL query to search Indic Character in all Lanaguages</h3>
-<div class="outline-text-3" id="text-orgb81da1c">
+<div id="outline-container-orgb92a51f" class="outline-3">
+<h3 id="orgb92a51f">SQL query to search Indic Character in all Lanaguages</h3>
+<div class="outline-text-3" id="text-orgb92a51f">
 <div class="org-src-container">
 <pre class="src src-sql"><span style="color: #3a81c3; font-weight: bold;">SELECT</span> * <span style="color: #3a81c3; font-weight: bold;">FROM</span> IndianAlphabet 
     <span style="color: #3a81c3; font-weight: bold;">WHERE</span> Devanagari == <span style="color: #2d9574;">'&#2343;'</span> 
@@ -374,12 +373,12 @@ Convert hindi, Bengali,Gujarati, Kannadam Odia, Tamil, Telugu to `iast` format
 </pre>
 
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>bshf.alphabet<span style="color: #3a81c3;">)</span> <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">IndianAlphabet</span>
-<span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>bshf.barakhadi<span style="color: #3a81c3;">)</span>  <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">Barakhadi</span>
-<span style="color: #715ab1;">query</span> = BashaFusion.get_iast_idx_query<span style="color: #3a81c3;">(</span><span style="color: #2d9574;">'&#2343;'</span>,bshf.alphabet<span style="color: #3a81c3;">)</span> <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span>
+<pre class="src src-python"><span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>phoneticmap.alphabet<span style="color: #3a81c3;">)</span> <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">IndianAlphabet</span>
+<span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>phoneticmap.barakhadi<span style="color: #3a81c3;">)</span>  <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">Barakhadi</span>
+<span style="color: #715ab1;">query</span> = PhoneticMap.get_iast_idx_query<span style="color: #3a81c3;">(</span><span style="color: #2d9574;">'&#2343;'</span>,phoneticmap.alphabet<span style="color: #3a81c3;">)</span> <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span>
 <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>query.replace<span style="color: #6c3163;">(</span><span style="color: #2d9574;">'</span><span style="color: #4e3163;">\n</span><span style="color: #2d9574;">'</span>,<span style="color: #2d9574;">''</span><span style="color: #6c3163;">)</span>.replace<span style="color: #6c3163;">(</span><span style="color: #2d9574;">"  "</span>,<span style="color: #2d9574;">""</span><span style="color: #6c3163;">)</span>.replace<span style="color: #6c3163;">(</span><span style="color: #2d9574;">'OR'</span>,<span style="color: #2d9574;">' OR'</span><span style="color: #6c3163;">)</span><span style="color: #3a81c3;">)</span> 
 <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print()</span>
-bshf.get_query<span style="color: #3a81c3;">(</span>query<span style="color: #3a81c3;">)</span>
+phoneticmap.get_query<span style="color: #3a81c3;">(</span>query<span style="color: #3a81c3;">)</span>
 <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">[{'IAST': 'dha', 'Devanagari': '&#2343;', 'Bengali&#8211;Assamese': '&#2471;', 'Gujarati': '&#2727;', 'Gurmukhi': '&#2599;', 'Kannada': '&#3239;', 'Malayalam': '&#3367;', 'Nastaliq': '&#1583;&#1726;', 'Odia': '&#2855;', 'Sinhala': '&#3504;', 'Tamil': None, 'Telugu': '&#3111;'}]</span>
 </pre>
 </div>
@@ -407,14 +406,14 @@ SELECT * FROM IndianAlphabet WHERE Devanagari == 'ध' OR Bengali–Assamese == 
 </pre>
 
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>bshf.get_halant_list<span style="color: #6c3163;">()</span><span style="color: #3a81c3;">)</span> <span style="color: #2aa1ae; background-color: #ecf3ec;">#</span><span style="color: #2aa1ae; background-color: #ecf3ec;">&gt;&gt;  ['&#2381;', '&#2509;', '&#2765;', '&#3277;', '&#3405;', '&#2893;', '&#3149;']</span>
-<span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>bshf.<span style="color: #6c3163;">(</span><span style="color: #2d9574;">'&#3111;&#3139;&#3108;&#3149;&#3120;&#3134;&#3127;&#3149;&#3103;&#3149;&#3120; &#3081;&#3125;&#3134;&#3098;'</span><span style="color: #6c3163;">)</span><span style="color: #3a81c3;">)</span>
+<pre class="src src-python"><span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>phoneticmap.get_halant_list<span style="color: #6c3163;">()</span><span style="color: #3a81c3;">)</span> <span style="color: #2aa1ae; background-color: #ecf3ec;">#</span><span style="color: #2aa1ae; background-color: #ecf3ec;">&gt;&gt;  ['&#2381;', '&#2509;', '&#2765;', '&#3277;', '&#3405;', '&#2893;', '&#3149;']</span>
+<span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>phoneticmap.<span style="color: #6c3163;">(</span><span style="color: #2d9574;">'&#3111;&#3139;&#3108;&#3149;&#3120;&#3134;&#3127;&#3149;&#3103;&#3149;&#3120; &#3081;&#3125;&#3134;&#3098;'</span><span style="color: #6c3163;">)</span><span style="color: #3a81c3;">)</span>
 </pre>
 </div>
 
 
 <pre class="example">
-# bshf.halant_list
+# phoneticmap.halant_list
  ['्', '্', '્', '್', '്', '୍', '్']
  dhr̥trāṣṭra uvāca
 
@@ -427,17 +426,17 @@ SELECT * FROM IndianAlphabet WHERE Devanagari == 'ध' OR Bengali–Assamese == 
 
 
 
-<div id="outline-container-org2eac3fa" class="outline-3">
-<h3 id="org2eac3fa">Convert Indic sting to iast format <code>bshf.to_iast(word)</code></h3>
-<div class="outline-text-3" id="text-org2eac3fa">
+<div id="outline-container-org79413d3" class="outline-3">
+<h3 id="org79413d3">Convert Indic sting to iast format <code>phoneticmap.to_iast(word)</code></h3>
+<div class="outline-text-3" id="text-org79413d3">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">def to_iast(self,word): </span>
 <span style="color: #715ab1;">to_iast</span> = <span style="color: #2d9574;">''</span>
 <span style="color: #3a81c3; font-weight: bold;">for</span> letter <span style="color: #3a81c3; font-weight: bold;">in</span> word: <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">word</span>
-    <span style="color: #715ab1;">query</span> = BashaFusion.get_iast_idx_query<span style="color: #3a81c3;">(</span>letter,<span style="color: #3a81c3; font-weight: bold;">self</span>.alphabet<span style="color: #3a81c3;">)</span>    
+    <span style="color: #715ab1;">query</span> = PhoneticMap.get_iast_idx_query<span style="color: #3a81c3;">(</span>letter,<span style="color: #3a81c3; font-weight: bold;">self</span>.alphabet<span style="color: #3a81c3;">)</span>    
     <span style="color: #715ab1;">alpha_token</span> =<span style="color: #3a81c3; font-weight: bold;">self</span>.get_query<span style="color: #3a81c3;">(</span>query<span style="color: #3a81c3;">)</span>
 
-    <span style="color: #715ab1;">query</span> = BashaFusion.get_iast_idx_query<span style="color: #3a81c3;">(</span>letter,<span style="color: #3a81c3; font-weight: bold;">self</span>.barakhadi<span style="color: #3a81c3;">)</span>    
+    <span style="color: #715ab1;">query</span> = PhoneticMap.get_iast_idx_query<span style="color: #3a81c3;">(</span>letter,<span style="color: #3a81c3; font-weight: bold;">self</span>.barakhadi<span style="color: #3a81c3;">)</span>    
     <span style="color: #715ab1;">barakhadi_token</span> =<span style="color: #3a81c3; font-weight: bold;">self</span>.get_query<span style="color: #3a81c3;">(</span>query<span style="color: #3a81c3;">)</span>
 
     <span style="color: #3a81c3; font-weight: bold;">if</span> <span style="color: #3a81c3;">len</span><span style="color: #3a81c3;">(</span>alpha_token<span style="color: #3a81c3;">)</span> !=0:
@@ -458,28 +457,28 @@ SELECT * FROM IndianAlphabet WHERE Devanagari == 'ध' OR Bengali–Assamese == 
 
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #715ab1;">text</span> = <span style="color: #2d9574;">'''&#2855;&#2883;&#2852;&#2864;&#2878;&#2871;&#2893;&#2847;&#2893;&#2864; &#2825;&#2869;&#2878;&#2842; |</span><span style="color: #4e3163;">\t</span><span style="color: #2d9574;">&#2471;&#2499;&#2468;&#2480;&#2494;&#2487;&#2509;&#2463;&#2509;&#2480; &#2441;&#2476;&#2494;&#2458; |</span><span style="color: #4e3163;">\t</span><span style="color: #2d9574;">&#2727;&#2755;&#2724;&#2736;&#2750;&#2743;&#2765;&#2719;&#2765;&#2736; &#2697;&#2741;&#2750;&#2714; |</span><span style="color: #4e3163;">\t</span><span style="color: #2d9574;">&#2980;&#3021;&#2993;&#3009;&#2980;&#2992;&#3006;&#2999;&#3021;&#2975;&#3021;&#2992; &#2953;&#2997;&#3006;&#2970; |'''</span>
-<span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>bshf.to_iast<span style="color: #6c3163;">(</span>text<span style="color: #6c3163;">)</span><span style="color: #3a81c3;">)</span>
+<span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>phoneticmap.to_iast<span style="color: #6c3163;">(</span>text<span style="color: #6c3163;">)</span><span style="color: #3a81c3;">)</span>
 </pre>
 </div>
 
-<pre class="example" id="org2157cb0">
+<pre class="example" id="org8969ac0">
 dhr̥tarāṣṭra uvāca |    dhr̥tarāṣṭra ubāca |    dhr̥tarāṣṭra uvāca |    ta்ṟutarāṣa்ṭa்ra uvāca |
 </pre>
 </div>
 </div>
 
-<div id="outline-container-orga118537" class="outline-3">
-<h3 id="orga118537">Debug <code>to_iast</code> : character by character</h3>
-<div class="outline-text-3" id="text-orga118537">
+<div id="outline-container-orgf2b225a" class="outline-3">
+<h3 id="orgf2b225a">Debug <code>to_iast</code> : character by character</h3>
+<div class="outline-text-3" id="text-orgf2b225a">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #715ab1;">text</span> = <span style="color: #2d9574;">'&#2980;&#3021;&#2993;&#3009;&#2980;&#2992;&#3006;&#2999;&#3021;&#2975;&#3021;&#2992; &#2953;&#2997;&#3006;&#2970;'</span>
-<span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>bshf.to_iast<span style="color: #6c3163;">(</span>text<span style="color: #6c3163;">)</span><span style="color: #3a81c3;">)</span>
-bshf.debug_letterbyletter<span style="color: #3a81c3;">(</span>text<span style="color: #3a81c3;">)</span>
+<span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>phoneticmap.to_iast<span style="color: #6c3163;">(</span>text<span style="color: #6c3163;">)</span><span style="color: #3a81c3;">)</span>
+phoneticmap.debug_letterbyletter<span style="color: #3a81c3;">(</span>text<span style="color: #3a81c3;">)</span>
 <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">chr(805)</span>
 </pre>
 </div>
 
-<pre class="example" id="orge6fae63">
+<pre class="example" id="org129a0b2">
 ta்ṟutarāṣa்ṭa்ra uvāca
 letter= த   | ascii(letter) =2980   | iast = ta
 letter= ்   | ascii(letter) =3021   | iast = ்
@@ -502,9 +501,9 @@ letter= ச   | ascii(letter) =2970   | iast = ca
 </div>
 </div>
 
-<div id="outline-container-org9ee1811" class="outline-3">
-<h3 id="org9ee1811">Testing <code>bshf.to_iast(word)</code></h3>
-<div class="outline-text-3" id="text-org9ee1811">
+<div id="outline-container-org0b67e9b" class="outline-3">
+<h3 id="org0b67e9b">Testing <code>phoneticmap.to_iast(word)</code></h3>
+<div class="outline-text-3" id="text-org0b67e9b">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">for line in text_telugu.strip().split('\n'):</span>
 <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">source : https://hinduliterature.org/tamil/scriptures/srimad_bhagawad_gita_chapter_1.php</span>
@@ -549,36 +548,36 @@ letter= ச   | ascii(letter) =2970   | iast = ca
     <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span><span style="color: #2d9574;">"-"</span>*40<span style="color: #3a81c3;">)</span>
     <span style="color: #715ab1;">line</span> = f_telugu.strip<span style="color: #3a81c3;">()</span>.split<span style="color: #3a81c3;">(</span><span style="color: #2d9574;">'</span><span style="color: #4e3163;">\n</span><span style="color: #2d9574;">'</span><span style="color: #3a81c3;">)[</span>line_idx<span style="color: #3a81c3;">]</span>
     <span style="color: #3a81c3; font-weight: bold;">if</span> <span style="color: #3a81c3;">len</span><span style="color: #3a81c3;">(</span>line<span style="color: #3a81c3;">)</span>:
-        <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>f<span style="color: #2d9574;">"""TEL</span><span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{line.strip()}<span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{bshf.to_iast( line)}<span style="color: #2d9574;"> """</span><span style="color: #3a81c3;">)</span>
+        <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>f<span style="color: #2d9574;">"""TEL</span><span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{line.strip()}<span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{phoneticmap.to_iast( line)}<span style="color: #2d9574;"> """</span><span style="color: #3a81c3;">)</span>
     <span style="color: #715ab1;">line</span> = f_kanada.strip<span style="color: #3a81c3;">()</span>.split<span style="color: #3a81c3;">(</span><span style="color: #2d9574;">'</span><span style="color: #4e3163;">\n</span><span style="color: #2d9574;">'</span><span style="color: #3a81c3;">)[</span>line_idx<span style="color: #3a81c3;">]</span>
     <span style="color: #3a81c3; font-weight: bold;">if</span> <span style="color: #3a81c3;">len</span><span style="color: #3a81c3;">(</span>line<span style="color: #3a81c3;">)</span>:
-        <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>f<span style="color: #2d9574;">"""KAN</span><span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{line.strip()}<span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{bshf.to_iast( line)}<span style="color: #2d9574;"> """</span><span style="color: #3a81c3;">)</span>
+        <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>f<span style="color: #2d9574;">"""KAN</span><span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{line.strip()}<span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{phoneticmap.to_iast( line)}<span style="color: #2d9574;"> """</span><span style="color: #3a81c3;">)</span>
     <span style="color: #715ab1;">line</span> = f_malayalam.strip<span style="color: #3a81c3;">()</span>.split<span style="color: #3a81c3;">(</span><span style="color: #2d9574;">'</span><span style="color: #4e3163;">\n</span><span style="color: #2d9574;">'</span><span style="color: #3a81c3;">)[</span>line_idx<span style="color: #3a81c3;">]</span>
     <span style="color: #3a81c3; font-weight: bold;">if</span> <span style="color: #3a81c3;">len</span><span style="color: #3a81c3;">(</span>line<span style="color: #3a81c3;">)</span>:
-        <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>f<span style="color: #2d9574;">"""MAL</span><span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{line.strip()}<span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{bshf.to_iast( line)}<span style="color: #2d9574;"> """</span><span style="color: #3a81c3;">)</span>
+        <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>f<span style="color: #2d9574;">"""MAL</span><span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{line.strip()}<span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{phoneticmap.to_iast( line)}<span style="color: #2d9574;"> """</span><span style="color: #3a81c3;">)</span>
     <span style="color: #715ab1;">line</span> = f_hindi.strip<span style="color: #3a81c3;">()</span>.split<span style="color: #3a81c3;">(</span><span style="color: #2d9574;">'</span><span style="color: #4e3163;">\n</span><span style="color: #2d9574;">'</span><span style="color: #3a81c3;">)[</span>line_idx<span style="color: #3a81c3;">]</span>
     <span style="color: #3a81c3; font-weight: bold;">if</span> <span style="color: #3a81c3;">len</span><span style="color: #3a81c3;">(</span>line<span style="color: #3a81c3;">)</span>:
-        <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>f<span style="color: #2d9574;">"""HIN</span><span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{line.strip()}<span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{bshf.to_iast( line)}<span style="color: #2d9574;"> """</span><span style="color: #3a81c3;">)</span>
-        <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print(f""" {bshf.to_iast( line)} """)</span>
+        <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>f<span style="color: #2d9574;">"""HIN</span><span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{line.strip()}<span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{phoneticmap.to_iast( line)}<span style="color: #2d9574;"> """</span><span style="color: #3a81c3;">)</span>
+        <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print(f""" {phoneticmap.to_iast( line)} """)</span>
     <span style="color: #715ab1;">line</span> = f_oriya.strip<span style="color: #3a81c3;">()</span>.split<span style="color: #3a81c3;">(</span><span style="color: #2d9574;">'</span><span style="color: #4e3163;">\n</span><span style="color: #2d9574;">'</span><span style="color: #3a81c3;">)[</span>line_idx<span style="color: #3a81c3;">]</span>
     <span style="color: #3a81c3; font-weight: bold;">if</span> <span style="color: #3a81c3;">len</span><span style="color: #3a81c3;">(</span>line<span style="color: #3a81c3;">)</span>:
-        <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>f<span style="color: #2d9574;">"""ORI</span><span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{line.strip()}<span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{bshf.to_iast( line)}<span style="color: #2d9574;"> """</span><span style="color: #3a81c3;">)</span>
+        <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>f<span style="color: #2d9574;">"""ORI</span><span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{line.strip()}<span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{phoneticmap.to_iast( line)}<span style="color: #2d9574;"> """</span><span style="color: #3a81c3;">)</span>
 
     <span style="color: #715ab1;">line</span> = f_bengali.strip<span style="color: #3a81c3;">()</span>.split<span style="color: #3a81c3;">(</span><span style="color: #2d9574;">'</span><span style="color: #4e3163;">\n</span><span style="color: #2d9574;">'</span><span style="color: #3a81c3;">)[</span>line_idx<span style="color: #3a81c3;">]</span>
     <span style="color: #3a81c3; font-weight: bold;">if</span> <span style="color: #3a81c3;">len</span><span style="color: #3a81c3;">(</span>line<span style="color: #3a81c3;">)</span>:
-        <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>f<span style="color: #2d9574;">"""BEN</span><span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{line.strip()}<span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{bshf.to_iast( line)}<span style="color: #2d9574;"> """</span><span style="color: #3a81c3;">)</span>
+        <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>f<span style="color: #2d9574;">"""BEN</span><span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{line.strip()}<span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{phoneticmap.to_iast( line)}<span style="color: #2d9574;"> """</span><span style="color: #3a81c3;">)</span>
 
     <span style="color: #715ab1;">line</span> = f_gujarati.strip<span style="color: #3a81c3;">()</span>.split<span style="color: #3a81c3;">(</span><span style="color: #2d9574;">'</span><span style="color: #4e3163;">\n</span><span style="color: #2d9574;">'</span><span style="color: #3a81c3;">)[</span>line_idx<span style="color: #3a81c3;">]</span>
     <span style="color: #3a81c3; font-weight: bold;">if</span> <span style="color: #3a81c3;">len</span><span style="color: #3a81c3;">(</span>line<span style="color: #3a81c3;">)</span>:
-        <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>f<span style="color: #2d9574;">"""GUJ</span><span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{line.strip()}<span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{bshf.to_iast( line)}<span style="color: #2d9574;"> """</span><span style="color: #3a81c3;">)</span>
+        <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>f<span style="color: #2d9574;">"""GUJ</span><span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{line.strip()}<span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{phoneticmap.to_iast( line)}<span style="color: #2d9574;"> """</span><span style="color: #3a81c3;">)</span>
 
     <span style="color: #715ab1;">line</span> = f_tamil.strip<span style="color: #3a81c3;">()</span>.split<span style="color: #3a81c3;">(</span><span style="color: #2d9574;">'</span><span style="color: #4e3163;">\n</span><span style="color: #2d9574;">'</span><span style="color: #3a81c3;">)[</span>line_idx<span style="color: #3a81c3;">]</span>
     <span style="color: #3a81c3; font-weight: bold;">if</span> <span style="color: #3a81c3;">len</span><span style="color: #3a81c3;">(</span>line<span style="color: #3a81c3;">)</span>:
-        <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>f<span style="color: #2d9574;">"""TAM</span><span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{line.strip()}<span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{bshf.to_iast( line)}<span style="color: #2d9574;"> """</span><span style="color: #3a81c3;">)</span>
+        <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>f<span style="color: #2d9574;">"""TAM</span><span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{line.strip()}<span style="color: #4e3163;">\t</span><span style="color: #2d9574;">| </span>{phoneticmap.to_iast( line)}<span style="color: #2d9574;"> """</span><span style="color: #3a81c3;">)</span>
 </pre>
 </div>
 
-<pre class="example" id="orgd24c47e">
+<pre class="example" id="orgdc5a2ce">
 157 469 157 140
 LANGUAGE    | Origian Language Script   | IAST CONVERT Script 
 0
@@ -610,9 +609,9 @@ ORI | ନରକେ﻿‌உନିୟତଂ ଵାସୋ ଭଵତୀତ୍ୟନ
 </div>
 </div>
 
-<div id="outline-container-org4294c99" class="outline-3">
-<h3 id="org4294c99">Use Case of <code>bshf.to_iast(word)</code></h3>
-<div class="outline-text-3" id="text-org4294c99">
+<div id="outline-container-org191bd11" class="outline-3">
+<h3 id="org191bd11">Use Case of <code>phoneticmap.to_iast(word)</code></h3>
+<div class="outline-text-3" id="text-org191bd11">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #715ab1;">f_tamil</span> = <span style="color: #2d9574;">"""&#3334;&#3378;&#3390;&#3375;&#3390;&#3378;&#3405;&#8205; &#3364;&#3377; &#3381;&#3399;&#3363;&#3330;  &#3333;&#3359;&#3393;&#3364;&#3405;&#3364;&#3402;&#3376;&#3374;&#3405;&#3370;&#3378;&#3330; &#3381;&#3399;&#3363;&#3330;</span>
 <span style="color: #2d9574;">&#3334;&#3378;&#3391;&#3368;&#3393; &#3354;&#3399;&#3376;&#3405;&#8205;&#3368;&#3405;&#3368;&#3402;&#3376;&#3393; &#3349;&#3393;&#3379;&#3381;&#3393;&#3330; &#3381;&#3399;&#3363;&#3330;</span>
@@ -640,12 +639,12 @@ ORI | ନରକେ﻿‌உନିୟତଂ ଵାସୋ ଭଵତୀତ୍ୟନ
 <span style="color: #715ab1;">lines</span> = f_tamil.strip<span style="color: #3a81c3;">()</span>.split<span style="color: #3a81c3;">(</span><span style="color: #2d9574;">'</span><span style="color: #4e3163;">\n</span><span style="color: #2d9574;">'</span><span style="color: #3a81c3;">)</span>
 <span style="color: #3a81c3; font-weight: bold;">for</span> line <span style="color: #3a81c3; font-weight: bold;">in</span> lines:
     <span style="color: #3a81c3; font-weight: bold;">if</span> <span style="color: #3a81c3;">len</span><span style="color: #3a81c3;">(</span>line<span style="color: #3a81c3;">)</span>:
-        <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>f<span style="color: #2d9574;">"""</span>{bshf.to_iast( line)}<span style="color: #2d9574;"> """</span><span style="color: #3a81c3;">)</span>
-        <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print(f"""MAL \t {line.strip()}\t {bshf.to_iast( line)} """)</span>
+        <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>f<span style="color: #2d9574;">"""</span>{phoneticmap.to_iast( line)}<span style="color: #2d9574;"> """</span><span style="color: #3a81c3;">)</span>
+        <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print(f"""MAL \t {line.strip()}\t {phoneticmap.to_iast( line)} """)</span>
 </pre>
 </div>
 
-<pre class="example" id="org0286139">
+<pre class="example" id="org05a08dd">
 ālāyāl taṟa vēṇaṁ  aṭuttorampalaṁ vēṇaṁ 
 ālinu cērnnoru kuḷavuṁ vēṇaṁ 
 kuḷippānāy kuḷaṁ vēṇaṁ  kuḷattil centāmara vēṇaṁ 
@@ -667,9 +666,9 @@ pārātirippān cila padavi nallū
 </div>
 </div>
 
-<div id="outline-container-orgefa5808" class="outline-2">
-<h2 id="orgefa5808">IAST to Indic Language <code>bshf.iast2indic(iast_word,indic_lang)</code></h2>
-<div class="outline-text-2" id="text-orgefa5808">
+<div id="outline-container-org3f1c7c3" class="outline-2">
+<h2 id="org3f1c7c3">IAST to Indic Language <code>phoneticmap.iast2indic(iast_word,indic_lang)</code></h2>
+<div class="outline-text-2" id="text-org3f1c7c3">
 <p>
 Step to iast_string to indic language - convert given <b>iast_string</b>
 <code>kiṁ rānsakhīṁ</code> to <b>iast_tokens</b>
@@ -677,7 +676,7 @@ Step to iast_string to indic language - convert given <b>iast_string</b>
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python">BashaFusion.iast2tokens<span style="color: #3a81c3;">(</span><span style="color: #2d9574;">'ki&#7745; r&#257;nsakh&#299;&#7745;'</span><span style="color: #3a81c3;">)</span> <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">&gt;&gt;&gt; ['k', 'i', '&#7745;',' ', 'r', '&#257;', 'n', 's', 'a', 'kh', '&#299;', '&#7745;', 's', 't', 'a', 'th', '&#257;']</span>
+<pre class="src src-python">PhoneticMap.iast2tokens<span style="color: #3a81c3;">(</span><span style="color: #2d9574;">'ki&#7745; r&#257;nsakh&#299;&#7745;'</span><span style="color: #3a81c3;">)</span> <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">&gt;&gt;&gt; ['k', 'i', '&#7745;',' ', 'r', '&#257;', 'n', 's', 'a', 'kh', '&#299;', '&#7745;', 's', 't', 'a', 'th', '&#257;']</span>
 </pre>
 </div>
 
@@ -687,8 +686,8 @@ vowel/consonant, charater symbol) to each <b>token</b> <code>['k', 'i', 'ṁ']</
 </ul>
 
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #715ab1;">tokens</span> = BashaFusion.iast2tokens<span style="color: #3a81c3;">(</span><span style="color: #2d9574;">'ki&#7745;'</span><span style="color: #3a81c3;">)</span>    <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">&gt;&gt;&gt; `['k', 'i', '&#7745;']`</span>
-bshf.tokens2dict_tokenes<span style="color: #3a81c3;">(</span>tokens,indic_lang<span style="color: #3a81c3;">)</span>
+<pre class="src src-python"><span style="color: #715ab1;">tokens</span> = PhoneticMap.iast2tokens<span style="color: #3a81c3;">(</span><span style="color: #2d9574;">'ki&#7745;'</span><span style="color: #3a81c3;">)</span>    <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">&gt;&gt;&gt; `['k', 'i', '&#7745;']`</span>
+phoneticmap.tokens2dict_tokenes<span style="color: #3a81c3;">(</span>tokens,indic_lang<span style="color: #3a81c3;">)</span>
 <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">&gt;&gt;&gt;</span>
 <span style="color: #3a81c3;">[</span>
  <span style="color: #6c3163;">{</span><span style="color: #2d9574;">'IAST'</span>: <span style="color: #2d9574;">'k'</span>, <span style="color: #2d9574;">'lang'</span>: <span style="color: #2d9574;">'Telugu'</span>, <span style="color: #2d9574;">'type'</span>: <span style="color: #2d9574;">'consonants'</span>, <span style="color: #2d9574;">'alph'</span>: <span style="color: #2d9574;">'&#3093;'</span>, <span style="color: #2d9574;">'bara'</span>: <span style="color: #4e3163;">None</span><span style="color: #6c3163;">}</span>,
@@ -703,9 +702,9 @@ bshf.tokens2dict_tokenes<span style="color: #3a81c3;">(</span>tokens,indic_lang<
 </ul>
 </div>
 
-<div id="outline-container-org8244fb5" class="outline-3">
-<h3 id="org8244fb5">IAST String to tokens <code>BashaFusion.iast2tokens(word)</code></h3>
-<div class="outline-text-3" id="text-org8244fb5">
+<div id="outline-container-orge5f4ee8" class="outline-3">
+<h3 id="orge5f4ee8">IAST String to tokens <code>PhoneticMap.iast2tokens(word)</code></h3>
+<div class="outline-text-3" id="text-orge5f4ee8">
 <p>
 iast string is split into group of iast character : some like <code>kha</code> and
 <code>ka</code> we need prioritise <code>kha</code> so we created priority dictionary
@@ -730,11 +729,11 @@ iast string is split into group of iast character : some like <code>kha</code> a
                   <span style="color: #3a81c3;">]</span>
 
 <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">def iast2tokens(word):</span>
-<span style="color: #715ab1;">vowel_plist</span>=BashaFusion.vowel_plist
-<span style="color: #715ab1;">consonant_list</span>=BashaFusion.consonant_list
+<span style="color: #715ab1;">vowel_plist</span>=PhoneticMap.vowel_plist
+<span style="color: #715ab1;">consonant_list</span>=PhoneticMap.consonant_list
 
 <span style="color: #715ab1;">iast_tokens</span>= <span style="color: #3a81c3;">[]</span>
-<span style="color: #715ab1;">vowel_tokens</span> = BashaFusion.lex_iast<span style="color: #3a81c3;">(</span>vowel_plist,word<span style="color: #3a81c3;">)</span>
+<span style="color: #715ab1;">vowel_tokens</span> = PhoneticMap.lex_iast<span style="color: #3a81c3;">(</span>vowel_plist,word<span style="color: #3a81c3;">)</span>
 <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print(vowel_tokens)</span>
 <span style="color: #3a81c3; font-weight: bold;">if</span> word<span style="color: #3a81c3;">[</span>-1*<span style="color: #3a81c3;">len</span><span style="color: #6c3163;">(</span>vowel_tokens<span style="color: #2d9574;">[</span>-1<span style="color: #2d9574;">]</span><span style="color: #6c3163;">)</span>:<span style="color: #3a81c3;">]</span>==vowel_tokens<span style="color: #3a81c3;">[</span>-1<span style="color: #3a81c3;">]</span>:
     <span style="color: #3a81c3; font-weight: bold;">pass</span>
@@ -745,10 +744,10 @@ iast string is split into group of iast character : some like <code>kha</code> a
     <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print(vowel_tokens)</span>
 <span style="color: #3a81c3; font-weight: bold;">for</span> i <span style="color: #3a81c3; font-weight: bold;">in</span> vowel_tokens:
     <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print(i, lex_iast(consonant_list,i))</span>
-    <span style="color: #3a81c3; font-weight: bold;">if</span> <span style="color: #3a81c3;">len</span><span style="color: #3a81c3;">(</span>BashaFusion.lex_iast<span style="color: #6c3163;">(</span>consonant_list,i<span style="color: #6c3163;">)</span><span style="color: #3a81c3;">)</span> &lt;=1:
+    <span style="color: #3a81c3; font-weight: bold;">if</span> <span style="color: #3a81c3;">len</span><span style="color: #3a81c3;">(</span>PhoneticMap.lex_iast<span style="color: #6c3163;">(</span>consonant_list,i<span style="color: #6c3163;">)</span><span style="color: #3a81c3;">)</span> &lt;=1:
         iast_tokens.append<span style="color: #3a81c3;">(</span>i<span style="color: #3a81c3;">)</span>
     <span style="color: #3a81c3; font-weight: bold;">else</span>:
-        iast_tokens.extend<span style="color: #3a81c3;">(</span>BashaFusion.lex_iast<span style="color: #6c3163;">(</span>consonant_list,i<span style="color: #6c3163;">)</span><span style="color: #3a81c3;">)</span>                  
+        iast_tokens.extend<span style="color: #3a81c3;">(</span>PhoneticMap.lex_iast<span style="color: #6c3163;">(</span>consonant_list,i<span style="color: #6c3163;">)</span><span style="color: #3a81c3;">)</span>                  
 iast_tokens
 </pre>
 </div>
@@ -822,28 +821,26 @@ try to match the keyword of diff len
 
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #715ab1;">word</span> = <span style="color: #2d9574;">'ka&#7745;  it&#257;&#7717; ki&#7745;  yuyutsava&#7717; kl&#805;&#772; kl&#805; p&#257;&#7751;&#7693;av&#257;n&#299;ka&#7745; it&#257;&#7717; ki&#7745; &#257;&#7745;  &#299;&#7745;   yuyutsu&#7745;  ki&#7745; r&#257;nsakh&#299;&#7745;stath&#257;'</span>
-<span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>BashaFusion.iast2tokens<span style="color: #6c3163;">(</span> word<span style="color: #6c3163;">)</span> <span style="color: #3a81c3;">)</span>
+<span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>PhoneticMap.iast2tokens<span style="color: #6c3163;">(</span> word<span style="color: #6c3163;">)</span> <span style="color: #3a81c3;">)</span>
 </pre>
 </div>
 
-<pre class="example" id="orgce78738">
+<pre class="example" id="org6bdedbd">
 ['k', 'a', 'ṁ', '  ', 'i', 't', 'ā', 'ḥ', ' ', 'k', 'i', 'ṁ', '  ', 'y', 'u', 'y', 'u', 't', 's', 'a', 'v', 'aḥ', ' ', 'k', 'l̥̄', ' ', 'k', 'l̥', ' ', 'p', 'ā', 'ṇ', 'ḍ', 'a', 'v', 'ā', 'n', 'ī', 'k', 'a', 'ṁ', ' ', 'i', 't', 'ā', 'ḥ', ' ', 'k', 'i', 'ṁ', ' ', 'ā', 'ṁ', '  ', 'ī', 'ṁ', '   ', 'y', 'u', 'y', 'u', 't', 's', 'u', 'ṁ', '  ', 'k', 'i', 'ṁ', ' ', 'r', 'ā', 'n', 's', 'a', 'kh', 'ī', 'ṁ', 's', 't', 'a', 'th', 'ā']
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orga24b8e0" class="outline-3">
-<h3 id="orga24b8e0">Convert token (IAST Char) to Indic Charater and indic propertices</h3>
-<div class="outline-text-3" id="text-orga24b8e0">
+<div id="outline-container-orgcf65a61" class="outline-3">
+<h3 id="orgcf65a61">Convert token (IAST Char) to Indic Charater and indic propertices</h3>
+<div class="outline-text-3" id="text-orgcf65a61">
 <p>
-<code>bshf.tokens2dict_tokenes(tokens,indic_lang)</code>
+<code>phoneticmap.tokens2dict_tokenes(tokens,indic_lang)</code>
 </p>
+
 <p>
-:CUSTOM_ID: convert-token-iast-char-to-indic-charater-and-indic-propertices-bshf.tokens2dict_tokenestokensindic_lang
-</p>
-<p>
-bshf.tokens2dict_tokenes(tokens,indic_lang) - each <code>iast token=(token)
+phoneticmap.tokens2dict_tokenes(tokens,indic_lang) - each <code>iast token=(token)
 we search for aplhabet and barakhadi table - In alphabet input token is
 like =k, kh, g, gh...etc</code> which we need to match with
 <code>ka, kha, ga, gha,....etc</code> so In SQL Alphabet query we use <code>{token}%</code> -
@@ -853,9 +850,9 @@ with <code>am, ah ....etc</code> so In SQL Barakadi query we use <code>%{token}<
 </div>
 </div>
 
-<div id="outline-container-orgdad897f" class="outline-3">
-<h3 id="orgdad897f">rule and heuristics</h3>
-<div class="outline-text-3" id="text-orgdad897f">
+<div id="outline-container-org6cb8ed5" class="outline-3">
+<h3 id="org6cb8ed5">rule and heuristics</h3>
+<div class="outline-text-3" id="text-org6cb8ed5">
 <p>
 for sql query like <code>n</code> will give result ,n̆ḍa,
 n̆ja=, n <br />
@@ -920,10 +917,10 @@ n̆ja=, n <br />
 
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #715ab1;">indic_lang</span> = <span style="color: #2d9574;">'Telugu'</span> <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">'Kannada' # 'Telugu'</span>
-<span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">tokens = BashaFusion.iast2tokens(vowel_plist, consonant_list, word) </span>
-<span style="color: #715ab1;">tokens</span> = BashaFusion.iast2tokens<span style="color: #3a81c3;">(</span> word<span style="color: #3a81c3;">)</span> 
+<span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">tokens = PhoneticMap.iast2tokens(vowel_plist, consonant_list, word) </span>
+<span style="color: #715ab1;">tokens</span> = PhoneticMap.iast2tokens<span style="color: #3a81c3;">(</span> word<span style="color: #3a81c3;">)</span> 
 <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print(tokens)</span>
-<span style="color: #715ab1;">output_string</span> = bshf.tokens2dict_tokenes<span style="color: #3a81c3;">(</span>tokens,indic_lang<span style="color: #3a81c3;">)</span>
+<span style="color: #715ab1;">output_string</span> = phoneticmap.tokens2dict_tokenes<span style="color: #3a81c3;">(</span>tokens,indic_lang<span style="color: #3a81c3;">)</span>
 <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print(output_string)</span>
 <span style="color: #3a81c3; font-weight: bold;">for</span> i <span style="color: #3a81c3; font-weight: bold;">in</span> output_string:
     <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>i<span style="color: #3a81c3;">)</span>
@@ -931,7 +928,7 @@ n̆ja=, n <br />
 </pre>
 </div>
 
-<pre class="example" id="org095b850">
+<pre class="example" id="orgfa1f4c3">
 {'IAST': 'k', 'lang': 'Telugu', 'type': 'consonants', 'alph': 'క', 'bara': None}
 {'IAST': 'a', 'lang': 'Telugu', 'type': 'vowel', 'alph': 'అ', 'bara': None}
 {'IAST': 'ṁ', 'lang': 'Telugu', 'alph': None, 'type': 'vowel', 'bara': 'ం'}
@@ -1137,13 +1134,13 @@ need to select (alpha or bara) in output
 <pre class="src src-python"><span style="color: #715ab1;">word</span> = <span style="color: #2d9574;">'ka&#7745;  it&#257;&#7717; ki&#7745;  yuyutsava&#7717;  p&#257;&#7751;&#7693;av&#257;n&#299;ka&#7745; it&#257;&#7717; ki&#7745; &#257;&#7745;  &#299;&#7745;  ki&#7745; yuyutsu&#7745; r&#257;nsakh&#299;&#7745;stath&#257;'</span>
 <span style="color: #715ab1;">indic_lang</span> = <span style="color: #2d9574;">'Telugu'</span> <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">'Kannada' # 'Telugu'</span>
 <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">def iast2indic(iast,vowel_plist,consonant_list,word,indic_lang):</span>
-<span style="color: #715ab1;">tokens</span>= BashaFusion.iast2tokens<span style="color: #3a81c3;">(</span> word<span style="color: #3a81c3;">)</span>
+<span style="color: #715ab1;">tokens</span>= PhoneticMap.iast2tokens<span style="color: #3a81c3;">(</span> word<span style="color: #3a81c3;">)</span>
 
-<span style="color: #715ab1;">dict_tokene_list</span> = bshf.tokens2dict_tokenes<span style="color: #3a81c3;">(</span>tokens,indic_lang<span style="color: #3a81c3;">)</span>
+<span style="color: #715ab1;">dict_tokene_list</span> = phoneticmap.tokens2dict_tokenes<span style="color: #3a81c3;">(</span>tokens,indic_lang<span style="color: #3a81c3;">)</span>
 <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print(output_string)</span>
-<span style="color: #715ab1;">halant</span>=bshf.get_indic_halant<span style="color: #3a81c3;">(</span>indic_lang<span style="color: #3a81c3;">)</span>
+<span style="color: #715ab1;">halant</span>=phoneticmap.get_indic_halant<span style="color: #3a81c3;">(</span>indic_lang<span style="color: #3a81c3;">)</span>
 
-<span style="color: #715ab1;">output</span>=BashaFusion.dict_tokens2indic<span style="color: #3a81c3;">(</span>dict_tokene_list,halant<span style="color: #3a81c3;">)</span>
+<span style="color: #715ab1;">output</span>=PhoneticMap.dict_tokens2indic<span style="color: #3a81c3;">(</span>dict_tokene_list,halant<span style="color: #3a81c3;">)</span>
 <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>word<span style="color: #3a81c3;">)</span>
 <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>tokens<span style="color: #3a81c3;">)</span>
 <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print(halant)</span>
@@ -1151,7 +1148,7 @@ need to select (alpha or bara) in output
 </pre>
 </div>
 
-<pre class="example" id="org33e9ccd">
+<pre class="example" id="org7b8ab49">
 kaṁ  itāḥ kiṁ  yuyutsavaḥ  pāṇḍavānīkaṁ itāḥ kiṁ āṁ  īṁ  kiṁ yuyutsuṁ rānsakhīṁstathā
 ['k', 'a', 'ṁ', '  ', 'i', 't', 'ā', 'ḥ', ' ', 'k', 'i', 'ṁ', '  ', 'y', 'u', 'y', 'u', 't', 's', 'a', 'v', 'aḥ', '  ', 'p', 'ā', 'ṇ', 'ḍ', 'a', 'v', 'ā', 'n', 'ī', 'k', 'a', 'ṁ', ' ', 'i', 't', 'ā', 'ḥ', ' ', 'k', 'i', 'ṁ', ' ', 'ā', 'ṁ', '  ', 'ī', 'ṁ', '  ', 'k', 'i', 'ṁ', ' ', 'y', 'u', 'y', 'u', 't', 's', 'u', 'ṁ', ' ', 'r', 'ā', 'n', 's', 'a', 'kh', 'ī', 'ṁ', 's', 't', 'a', 'th', 'ā']
 కం  ఇతాః కిం  యుయుత్సవః  పాణ్డవానీకం ఇతాః కిం ఆం  ఈం  కిం యుయుత్సుం రాన్సఖీంస్తథా
@@ -1190,15 +1187,15 @@ kaṁ  itāḥ kiṁ  yuyutsavaḥ  pāṇḍavānīkaṁ itāḥ kiṁ āṁ  �
     <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print(line.split(" "))</span>
     <span style="color: #3a81c3; font-weight: bold;">for</span> word <span style="color: #3a81c3; font-weight: bold;">in</span> line.split<span style="color: #3a81c3;">(</span><span style="color: #2d9574;">" "</span><span style="color: #3a81c3;">)</span>:
         <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">print('\nword:',word, 'len of word:',len(word))</span>
-        <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">output =bshf.iast2indic(vowel_plist,consonant_list,word,indic_lang)</span>
-        <span style="color: #715ab1;">output</span> =bshf.iast2indic<span style="color: #3a81c3;">(</span>word,indic_lang<span style="color: #3a81c3;">)</span>
+        <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">output =phoneticmap.iast2indic(vowel_plist,consonant_list,word,indic_lang)</span>
+        <span style="color: #715ab1;">output</span> =phoneticmap.iast2indic<span style="color: #3a81c3;">(</span>word,indic_lang<span style="color: #3a81c3;">)</span>
 <span style="color: #2aa1ae; background-color: #ecf3ec;">#         </span><span style="color: #2aa1ae; background-color: #ecf3ec;"># print(l)</span>
         <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>output, end=<span style="color: #2d9574;">' '</span><span style="color: #3a81c3;">)</span>
 
 </pre>
 </div>
 
-<pre class="example" id="orgdf4d031">
+<pre class="example" id="orga166e07">
 ఆలాయాల్ తఱ వేణం అటుత్తొరమ్పలం వేణం 
 ఆలిను చేర్న్నొరు కుళవుం వేణం  
 కుళిప్పానాయ్ కుళం వేణం  కుళత్తిల్ చెన్తామర వేణం  
@@ -1223,7 +1220,7 @@ kaṁ  itāḥ kiṁ  yuyutsavaḥ  pāṇḍavānīkaṁ itāḥ kiṁ āṁ  �
 </pre>
 </div>
 
-<pre class="example" id="org2c20f14">
+<pre class="example" id="org8d948ec">
 ālāyāl taṟa vēṇaṁ aṭuttorampalaṁ vēṇaṁ
 आलायाल् तऱ वेणं अटुत्तोरम्पलं वेणं 
 ఆలాయాల్ తఱ వేణం అటుత్తొరమ్పలం వేణం
@@ -1354,14 +1351,14 @@ Here we will replace all vowels (svara [स्वरा]) with <code>''</code> (
 <span style="color: #715ab1;">replace_dictionary</span>=basic_stem_dic
 
 <span style="color: #3a81c3; font-weight: bold;">def</span> <span style="color: #6c3163; font-weight: bold;">basic_hash</span><span style="color: #3a81c3;">(</span>iast_text<span style="color: #3a81c3;">)</span>: <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">if text is in hin,kan,tel,mal,guj,..etc need to convert to iast </span>
-    <span style="color: #715ab1;">basic_stem_dict</span> = BashaFusion.zero_vowels
-    basic_stem_dict.update<span style="color: #3a81c3;">(</span>BashaFusion.basic_truncated_consonat<span style="color: #3a81c3;">)</span>
-    <span style="color: #715ab1;">output</span> =BashaFusion.replace_m2m<span style="color: #3a81c3;">(</span>iast_text,basic_stem_dict<span style="color: #3a81c3;">)</span> <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">BashaFusion.replace_m2m(iast_text,basic_stem_dict) # this is many to many mapping</span>
+    <span style="color: #715ab1;">basic_stem_dict</span> = PhoneticMap.zero_vowels
+    basic_stem_dict.update<span style="color: #3a81c3;">(</span>PhoneticMap.basic_truncated_consonat<span style="color: #3a81c3;">)</span>
+    <span style="color: #715ab1;">output</span> =PhoneticMap.replace_m2m<span style="color: #3a81c3;">(</span>iast_text,basic_stem_dict<span style="color: #3a81c3;">)</span> <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">PhoneticMap.replace_m2m(iast_text,basic_stem_dict) # this is many to many mapping</span>
     <span style="color: #3a81c3; font-weight: bold;">return</span> output
 <span style="color: #3a81c3; font-weight: bold;">def</span> <span style="color: #6c3163; font-weight: bold;">replace_m2m</span><span style="color: #3a81c3;">(</span>output_data,info_dict<span style="color: #3a81c3;">)</span>:
     <span style="color: #3a81c3; font-weight: bold;">for</span> dest <span style="color: #3a81c3; font-weight: bold;">in</span> info_dict.keys<span style="color: #3a81c3;">()</span>:
         <span style="color: #715ab1;">source</span> = info_dict<span style="color: #3a81c3;">[</span>dest<span style="color: #3a81c3;">]</span>
-        <span style="color: #715ab1;">output_data</span> = BashaFusion.replace_m2o<span style="color: #3a81c3;">(</span>output_data, source=source, dest=dest<span style="color: #3a81c3;">)</span>
+        <span style="color: #715ab1;">output_data</span> = PhoneticMap.replace_m2o<span style="color: #3a81c3;">(</span>output_data, source=source, dest=dest<span style="color: #3a81c3;">)</span>
 <span style="color: #2aa1ae; background-color: #ecf3ec;">########################################</span><span style="color: #2aa1ae; background-color: #ecf3ec;">3</span>
 <span style="color: #3a81c3; font-weight: bold;">def</span> <span style="color: #6c3163; font-weight: bold;">replace_m2o</span><span style="color: #3a81c3;">(</span>text, source=<span style="color: #4e3163;">None</span>, dest=<span style="color: #4e3163;">None</span><span style="color: #3a81c3;">)</span>: <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span>
     <span style="color: #3a81c3; font-weight: bold;">if</span> <span style="color: #3a81c3;">isinstance</span><span style="color: #3a81c3;">(</span>source, <span style="color: #3a81c3;">list</span><span style="color: #3a81c3;">)</span>:
@@ -1384,14 +1381,14 @@ Here we will replace all vowels (svara [स्वरा]) with <code>''</code> (
 <span style="color: #715ab1;">search_word</span> = search_word.strip<span style="color: #3a81c3;">()</span>.lower<span style="color: #3a81c3;">()</span>
 <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span><span style="color: #2d9574;">'# # # text converted to iast format'</span><span style="color: #3a81c3;">)</span>
 <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">to_iast</span>
-<span style="color: #715ab1;">search_iast</span> = bshf.to_iast<span style="color: #3a81c3;">(</span>search_word<span style="color: #3a81c3;">)</span> <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">similar to idempotent matrx no loss of info if ':' not present</span>
+<span style="color: #715ab1;">search_iast</span> = phoneticmap.to_iast<span style="color: #3a81c3;">(</span>search_word<span style="color: #3a81c3;">)</span> <span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">similar to idempotent matrx no loss of info if ':' not present</span>
 <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>search_iast<span style="color: #3a81c3;">)</span>
 
 <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span><span style="color: #2d9574;">'# # # BASIC HASHING'</span><span style="color: #3a81c3;">)</span>
-<span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>BashaFusion.basic_hash<span style="color: #6c3163;">(</span>search_iast<span style="color: #6c3163;">)</span><span style="color: #3a81c3;">)</span>
+<span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>PhoneticMap.basic_hash<span style="color: #6c3163;">(</span>search_iast<span style="color: #6c3163;">)</span><span style="color: #3a81c3;">)</span>
 
 <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span><span style="color: #2d9574;">'# # # NORMAL HASHING'</span><span style="color: #3a81c3;">)</span>
-<span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>BashaFusion.normal_hash<span style="color: #6c3163;">(</span>search_iast<span style="color: #6c3163;">)</span><span style="color: #3a81c3;">)</span>
+<span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>PhoneticMap.normal_hash<span style="color: #6c3163;">(</span>search_iast<span style="color: #6c3163;">)</span><span style="color: #3a81c3;">)</span>
 
 <span style="color: #715ab1;">db_data</span> = <span style="color: #2d9574;">"""</span>
 <span style="color: #2d9574;">TEL= &#3111;&#3139;&#3108;&#3120;&#3134;&#3127;&#3149;&#3103;&#3149;&#3120; &#3081;&#3125;&#3134;&#3098; |</span>
@@ -1404,19 +1401,19 @@ Here we will replace all vowels (svara [स्वरा]) with <code>''</code> (
 <span style="color: #2d9574;">TAM= &#2980;&#3021;&#2993;&#3009;&#2980;&#2992;&#3006;&#2999;&#3021;&#2975;&#3021;&#2992; &#2953;&#2997;&#3006;&#2970; |    </span>
 <span style="color: #2d9574;">"""</span>
 
-<span style="color: #715ab1;">data_iast</span> = bshf.to_iast<span style="color: #3a81c3;">(</span>db_data<span style="color: #3a81c3;">)</span>
+<span style="color: #715ab1;">data_iast</span> = phoneticmap.to_iast<span style="color: #3a81c3;">(</span>db_data<span style="color: #3a81c3;">)</span>
 <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span><span style="color: #2d9574;">'# # # text converted to iast format'</span><span style="color: #3a81c3;">)</span>
 <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>data_iast<span style="color: #3a81c3;">)</span>
 
 <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span><span style="color: #2d9574;">'# # # BASIC STEM TEXT'</span><span style="color: #3a81c3;">)</span>
-<span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>BashaFusion.basic_hash<span style="color: #6c3163;">(</span>data_iast<span style="color: #6c3163;">)</span><span style="color: #3a81c3;">)</span>
+<span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>PhoneticMap.basic_hash<span style="color: #6c3163;">(</span>data_iast<span style="color: #6c3163;">)</span><span style="color: #3a81c3;">)</span>
 
 <span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span><span style="color: #2d9574;">'# # # NORMAL STEM TEXT'</span><span style="color: #3a81c3;">)</span>
-<span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>BashaFusion.normal_hash<span style="color: #6c3163;">(</span>data_iast<span style="color: #6c3163;">)</span><span style="color: #3a81c3;">)</span>
+<span style="color: #3a81c3;">print</span><span style="color: #3a81c3;">(</span>PhoneticMap.normal_hash<span style="color: #6c3163;">(</span>data_iast<span style="color: #6c3163;">)</span><span style="color: #3a81c3;">)</span>
 </pre>
 </div>
 
-<pre class="example" id="orgccdb807">
+<pre class="example" id="orga5442a9">
 # Original Text: dhr̥tarāṣṭra uvāca
 # # # text converted to iast format
 dhr̥tarāṣṭra uvāca
@@ -1469,13 +1466,13 @@ TAM= ta்rutarasa்ta்ra uvaca |
 <div class="outline-text-3" id="text-export-db-to-excel">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #3a81c3; font-weight: bold;">import</span> pandas <span style="color: #3a81c3; font-weight: bold;">as</span> pd 
-<span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">pd.read_sql_table(bshf.alphabet, bshf.db_connect)</span>
-<span style="color: #715ab1;">alphabets</span>= pd.read_sql_query<span style="color: #3a81c3;">(</span>f<span style="color: #2d9574;">"SELECT * FROM </span>{bshf.alphabet}<span style="color: #2d9574;">"</span>, bshf.db_connect<span style="color: #3a81c3;">)</span>
-<span style="color: #715ab1;">barakhadi</span> = pd.read_sql_query<span style="color: #3a81c3;">(</span>f<span style="color: #2d9574;">"SELECT * FROM </span>{bshf.barakhadi}<span style="color: #2d9574;">"</span>, bshf.db_connect<span style="color: #3a81c3;">)</span>
+<span style="color: #2aa1ae; background-color: #ecf3ec;"># </span><span style="color: #2aa1ae; background-color: #ecf3ec;">pd.read_sql_table(phoneticmap.alphabet, phoneticmap.db_connect)</span>
+<span style="color: #715ab1;">alphabets</span>= pd.read_sql_query<span style="color: #3a81c3;">(</span>f<span style="color: #2d9574;">"SELECT * FROM </span>{phoneticmap.alphabet}<span style="color: #2d9574;">"</span>, phoneticmap.db_connect<span style="color: #3a81c3;">)</span>
+<span style="color: #715ab1;">barakhadi</span> = pd.read_sql_query<span style="color: #3a81c3;">(</span>f<span style="color: #2d9574;">"SELECT * FROM </span>{phoneticmap.barakhadi}<span style="color: #2d9574;">"</span>, phoneticmap.db_connect<span style="color: #3a81c3;">)</span>
 
 <span style="color: #3a81c3; font-weight: bold;">with</span> pd.ExcelWriter<span style="color: #3a81c3;">(</span><span style="color: #2d9574;">'IASTv2.xlsx'</span>, mode=<span style="color: #2d9574;">"w"</span>,engine=<span style="color: #2d9574;">"openpyxl"</span><span style="color: #3a81c3;">)</span><span style="color: #3a81c3; font-weight: bold;">as</span> writer:
-    alphabets.to_excel<span style="color: #3a81c3;">(</span>writer, sheet_name=bshf.alphabet,index=<span style="color: #4e3163;">False</span><span style="color: #3a81c3;">)</span>
-    barakhadi.to_excel<span style="color: #3a81c3;">(</span>writer,sheet_name=bshf.barakhadi,index=<span style="color: #4e3163;">False</span><span style="color: #3a81c3;">)</span>
+    alphabets.to_excel<span style="color: #3a81c3;">(</span>writer, sheet_name=phoneticmap.alphabet,index=<span style="color: #4e3163;">False</span><span style="color: #3a81c3;">)</span>
+    barakhadi.to_excel<span style="color: #3a81c3;">(</span>writer,sheet_name=phoneticmap.barakhadi,index=<span style="color: #4e3163;">False</span><span style="color: #3a81c3;">)</span>
 </pre>
 </div>
 </div>
@@ -1499,9 +1496,9 @@ barakhadi.to_sql<span style="color: #3a81c3;">(</span><span style="color: #2d957
 </div>
 </div>
 </div>
-<div id="outline-container-org851adca" class="outline-2">
-<h2 id="org851adca">Summary</h2>
-<div class="outline-text-2" id="text-org851adca">
+<div id="outline-container-org62f8497" class="outline-2">
+<h2 id="org62f8497">Summary</h2>
+<div class="outline-text-2" id="text-org62f8497">
 <p>
 <b><b>IAST FrameWork</b></b> is a NLP FrameWork build specifically for <a href="https://en.wikipedia.org/wiki/Brahmic_scripts">Indic Languages/Scripts</a> <br />
 Where <b><b>IAST Script</b></b> [lossless romanisation of <a href="https://en.wikipedia.org/wiki/Brahmic_scripts">Indic scripts</a> to <a href="https://en.wikipedia.org/wiki/Latin_script">Latin script</a> is used as base for all Indic Languages 
@@ -1511,10 +1508,10 @@ Where <b><b>IAST Script</b></b> [lossless romanisation of <a href="https://en.wi
 <b><b>IAST FrameWork</b></b> consist of  <br />
 </p>
 <ul class="org-ul">
-<li>Lossless convertion of Indic Languages (Hindi, Gujarathi, Malayalam , Kannada, Telugu, Tamil, Odia, Bengali )  into <b><b>IAST Script</b></b> <code>bshf.to_iast(indic_script)</code></li>
-<li>Convert <b><b>IAST Script</b></b>  to Indic Languages (Hindi, Malyalam, Kannada, Telugu) <code>bshf.iast2indic(iast_script,indic_lang)</code><br />
+<li>Lossless convertion of Indic Languages (Hindi, Gujarathi, Malayalam , Kannada, Telugu, Tamil, Odia, Bengali )  into <b><b>IAST Script</b></b> <code>phoneticmap.to_iast(indic_script)</code></li>
+<li>Convert <b><b>IAST Script</b></b>  to Indic Languages (Hindi, Malyalam, Kannada, Telugu) <code>phoneticmap.iast2indic(iast_script,indic_lang)</code><br />
 for Tamil, Odia, Bengali, Gujarathi in progress</li>
-<li>Use IAST Char as Phonetic Hash for <b><b>Phonetic Based Search Algorithm</b></b> <code>BashaFusion.basic_hash</code> and <code>BashaFusion.normal_hash</code></li>
+<li>Use IAST Char as Phonetic Hash for <b><b>Phonetic Based Search Algorithm</b></b> <code>PhoneticMap.basic_hash</code> and <code>PhoneticMap.normal_hash</code></li>
 <li>Using  <b><b>IAST Phonetic Hash</b></b> for Search Algorithm</li>
 </ul>
 
@@ -1559,9 +1556,9 @@ This will help other Indic Language NLP developer to understand and develop NLP 
 </div>
 </div>
 
-<div id="outline-container-orgc0288b7" class="outline-2">
-<h2 id="orgc0288b7">Doc</h2>
-<div class="outline-text-2" id="text-orgc0288b7">
+<div id="outline-container-org1215115" class="outline-2">
+<h2 id="org1215115">Doc</h2>
+<div class="outline-text-2" id="text-org1215115">
 <p>
 Google Doc:
 </p>
@@ -1575,7 +1572,7 @@ Google Doc:
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Karthik</p>
-<p class="date">Created: 2023-12-17 Sun 05:44</p>
+<p class="date">Created: 2023-12-18 Mon 03:13</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

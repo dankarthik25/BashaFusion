@@ -1,17 +1,17 @@
 <h1 align="center">
-<img style='position: relative;  top: 0px;  right: 0px; width:20%;'  src="BashaFusion/images/hjexl3i91j0so035gees.png"  >
+<img style='position: relative;  top: 0px;  right: 0px; width:20%;'  src="BhashaFusion/images/hjexl3i91j0so035gees.png"  >
 </h1>
 
-# BashaFusion (PhoneticMap)
+# BhashaFusion (PhoneticMap)
 
-**BashaFusion** is a PhoneticMap  build specifically for [Indic Languages/Scripts](https://en.wikipedia.org/wiki/Brahmic_scripts) <br>
+**BhashaFusion** is a PhoneticMap  build specifically for [Indic Languages/Scripts](https://en.wikipedia.org/wiki/Brahmic_scripts) <br>
 Where **IAST Script** [lossless romanisation of [Indic scripts](https://en.wikipedia.org/wiki/Brahmic_scripts) to  [Latin script](https://en.wikipedia.org/wiki/Latin_script)] is used as base for all Indic Languages 
 
 **IAST FrameWork** consist of 
-- Lossless convertion of Indic Languages (Hindi, Gujarathi, Malayalam , Kannada, Telugu, Tamil, Odia, Bengali )  into **IAST Script** `bshf.to_iast(indic_script)`
-- Convert **IAST Script**  to Indic Languages (Hindi, Malyalam, Kannada, Telugu) `bshf.iast2indic(iast_script,indic_lang)`<br>
+- Lossless convertion of Indic Languages (Hindi, Gujarathi, Malayalam , Kannada, Telugu, Tamil, Odia, Bengali )  into **IAST Script** `phoneticmap.to_iast(indic_script)`
+- Convert **IAST Script**  to Indic Languages (Hindi, Malyalam, Kannada, Telugu) `phoneticmap.iast2indic(iast_script,indic_lang)`<br>
     for Tamil, Odia, Bengali, Gujarathi in progress
-- Use IAST Char as Phonetic Hash for **Phonetic Based Search Algorithm** `BashaFusion.basic_hash` and `BashaFusion.normal_hash`
+- Use IAST Char as Phonetic Hash for **Phonetic Based Search Algorithm** `PhoneticMap.basic_hash` and `PhoneticMap.normal_hash`
 - Using  **IAST Phonetic Hash** for Search Algorithm
 - `Phonetic Word Search`: Searching word which sound similar or Phoneticly Similar in different languages like hinid, kannada, malayalam,telugu,Odia,Bengali,Gujarathi...etc
 - `Not Started`: addon for bash regual expression function to include `Phonetic Word Search` for Indic Language 
@@ -35,8 +35,8 @@ Here is the table which is used in the code to link different Indic Scripts http
 import sqlite3
 import sys
 #from IAST import IAST
-from BashaFusion import BashaFusion
-bshf = BashaFusion() 
+from BhashaFusion import PhoneticMap
+phoneticmap = PhoneticMap() 
 
 # # # # # # # # # # # 
 # Using custom table/db
@@ -45,7 +45,7 @@ bshf = BashaFusion()
 # db_path = 'iast-token.db'    
 # table_name_alpha= 'IndianAlphabet'
 # table_name_barakadi= 'Barakhadi'
-# bshf = BashaFusion(db_path='iast-token.db', table_name_alpha='IndianAlphabet',table_name_barakadi='Barakhadi')
+# phoneticmap = PhoneticMap(db_path='iast-token.db', table_name_alpha='IndianAlphabet',table_name_barakadi='Barakhadi')
 ```
 
 # Convert Indic Language to IAST
@@ -83,12 +83,12 @@ Output
 
 
 ```python
-print(bshf.alphabet) # IndianAlphabet
-print(bshf.barakhadi)  # Barakhadi
-query = BashaFusion.get_iast_idx_query('ध',bshf.alphabet) # 
+print(phoneticmap.alphabet) # IndianAlphabet
+print(phoneticmap.barakhadi)  # Barakhadi
+query = PhoneticMap.get_iast_idx_query('ध',phoneticmap.alphabet) # 
 print(query.replace('\n','').replace("  ","").replace('OR',' OR')) 
 # print()
-bshf.get_query(query)
+phoneticmap.get_query(query)
 # [{'IAST': 'dha', 'Devanagari': 'ध', 'Bengali–Assamese': 'ধ', 'Gujarati': 'ધ', 'Gurmukhi': 'ਧ', 'Kannada': 'ಧ', 'Malayalam': 'ധ', 'Nastaliq': 'دھ', 'Odia': 'ଧ', 'Sinhala': 'ධ', 'Tamil': None, 'Telugu': 'ధ'}]
 
 ```
@@ -119,25 +119,25 @@ bshf.get_query(query)
 
 
 ```python
-print(bshf.get_halant_list()) #>>  ['्', '্', '્', '್', '്', '୍', '్']
-print(bshf.('ధృత్రాష్ట్ర ఉవాచ'))
-# bshf.halant_list
+print(phoneticmap.get_halant_list()) #>>  ['्', '্', '્', '್', '്', '୍', '్']
+print(phoneticmap.('ధృత్రాష్ట్ర ఉవాచ'))
+# phoneticmap.halant_list
 ```
 
     ['्', '্', '્', '್', '്', '୍', '్']
     dhr̥trāṣṭra uvāca
 
 
-## Convert Indic sting to iast format `bshf.to_iast(word)` 
+## Convert Indic sting to iast format `phoneticmap.to_iast(word)` 
 
 ```python
 # def to_iast(self,word): 
 to_iast = ''
 for letter in word: # word
-    query = BashaFusion.get_iast_idx_query(letter,self.alphabet)    
+    query = PhoneticMap.get_iast_idx_query(letter,self.alphabet)    
     alpha_token =self.get_query(query)
     
-    query = BashaFusion.get_iast_idx_query(letter,self.barakhadi)    
+    query = PhoneticMap.get_iast_idx_query(letter,self.barakhadi)    
     barakhadi_token =self.get_query(query)
     
     if len(alpha_token) !=0:
@@ -158,7 +158,7 @@ for letter in word: # word
 
 ```python
 text = '''ଧୃତରାଷ୍ଟ୍ର ଉଵାଚ |\tধৃতরাষ্ট্র উবাচ |\tધૃતરાષ્ટ્ર ઉવાચ |\tத்றுதராஷ்ட்ர உவாச |'''
-print(bshf.to_iast(text))
+print(phoneticmap.to_iast(text))
 ```
 
     dhr̥tarāṣṭra uvāca |	dhr̥tarāṣṭra ubāca |	dhr̥tarāṣṭra uvāca |	ta்ṟutarāṣa்ṭa்ra uvāca |
@@ -169,8 +169,8 @@ print(bshf.to_iast(text))
 
 ```python
 text = 'த்றுதராஷ்ட்ர உவாச'
-print(bshf.to_iast(text))
-bshf.debug_letterbyletter(text)
+print(phoneticmap.to_iast(text))
+phoneticmap.debug_letterbyletter(text)
 # chr(805)
 ```
 
@@ -194,7 +194,7 @@ bshf.debug_letterbyletter(text)
     letter= ச 	| ascii(letter) =2970	| iast = ca
 
 
-## Testing `bshf.to_iast(word)`
+## Testing `phoneticmap.to_iast(word)`
 
 
 ```python
@@ -241,32 +241,32 @@ for line_idx in range(min_len-1):
     print("-"*40)
     line = f_telugu.strip().split('\n')[line_idx]
     if len(line):
-        print(f"""TEL\t| {line.strip()}\t| {bshf.to_iast( line)} """)
+        print(f"""TEL\t| {line.strip()}\t| {phoneticmap.to_iast( line)} """)
     line = f_kanada.strip().split('\n')[line_idx]
     if len(line):
-        print(f"""KAN\t| {line.strip()}\t| {bshf.to_iast( line)} """)
+        print(f"""KAN\t| {line.strip()}\t| {phoneticmap.to_iast( line)} """)
     line = f_malayalam.strip().split('\n')[line_idx]
     if len(line):
-        print(f"""MAL\t| {line.strip()}\t| {bshf.to_iast( line)} """)
+        print(f"""MAL\t| {line.strip()}\t| {phoneticmap.to_iast( line)} """)
     line = f_hindi.strip().split('\n')[line_idx]
     if len(line):
-        print(f"""HIN\t| {line.strip()}\t| {bshf.to_iast( line)} """)
-        # print(f""" {bshf.to_iast( line)} """)
+        print(f"""HIN\t| {line.strip()}\t| {phoneticmap.to_iast( line)} """)
+        # print(f""" {phoneticmap.to_iast( line)} """)
     line = f_oriya.strip().split('\n')[line_idx]
     if len(line):
-        print(f"""ORI\t| {line.strip()}\t| {bshf.to_iast( line)} """)
+        print(f"""ORI\t| {line.strip()}\t| {phoneticmap.to_iast( line)} """)
 
     line = f_bengali.strip().split('\n')[line_idx]
     if len(line):
-        print(f"""BEN\t| {line.strip()}\t| {bshf.to_iast( line)} """)
+        print(f"""BEN\t| {line.strip()}\t| {phoneticmap.to_iast( line)} """)
         
     line = f_gujarati.strip().split('\n')[line_idx]
     if len(line):
-        print(f"""GUJ\t| {line.strip()}\t| {bshf.to_iast( line)} """)
+        print(f"""GUJ\t| {line.strip()}\t| {phoneticmap.to_iast( line)} """)
 
     line = f_tamil.strip().split('\n')[line_idx]
     if len(line):
-        print(f"""TAM\t| {line.strip()}\t| {bshf.to_iast( line)} """)
+        print(f"""TAM\t| {line.strip()}\t| {phoneticmap.to_iast( line)} """)
 ```
 
     157 469 157 140
@@ -298,7 +298,7 @@ for line_idx in range(min_len-1):
     ORI	| ନରକେ﻿‌உନିୟତଂ ଵାସୋ ଭଵତୀତ୍ୟନୁଶୁଶ୍ରୁମ || 44 ||	| narakē﻿‌uniẏataṁ vāso bhavatītẏanuśuśruma || 44 || 
 
 
-## Use Case of `bshf.to_iast(word)` 
+## Use Case of `phoneticmap.to_iast(word)` 
 
 
 ```python
@@ -328,8 +328,8 @@ f_tamil = """ആലായാല്‍ തറ വേണം  അടുത്തൊ
 lines = f_tamil.strip().split('\n')
 for line in lines:
     if len(line):
-        print(f"""{bshf.to_iast( line)} """)
-        # print(f"""MAL \t {line.strip()}\t {bshf.to_iast( line)} """)
+        print(f"""{phoneticmap.to_iast( line)} """)
+        # print(f"""MAL \t {line.strip()}\t {phoneticmap.to_iast( line)} """)
 ```
 
     ālāyāl taṟa vēṇaṁ  aṭuttorampalaṁ vēṇaṁ 
@@ -350,18 +350,18 @@ for line in lines:
     pārātirippān cila padavi nallū 
 
 
-# IAST to Indic Language `bshf.iast2indic(iast_word,indic_lang)` 
+# IAST to Indic Language `phoneticmap.iast2indic(iast_word,indic_lang)` 
 
 Step to iast_string to indic language
 - convert given **iast_string** `kiṁ rānsakhīṁ` to **iast_tokens**  `['k', 'i', 'ṁ',' ', 'r', 'ā', 'n', 's', 'a', 'kh', 'ī', 'ṁ', 's', 't', 'a', 'th', 'ā']`
 ```python
-BashaFusion.iast2tokens('kiṁ rānsakhīṁ') # >>> ['k', 'i', 'ṁ',' ', 'r', 'ā', 'n', 's', 'a', 'kh', 'ī', 'ṁ', 's', 't', 'a', 'th', 'ā']
+PhoneticMap.iast2tokens('kiṁ rānsakhīṁ') # >>> ['k', 'i', 'ṁ',' ', 'r', 'ā', 'n', 's', 'a', 'kh', 'ī', 'ṁ', 's', 't', 'a', 'th', 'ā']
 ```
 - Convert token to `indic lang` add properties(language, vowel/consonant, charater symbol) to each  **token**  `['k', 'i', 'ṁ']`
 
 ```python
-tokens = BashaFusion.iast2tokens('kiṁ')    # >>> `['k', 'i', 'ṁ']`
-bshf.tokens2dict_tokenes(tokens,indic_lang)
+tokens = PhoneticMap.iast2tokens('kiṁ')    # >>> `['k', 'i', 'ṁ']`
+phoneticmap.tokens2dict_tokenes(tokens,indic_lang)
 # >>>
 [
  {'IAST': 'k', 'lang': 'Telugu', 'type': 'consonants', 'alph': 'క', 'bara': None},
@@ -373,7 +373,7 @@ bshf.tokens2dict_tokenes(tokens,indic_lang)
 
 
 
-## IAST String to tokens `BashaFusion.iast2tokens(word)`
+## IAST String to tokens `PhoneticMap.iast2tokens(word)`
 
 iast string is split into group of iast character : some like `kha` and `ka` we need prioritise `kha` so we created priority dictionary
 ```python
@@ -395,11 +395,11 @@ consonant_list = [['n̆g', 'n̆j', 'n̆ḍ', 'n̆d', 'm̆b', 'k͟h'], # len of i
                   ]
                   
 # def iast2tokens(word):
-vowel_plist=BashaFusion.vowel_plist
-consonant_list=BashaFusion.consonant_list
+vowel_plist=PhoneticMap.vowel_plist
+consonant_list=PhoneticMap.consonant_list
 
 iast_tokens= []
-vowel_tokens = BashaFusion.lex_iast(vowel_plist,word)
+vowel_tokens = PhoneticMap.lex_iast(vowel_plist,word)
 # print(vowel_tokens)
 if word[-1*len(vowel_tokens[-1]):]==vowel_tokens[-1]:
     pass
@@ -410,10 +410,10 @@ else:
     # print(vowel_tokens)
 for i in vowel_tokens:
     # print(i, lex_iast(consonant_list,i))
-    if len(BashaFusion.lex_iast(consonant_list,i)) <=1:
+    if len(PhoneticMap.lex_iast(consonant_list,i)) <=1:
         iast_tokens.append(i)
     else:
-        iast_tokens.extend(BashaFusion.lex_iast(consonant_list,i))                  
+        iast_tokens.extend(PhoneticMap.lex_iast(consonant_list,i))                  
 iast_tokens
 ```
 
@@ -485,15 +485,15 @@ def lex_iast(keyword, word):
 
 ```python
 word = 'kaṁ  itāḥ kiṁ  yuyutsavaḥ kl̥̄ kl̥ pāṇḍavānīkaṁ itāḥ kiṁ āṁ  īṁ   yuyutsuṁ  kiṁ rānsakhīṁstathā'
-print(BashaFusion.iast2tokens( word) )
+print(PhoneticMap.iast2tokens( word) )
 ```
 
     ['k', 'a', 'ṁ', '  ', 'i', 't', 'ā', 'ḥ', ' ', 'k', 'i', 'ṁ', '  ', 'y', 'u', 'y', 'u', 't', 's', 'a', 'v', 'aḥ', ' ', 'k', 'l̥̄', ' ', 'k', 'l̥', ' ', 'p', 'ā', 'ṇ', 'ḍ', 'a', 'v', 'ā', 'n', 'ī', 'k', 'a', 'ṁ', ' ', 'i', 't', 'ā', 'ḥ', ' ', 'k', 'i', 'ṁ', ' ', 'ā', 'ṁ', '  ', 'ī', 'ṁ', '   ', 'y', 'u', 'y', 'u', 't', 's', 'u', 'ṁ', '  ', 'k', 'i', 'ṁ', ' ', 'r', 'ā', 'n', 's', 'a', 'kh', 'ī', 'ṁ', 's', 't', 'a', 'th', 'ā']
 
 
-## Convert token (IAST Char) to Indic Charater and indic propertices  `bshf.tokens2dict_tokenes(tokens,indic_lang)`
+## Convert token (IAST Char) to Indic Charater and indic propertices  `phoneticmap.tokens2dict_tokenes(tokens,indic_lang)`
 
-bshf.tokens2dict_tokenes(tokens,indic_lang)
+phoneticmap.tokens2dict_tokenes(tokens,indic_lang)
 - each `iast token`(token) we search for aplhabet and barakhadi table
   - In alphabet input token is like `k, kh, g, gh...etc` which we need to match with `ka, kha, ga, gha,....etc` so <br>
   In SQL Alphabet query we use `{token}%`
@@ -560,10 +560,10 @@ return output_string
 
 ```python
 indic_lang = 'Telugu' # 'Kannada' # 'Telugu'
-# tokens = BashaFusion.iast2tokens(vowel_plist, consonant_list, word) 
-tokens = BashaFusion.iast2tokens( word) 
+# tokens = PhoneticMap.iast2tokens(vowel_plist, consonant_list, word) 
+tokens = PhoneticMap.iast2tokens( word) 
 # print(tokens)
-output_string = bshf.tokens2dict_tokenes(tokens,indic_lang)
+output_string = phoneticmap.tokens2dict_tokenes(tokens,indic_lang)
 # print(output_string)
 for i in output_string:
     print(i)
@@ -764,13 +764,13 @@ return output
 word = 'kaṁ  itāḥ kiṁ  yuyutsavaḥ  pāṇḍavānīkaṁ itāḥ kiṁ āṁ  īṁ  kiṁ yuyutsuṁ rānsakhīṁstathā'
 indic_lang = 'Telugu' # 'Kannada' # 'Telugu'
 # def iast2indic(iast,vowel_plist,consonant_list,word,indic_lang):
-tokens= BashaFusion.iast2tokens( word)
+tokens= PhoneticMap.iast2tokens( word)
 
-dict_tokene_list = bshf.tokens2dict_tokenes(tokens,indic_lang)
+dict_tokene_list = phoneticmap.tokens2dict_tokenes(tokens,indic_lang)
 # print(output_string)
-halant=bshf.get_indic_halant(indic_lang)
+halant=phoneticmap.get_indic_halant(indic_lang)
 
-output=BashaFusion.dict_tokens2indic(dict_tokene_list,halant)
+output=PhoneticMap.dict_tokens2indic(dict_tokene_list,halant)
 print(word)
 print(tokens)
 # print(halant)
@@ -816,8 +816,8 @@ for line in text.split('\n'):
     # print(line.split(" "))
     for word in line.split(" "):
         # print('\nword:',word, 'len of word:',len(word))
-        # output =bshf.iast2indic(vowel_plist,consonant_list,word,indic_lang)
-        output =bshf.iast2indic(word,indic_lang)
+        # output =phoneticmap.iast2indic(vowel_plist,consonant_list,word,indic_lang)
+        output =phoneticmap.iast2indic(word,indic_lang)
 #         # print(l)
         print(output, end=' ')
     
@@ -967,14 +967,14 @@ input=iast_text
 replace_dictionary=basic_stem_dic
 
 def basic_hash(iast_text): # if text is in hin,kan,tel,mal,guj,..etc need to convert to iast 
-    basic_stem_dict = BashaFusion.zero_vowels
-    basic_stem_dict.update(BashaFusion.basic_truncated_consonat)
-    output =BashaFusion.replace_m2m(iast_text,basic_stem_dict) # BashaFusion.replace_m2m(iast_text,basic_stem_dict) # this is many to many mapping
+    basic_stem_dict = PhoneticMap.zero_vowels
+    basic_stem_dict.update(PhoneticMap.basic_truncated_consonat)
+    output =PhoneticMap.replace_m2m(iast_text,basic_stem_dict) # PhoneticMap.replace_m2m(iast_text,basic_stem_dict) # this is many to many mapping
     return output
 def replace_m2m(output_data,info_dict):
     for dest in info_dict.keys():
         source = info_dict[dest]
-        output_data = BashaFusion.replace_m2o(output_data, source=source, dest=dest)
+        output_data = PhoneticMap.replace_m2o(output_data, source=source, dest=dest)
 ########################################3
 def replace_m2o(text, source=None, dest=None): # 
     if isinstance(source, list):
@@ -997,14 +997,14 @@ print("# Original Text:", search_word)
 search_word = search_word.strip().lower()
 print('# # # text converted to iast format')
 # to_iast
-search_iast = bshf.to_iast(search_word) # similar to idempotent matrx no loss of info if ':' not present
+search_iast = phoneticmap.to_iast(search_word) # similar to idempotent matrx no loss of info if ':' not present
 print(search_iast)
 
 print('# # # BASIC HASHING')
-print(BashaFusion.basic_hash(search_iast))
+print(PhoneticMap.basic_hash(search_iast))
 
 print('# # # NORMAL HASHING')
-print(BashaFusion.normal_hash(search_iast))
+print(PhoneticMap.normal_hash(search_iast))
 
 db_data = """
 TEL= ధృతరాష్ట్ర ఉవాచ |
@@ -1017,15 +1017,15 @@ GUJ= ધૃતરાષ્ટ્ર ઉવાચ |
 TAM= த்றுதராஷ்ட்ர உவாச |	
 """
 
-data_iast = bshf.to_iast(db_data)
+data_iast = phoneticmap.to_iast(db_data)
 print('# # # text converted to iast format')
 print(data_iast)
 
 print('# # # BASIC STEM TEXT')
-print(BashaFusion.basic_hash(data_iast))
+print(PhoneticMap.basic_hash(data_iast))
 
 print('# # # NORMAL STEM TEXT')
-print(BashaFusion.normal_hash(data_iast))
+print(PhoneticMap.normal_hash(data_iast))
 ```
 
     # Original Text: dhr̥tarāṣṭra uvāca
@@ -1075,13 +1075,13 @@ print(BashaFusion.normal_hash(data_iast))
 ## Export: db to excel 
 ``` python
 import pandas as pd 
-# pd.read_sql_table(bshf.alphabet, bshf.db_connect)
-alphabets= pd.read_sql_query(f"SELECT * FROM {bshf.alphabet}", bshf.db_connect)
-barakhadi = pd.read_sql_query(f"SELECT * FROM {bshf.barakhadi}", bshf.db_connect)
+# pd.read_sql_table(phoneticmap.alphabet, phoneticmap.db_connect)
+alphabets= pd.read_sql_query(f"SELECT * FROM {phoneticmap.alphabet}", phoneticmap.db_connect)
+barakhadi = pd.read_sql_query(f"SELECT * FROM {phoneticmap.barakhadi}", phoneticmap.db_connect)
 
 with pd.ExcelWriter('IASTv2.xlsx', mode="w",engine="openpyxl")as writer:
-    alphabets.to_excel(writer, sheet_name=bshf.alphabet,index=False)
-    barakhadi.to_excel(writer,sheet_name=bshf.barakhadi,index=False)
+    alphabets.to_excel(writer, sheet_name=phoneticmap.alphabet,index=False)
+    barakhadi.to_excel(writer,sheet_name=phoneticmap.barakhadi,index=False)
 ```
 
 ## Import db from excel 
